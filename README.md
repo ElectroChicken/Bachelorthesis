@@ -1,1 +1,1 @@
-# Bachelthesis
+# Bachelorthesis by Jakob Westphal
