@@ -1,0 +1,73 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{Jan+10}{incollection}{}
+      \name{author}{5}{}{%
+        {{hash=ed6a24604d923493e91425fbb35ac736}{%
+           family={Janhunen},
+           familyi={J\bibinitperiod},
+           given={Tomi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=e92901947a7da887056e10cf30824296}{%
+           family={Niemelä},
+           familyi={N\bibinitperiod},
+           given={Ilkka},
+           giveni={I\bibinitperiod}}}%
+        {{hash=20f9a356fd9d9ca14e2dfdd0ef2f9293}{%
+           family={Oetsch},
+           familyi={O\bibinitperiod},
+           given={Johannes},
+           giveni={J\bibinitperiod}}}%
+        {{hash=ae8806f71af1ce1fc6b7cc8937da54e0}{%
+           family={Pührer},
+           familyi={P\bibinitperiod},
+           given={Jörg},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3931af166ed356b9eaa0061a63204ccd}{%
+           family={Tompits},
+           familyi={T\bibinitperiod},
+           given={Hans},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IOS Press}%
+      }
+      \strng{namehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
+      \strng{fullhash}{c55b072b2675260194b238372d8a55f6}
+      \strng{bibnamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
+      \strng{authorbibnamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
+      \strng{authornamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
+      \strng{authorfullhash}{c55b072b2675260194b238372d8a55f6}
+      \field{labelalpha}{Jan+10}
+      \field{sortinit}{J}
+      \field{sortinithash}{c45040a764d616897e7f5b30174d7b92}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ECAI 2010}
+      \field{title}{On testing answer-set programs}
+      \field{year}{2010}
+      \field{pages}{951\bibrangedash 956}
+      \range{pages}{6}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

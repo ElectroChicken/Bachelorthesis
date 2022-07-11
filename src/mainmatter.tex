@@ -1,0 +1,168 @@
+\chapter{Introduction}
+\label{ch:Introduction}
+
+Einleitung
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Test}
+\label{ch:Test}
+
+\begin{enumerate}
+    \item Bla.\\
+    (Bla.)
+    \item Bla. (Bla.)
+\end{enumerate}
+
+\Cref{ch:Introduction} Referenz zu Kapitel.
+\Cref{sec:Test/Perzepte_und_Symbole} Referenz zu Unterkapitel. 
+\Cref{fig:cups_yolo} Referenz zu Bild.
+\Cref{lst:cups_symbolic} Referenz zu Listing
+\textcite{Jan+10} Zitat mit Namen der Autoren
+\cite{Jan+10} Zitat nur mit Abkürzung
+\ac{ASP} Link zu Abkürzungen
+\emph{symbol grounding problem} 
+\marginpar{Symbol} Randkommentar
+\footnote{Bla} Fussnote
+
+\section{Perzepte und Symbole}
+\label{sec:Test/Perzepte_und_Symbole}
+Bla.
+
+%\begin{definition}
+%    \label{def:Perzept}
+%    Ein \emph{Perzept}\marginpar{Perzept} ist der sensorische Eindruck eines physikalischen Objektes zu einem bestimmten Zeitpunkt.
+%\end{definition}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{gfx/unilogo.jpg}
+    \caption{Ein Kamerabild mit eingezeichneten Perzepten.}
+    \label{fig:cups_yolo}
+\end{figure}
+
+
+\begin{lstlisting}[float,caption={Eine symbolische Beschreibung der Objekte in bla.},label=lst:cups_symbolic]
+symbol(cup_1; cup_2; cup_3; spoon; diningtable).
+
+is_on(
+    cup_1, diningtable;
+    cup_2, diningtable;
+    cup_3, diningtable
+).
+
+is_inside_of(spoon, cup_3).
+
+contains(
+    cup_1, coffee;
+    cup_2, coffee;
+    cup_3, hot_chocolate
+).
+
+\end{lstlisting}
+
+
+
+%\begin{figure}
+%    \centering
+%    \begin{tikzpicture}[
+%        ->,
+%        >={Stealth[round]},
+%        align=center,
+%        state/.style={
+%            draw,
+%            rectangle,
+%            rounded corners=3mm
+%        },
+%        every edge/.append style={thick}
+%    ]
+%        \node (A) [state]             {Symbol verankert};
+%        \node (B) [state, below=of A] {Symbol nicht verankert};
+%
+%        \node (1) [left =25mm of A, font=\scriptsize] {ausgehend von\\einem Perzept};
+%        \node (2) [right=25mm of A, font=\scriptsize] {ausgehend von\\einem Symbol};
+%        \node (3) [below=of B,      font=\scriptsize] {Symbol gelöscht};
+%
+%        \path (A) edge [loop above] node [above] {\emph{Verfolgen}}    (A);
+%        \path (A) edge [bend left]  node [right] {\emph{Verlieren}}    (B);
+%        \path (B) edge [bend left]  node [left]  {\emph{Wiederfinden}} (A);
+%        \path (1) edge              node [above] {\emph{Entdecken}}    (A);
+%        \path (2) edge              node [above] {\emph{Finden}}       (A);
+%        \path (B) edge              node [right] {\emph{Zerstören}}    (3);
+%    \end{tikzpicture}
+%    \caption{Die Verankerungsfunktionen als Zustandsübergänge, frei nach \cite[Abbildung~4]{Gün+18}.}
+%    \label{fig:anchoring_functions_as_state_transitions}
+%\end{figure}
+
+
+
+
+$$\operatorname{match}(\sigma, \gamma) \Leftrightarrow \forall p \in \sigma \; \exists \phi \in \operatorname{feat}(\gamma): \; g(p, \phi, \gamma(\phi))$$
+
+
+\begin{table}
+    \centering
+        \begin{tabularx}{0.5\textwidth}{l|X|l}
+            $M$             & $P_1^M$                               & $Cn(P_1^M)$  \\
+            \hline
+            $\emptyset$     & $\{ a \leftarrow a, b \leftarrow \}$  & $\{ b \}$     \\
+            $\{ a \}$       & $\{ a \leftarrow a \}$                & $\emptyset$   \\
+            $\{ b \}$       & $\{ a \leftarrow a, b \leftarrow \}$  & $\{ b \}$     \\
+            $\{ a, b \}$    & $\{ a \leftarrow a \}$                & $\emptyset$   \\
+        \end{tabularx}
+    \caption[$P_1 = \{ a \leftarrow a, b \leftarrow naf a \}$ hat ein stabiles Modell.]{$P_1 = \{ a \leftarrow a, b \leftarrow naf a \}$ hat ein stabiles Modell $\{ b \}$.}
+    \label{tab:Ein_stabiles_Modell}
+\end{table}
+
+%\begin{example}
+%    Das Programm $P = \{ \; \{ a, b\} \; \}$ hat vier stabile Modelle, nämlich die Elemente von $2^{\{a, b\}}$.
+%\end{example}
+
+%\begin{example}
+%   Das Programm
+%    $$
+%        P =
+%        \begin{Bmatrix}
+%            \operatorname{cup}(1) \\
+%            \operatorname{cup}(2) \\
+%            1~\{~\operatorname{blue}(X) : \operatorname{cup}(X)~\}~1 \\
+%        \end{Bmatrix}
+%    $$
+%    hat die Grundinstanz
+%    $$
+%        \grd(P) =
+%        \begin{Bmatrix}
+%            \operatorname{cup}(1) \\
+%            \operatorname{cup}(2) \\
+%            1~\{~\operatorname{blue}(1),~\operatorname{blue}(2)~\}~1 \\
+%        \end{Bmatrix}
+%    $$
+%    und die stabilen Modelle $\{\operatorname{cup}(1),{ }\operatorname{cup}(2),{ }\operatorname{blue}(1)\}$ und \linebreak$\{\operatorname{cup}(1),{ }\operatorname{cup}(2),{ }\operatorname{blue}(2)\}$.
+%\end{example}
+
+\begin{proof}
+    Zu jeder Teilmenge $M \subseteq A = \{ a, b, c \}$ ist $P^M = P$.
+    Die Teilmengen~$\emptyset$, $\{ a \}$, $\{ c \}$, $\{ a, b \}$ und $\{ b, c \}$ sind keine Modelle von $P^M$. $\{ a, c \}$, $\{ a, b, c\}$ und $\{ b \}$ sind Modelle von $P^M$.
+    $\{ a, b, c\}$ ist kein minimales Modell von $P^M$, da $\{ b \} \subseteq \{ a, b, c\}$.
+    Da $\{ a, c \} \nsubseteq \{ b \}$ und $\{ b \} \nsubseteq \{ a, c \}$, sind beide Modelle minimal und damit stabile Modelle von $P$.
+\end{proof}
+
+\code{\#show p(X,Y) : q(X).}
+
+Test für \code{\#show p(X)} in einer Zeile.
+%\lstinputlisting[float,caption={[Ein Graph mit 6 Knoten und 17 Kanten\\(\code{graph.lp}).]Ein Graph mit 6 Knoten und 17 Kanten (\code{graph.lp}).},label=lst:graphcolor/graph.lp]{../../code/graphcolor/graph.lp}
+
+\begin{align*}
+    &X                          &=\ &\{ \text{cup}_1, \text{cup}_2 \} \\
+    &\Pi                        &=\ &\{ \pi_1, \pi_2, \pi_3 \} \\
+    &\Phi                       &=\ &\{ \text{coffee}, \text{tea}, \text{hot}, \text{cold} \} \\
+    &T                          &=\ &\{ t_1, t_2 \} \\
+    &\beta(\text{cup}_1, t_1)   &=\ &\{ \text{coffee} \} \\
+    &\beta(\text{cup}_2, t_1)   &=\ &\emptyset \\
+    &\beta(\pi_1, t_1)          &=\ &\{ \text{coffee} \} \\
+    &\beta(\pi_2, t_1)          &=\ &\{ \text{tea}, \text{cold} \} \\
+    &\beta(\pi_3, t_2)          &=\ &\{ \text{tea} \}
+\end{align*}
+
+
+\cleardoublepage

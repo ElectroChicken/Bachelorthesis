@@ -1,0 +1,57 @@
+\pdfbookmark[0]{Titlepage}{titlepage}
+\titlehead{
+    \begin{center}
+        \includegraphics[width=3cm]{gfx/unilogo} \\ \medskip
+        \myInstitute \\ 
+        \myGroup
+    \end{center}
+}
+
+\title{\myTitle}
+\subtitle{\mySubtitle}
+
+\author{\myName}
+\date{\myDate}
+
+\publishers{Erstgutachter: \myFirstSupervisor \\
+            Zweitgutachter: \mySecondSupervisor
+}
+
+\maketitle
+
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begingroup
+    \let\cleardoublepage\relax
+
+    \pdfbookmark[0]{Abstract}{abstractEN}
+    \addchap*{Abstract}
+    Abstract in english
+
+    \vfill
+
+    \begin{otherlanguage}{ngerman}
+        \pdfbookmark[0]{Zusammenfassung}{abstractDE}
+        \addchap*{Zusammenfassung}
+        Zusammenfassung auf Deutsch
+    \end{otherlanguage}
+
+    \vfill
+\endgroup
+
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pdfbookmark[0]{Acknowledgments}{acknowledgments}
+\chapter*{Acknowledgments}
+Danksagung!
+
+\cleardoublepage
+
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents
+
+\cleardoublepage

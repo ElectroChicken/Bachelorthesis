@@ -1,0 +1,17 @@
+[0] Config.pm:304> INFO - This is Biber 2.14 (beta)
+[0] Config.pm:307> INFO - Logfile is '../target/main.blg'
+[112] biber:322> INFO - === Do Jul  7, 2022, 17:46:16
+[148] Biber.pm:415> INFO - Reading '../target/main.bcf'
+[242] Biber.pm:943> INFO - Found 1 citekeys in bib section 0
+[257] Biber.pm:4256> INFO - Processing section 0
+[258] Utils.pm:75> INFO - Globbing data source 'bibliography.bib'
+[258] Utils.pm:91> INFO - Globbed data source 'bibliography.bib' to bibliography.bib
+[269] Biber.pm:4455> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
+[271] bibtex.pm:1653> INFO - LaTeX decoding ...
+[290] bibtex.pm:1471> INFO - Found BibTeX data source 'bibliography.bib'
+[348] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[348] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[348] Biber.pm:4084> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[348] Biber.pm:4090> INFO - No sort tailoring available for locale 'en-US'
+[350] bbl.pm:652> INFO - Writing '../target/main.bbl' with encoding 'UTF-8'
+[352] bbl.pm:755> INFO - Output to ../target/main.bbl

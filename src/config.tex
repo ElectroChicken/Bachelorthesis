@@ -1,0 +1,71 @@
+\usepackage[ngerman,english]{babel}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{lmodern}
+
+\usepackage{scrhack}
+
+\usepackage{csquotes}
+
+\usepackage[printonlyused]{acronym}         % für Liste der Abkürzungen
+
+\usepackage{graphicx}                       % für schöne Graphiken
+
+\usepackage{tabularx}                       % für schöne Tabellen
+
+\usepackage{listings}                       % für schöne code Beispiele
+\lstset{
+    basicstyle      = \ttfamily\small,
+    frame           = tb,
+    numbers         = left,
+    numbersep       = 8pt,
+    numberstyle     = \ttfamily\scriptsize,
+    breaklines      = true,
+    captionpos      = b,
+    abovecaptionskip    = 0.5\baselineskip,
+}
+
+\usepackage[
+    style           = alphabetic,
+    backref         = true,
+    backrefstyle    = two,
+]{biblatex}                                     % Biblatex setup
+
+\bibliography{bibliography.bib}                 % Pfad zu Bibliographie
+
+\usepackage{amsmath}                            % Matehmatische Symbole
+
+\usepackage{amssymb}
+
+\usepackage{amsthm}
+
+%%% add line below chapter title
+\renewcommand*\chapterheadendvskip{\noindent\rule{\linewidth}{1pt}\par\vspace{\baselineskip}}
+
+%\usepackage{xcolor}
+%\definecolor{CTtitle}{cmyk}{1, 0.50, 0, 0}
+
+\newcommand{\myTitle}{Titel}
+\newcommand{\mySubtitle}{Bachelorthesis}
+\newcommand{\myName}{Jakob Westphal}
+\newcommand{\myFirstSupervisor}{Prof. Dr. Torsten Schaub}
+\newcommand{\mySecondSupervisor}{Tobias Stolzmann}
+\newcommand{\myUni}{University of Potsdam}
+\newcommand{\myGroup}{Knowledge Processing and Information Systems}
+\newcommand{\myInstitute}{Institute of Computer Science}
+\newcommand{\myLocation}{Berlin}
+\newcommand{\myDate}{28. Juli 2022}
+\newcommand{\myVersion}{1.0.0}
+
+\newcommand{\code}[1]{\texttt{\small #1}}       % für inline code
+
+\usepackage{hyperref}                           % für Verlinkungen im Dokument
+\hypersetup{
+    pdfauthor       = {\myName},
+    pdftitle        = {\myTitle},
+    pdfstartview    = FitV,
+    pdfpagemode     = UseNone,
+}
+
+\usepackage{cleveref}                           % schönere Verlinkungen
