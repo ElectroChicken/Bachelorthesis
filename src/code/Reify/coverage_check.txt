@@ -1,0 +1,8 @@
+- read program and test case from input
+- add choice rule to program, remove show statements
+- reify program
+- add input(x) for each atom in test case
+- solve reify + meta encoding
+- calculate rule coverage (total and percentage)
+- if requested read covered/not covered rules from answer set
+- print rule coverage + covered/not covered rules

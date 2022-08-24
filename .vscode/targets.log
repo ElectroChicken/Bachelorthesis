@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 11 13:57:55 2022
+# Make data base, printed on Thu Aug 18 14:55:50 2022
 
 # Variables
 
@@ -32,8 +32,6 @@ XDG_SESSION_CLASS = user
 SNAP_COMMON = /var/snap/code/common
 # environment
 XDG_SESSION_TYPE = x11
-# environment
-VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
@@ -51,11 +49,11 @@ CURDIR := /home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis
 # makefile
 SHELL = /bin/sh
 # environment
-SNAP_DATA = /var/snap/code/99
+SNAP_DATA = /var/snap/code/101
 # environment
 VSCODE_NLS_CONFIG = {"locale":"de","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:77554
+JOURNAL_STREAM = 8:78184
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -75,65 +73,49 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-VSCODE_VERBOSE_LOGGING = true
-# environment
-_ = /snap/code/99/usr/share/code/code
-# environment
-MANAGERPID = 1662
-# environment
-LESSOPEN = | /usr/bin/lesspipe %s
+MANAGERPID = 1640
 # environment
 VSCODE_CWD = /home/jakob
 # environment
-GSETTINGS_SCHEMA_DIR = /home/jakob/anaconda3/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /snap/code/101/usr/share/glib-2.0/schemas
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/jakob/.opam/default/bin:/home/jakob/anaconda3/bin:/home/jakob/anaconda3/condabin:/home/jakob/.opam/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/jakob/.opam/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/1882,unix/jakob-VM:/tmp/.ICE-unix/1882
+SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/1858,unix/jakob-VM:/tmp/.ICE-unix/1858
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/jakob/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-SNAP = /snap/code/99
+SNAP = /snap/code/101
 # environment
-SNAP_VERSION = 30d9c6cd
-# environment
-CONDA_PREFIX = /home/jakob/anaconda3
+SNAP_VERSION = b06ae3b2
 # environment
 XDG_MENU_PREFIX = gnome-
-# environment
-VSCODE_LOG_STACK = false
 # environment
 DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = ec8e6d7fe59f43d4900f802b909df228
+INVOCATION_ID = 2cc63bdb0a804b50be557ab9ccf55ef6
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/99/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code/101/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
-# environment
-LS_COLORS = 
 # environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 11216
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2960
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
-# environment
-CONDA_EXE = /home/jakob/anaconda3/bin/conda
-# environment
-VSCODE_PIPE_LOGGING = true
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
@@ -141,25 +123,23 @@ PWD = /home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1842
+SSH_AGENT_PID = 1823
 # environment
-PKG_CONFIG_PATH = /home/jakob/.opam/default/lib/pkgconfig:/home/jakob/.opam/default/lib/pkgconfig:
+PKG_CONFIG_PATH = /home/jakob/.opam/default/lib/pkgconfig:
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
 GTK_MODULES = gail:atk-bridge
 # environment
-MANPATH = :/home/jakob/.opam/default/man:/home/jakob/.opam/default/man
+MANPATH = :/home/jakob/.opam/default/man
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /home/jakob
 # environment
-LESSCLOSE = /usr/bin/lesspipe %s %s
-# environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = /home/jakob/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = /home/jakob/.config/Code/CachedData/b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a
 # environment
 LOGNAME = jakob
 # environment
@@ -168,8 +148,6 @@ APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # environment
 SNAP_CONTEXT = 3lI7885cY0ZFdxQW09ZNJ7i1HU9X4HG_6X5Ioom_7RH0kplrxZct
-# environment
-CONDA_PROMPT_MODIFIER = (base) 
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # environment
@@ -184,8 +162,6 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 MAKELEVEL := 0
 # environment
 SNAP_REAL_HOME = /home/jakob
-# environment
-CONDA_DEFAULT_ENV = base
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -193,19 +169,17 @@ MAKECMDGOALS := all
 # environment
 QT_IM_MODULE = ibus
 # environment
-SNAP_USER_DATA = /home/jakob/snap/code/99
+SNAP_USER_DATA = /home/jakob/snap/code/101
 # environment
 SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
-# environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-5397ddf3-b0db-48d7-91ff-39d15588da54.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
 USER = jakob
 # environment
-SNAP_REVISION = 99
+SNAP_REVISION = 101
 # environment
 CAML_LD_LIBRARY_PATH = /home/jakob/.opam/default/lib/stublibs:/usr/local/lib/ocaml/4.08.1/stublibs:/usr/lib/ocaml/stublibs
 # makefile
@@ -214,8 +188,6 @@ CAML_LD_LIBRARY_PATH = /home/jakob/.opam/default/lib/stublibs:/usr/local/lib/oca
 XDG_CURRENT_DESKTOP = Unity
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
-# environment
-CONDA_SHLVL = 1
 # default
 MAKE_COMMAND := make
 # default
@@ -223,7 +195,7 @@ MAKE_COMMAND := make
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-4a0e5392-1.68.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-4a0e5392-1.69.1-main.sock
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # makefile
@@ -239,8 +211,6 @@ GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
 # environment
-GSETTINGS_SCHEMA_DIR_CONDA_BACKUP = /snap/code/99/usr/share/glib-2.0/schemas
-# environment
 QT_ACCESSIBILITY = 1
 # default
 MAKEFILES := 
@@ -253,8 +223,6 @@ SNAP_NAME = code
 # environment
 LC_ALL = C
 # environment
-CONDA_PYTHON_EXE = /home/jakob/anaconda3/bin/python
-# environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
@@ -262,8 +230,6 @@ GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 SUFFIXES := 
 # environment
 SNAP_REEXEC = 
-# environment
-_CE_M = 
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
@@ -277,22 +243,19 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
-VSCODE_PID = 11264
-# environment
-_CE_CONDA = 
+VSCODE_PID = 3072
 # variable set hash-table stats:
-# Load=134/1024=13%, Rehash=0, Collisions=19/159=12%
+# Load=116/1024=11%, Rehash=0, Collisions=16/141=11%
 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
- 
 
 # Directories
 
-# . (device 2053, inode 3932321): 6 files, no impossibilities.
+# . (device 2053, inode 3932321): 8 files, no impossibilities.
 
-# 6 files, no impossibilities in 1 directories.
+# 8 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -318,6 +281,7 @@ build:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
 #  recipe to execute (from 'Makefile', line 2):
 	latexmk -pdf -halt-on-error -cd -outdir=../target src/main.tex
 
@@ -349,12 +313,12 @@ show: build
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 14 / storage = 105 B / avg = 7 B
-# current buf: size = 8162 B / used = 105 B / count = 14 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 16 / storage = 120 B / avg = 7 B
+# current buf: size = 8162 B / used = 120 B / count = 16 / avg = 7 B
 
-# strcache performance: lookups = 22 / hit rate = 36%
+# strcache performance: lookups = 24 / hit rate = 33%
 # hash-table stats:
-# Load=14/8192=0%, Rehash=0, Collisions=1/22=5%
-# Finished Make data base on Mon Jul 11 13:57:55 2022
+# Load=16/8192=0%, Rehash=0, Collisions=1/24=4%
+# Finished Make data base on Thu Aug 18 14:55:50 2022
 
  
