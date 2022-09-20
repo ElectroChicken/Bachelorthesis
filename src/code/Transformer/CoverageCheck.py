@@ -1,10 +1,8 @@
-import sys
 from clingo.ast import ProgramBuilder, parse_files
 from clingo.control import Control
-import time
 from collections import defaultdict
 from RuleTagger import RuleTagger
-
+from dependencygraph_tools import build_dependency_graph, find_sccs, find_loops
 
 class CoverageCheck():
     def __init__(self):
@@ -17,6 +15,9 @@ class CoverageCheck():
         self.heads = []
     
     def on_model(self, model):
+        self.atoms = [atm for atm in model.symbols(atoms=True)]
+
+    def check_model(self):
         # for rule coverage
         posR = []
         negR = []
@@ -25,7 +26,7 @@ class CoverageCheck():
         negD = []
         atoms = []
         
-        for atm in model.symbols(atoms=True):
+        for atm in self.atoms:
             if atm.name.startswith("_"):
                 posR.append(atm.name)
             else:
@@ -33,12 +34,13 @@ class CoverageCheck():
         for i in range(self.numRules):
             if "_r"+str(i) not in posR:
                 negR.append("_r"+str(i))
+
         for atm in self.heads:
             if str(atm) in atoms:
                 posD.append(str(atm))
             else:
                 negD.append(str(atm))
-        
+
         self.posRCov.update(posR)
         self.negRCov.update(negR)
         self.posDCov.update(posD)
@@ -56,11 +58,23 @@ class CoverageCheck():
                 self.numRules = transformer.counter
                 self.heads = transformer.heads
                 parse_files([file], builder.add)
-            ctl.ground([("base", [])])
-            ctl.solve(on_model=self.on_model)
+            
+            if self.numRules == 0:
+                self.numRules = transformer.counter
+            if not self.heads:
+                self.heads = transformer.heads
+            if not self.rules:
+                self.rules = transformer.rules
 
-        # print(self.posRCov)
-        # print(self.negRCov)
+            ctl.ground([("base", [])])
+            ctl.configuration.solve.enum_mode = "cautious"
+            ctl.solve(on_model=self.on_model)
+            self.check_model()
+
+            ctl.configuration.solve.enum_mode = "brave"
+            ctl.solve(on_model=self.on_model)
+            self.check_model()
+
         positiveR = (len(self.posRCov)*100) / self.numRules
         negativeR = (len(self.negRCov)*100) / self.numRules
         print(f"Positive rule coverage: {positiveR}% ({len(self.posRCov)} out of {self.numRules} rules)")
@@ -71,10 +85,14 @@ class CoverageCheck():
         print(f"\nPositive definition coverage: {positiveD}% ({len(self.posDCov)} out of {len(self.heads)} atoms)")
         print(f"Negative definition coverage: {negativeD}% ({len(self.negDCov)} out of {len(self.heads)} atoms)")
 
-        self.rules = transformer.rules
-        # print(self.rules)
+        graph = build_dependency_graph(self.rules)
+        sccs = find_sccs(graph)
+        loops = find_loops(graph, sccs)
+        print(sccs)
+        print(loops)
+        print(self.posRCov)
 
-        # self.verbose = False
+        # self.verbose=False
         if self.verbose and positiveR != 100.0:
             self.print_pos_Rcoverage()
         if self.verbose and negativeR != 100.0:
@@ -83,8 +101,6 @@ class CoverageCheck():
             self.print_pos_Dcoverage()
         if self.verbose and negativeD != 100.0:
             self.print_neg_Dcoverage()
-        # if self.verbose:
-        #     self.print_Dcoverage()
 
     def print_pos_Rcoverage(self):
         cov = set([int(label[2:]) for label in self.posRCov])
@@ -101,28 +117,6 @@ class CoverageCheck():
         print("\nRules that have not been negatively rule-covered:")
         for idx in notcov:
             print(str(self.rules[idx]) + "\nline: {}, column: {}".format(self.rules[idx].location[0][1], self.rules[idx].location[0][2]))
-
-    def print_Dcoverage(self):
-        posLoc = defaultdict(list)
-        negLoc = defaultdict(list)
-
-        for head in self.heads:
-            if str(head) not in self.posDCov:
-                posLoc[str(head)].append(head.location)
-            elif str(head) not in self.negDCov:
-                negLoc[str(head)].append(head.location)
-
-        print("\nAtoms that have not been positively definition-covered:")
-        for atm, locs in posLoc.items():
-            print(atm)
-            for loc in locs:
-                print("line: {}, column: {}".format(loc.begin[1], loc.begin[2]))
-
-        print("\nAtoms that have not been negatively definition-covered:")
-        for atm, locs in negLoc.items():
-            print(atm)
-            for loc in locs:
-                print("line: {}, column: {}".format(loc.begin[1], loc.begin[2]))
 
     def print_pos_Dcoverage(self):
         locations = defaultdict(list)
@@ -147,23 +141,3 @@ class CoverageCheck():
             print(atm)
             for loc in locs:
                 print("line: {}, column: {}".format(loc.begin[1], loc.begin[2]))
-
-
-
-
-
-
-
-
-def main():
-    testcases = sys.argv[2:]
-    program = sys.argv[1]
-
-    check = CoverageCheck(program)
-    start = time.time()
-    check.check_coverage(testcases)
-    print("Computationtime: {}".format(time.time()-start))
-
-
-if __name__ == "__main__":
-    main()

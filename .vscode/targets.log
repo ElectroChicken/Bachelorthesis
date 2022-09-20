@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug 18 14:55:50 2022
+# Make data base, printed on Fri Sep  9 09:41:20 2022
 
 # Variables
 
@@ -49,11 +49,11 @@ CURDIR := /home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis
 # makefile
 SHELL = /bin/sh
 # environment
-SNAP_DATA = /var/snap/code/101
+SNAP_DATA = /var/snap/code/105
 # environment
 VSCODE_NLS_CONFIG = {"locale":"de","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:78184
+JOURNAL_STREAM = 8:79154
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -73,27 +73,33 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-MANAGERPID = 1640
+_ = /snap/code/105/usr/share/code/code
+# environment
+MANAGERPID = 1650
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /home/jakob
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code/101/usr/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /home/jakob/anaconda3/share/glib-2.0/schemas
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/jakob/.opam/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/jakob/.opam/default/bin:/home/jakob/anaconda3/bin:/home/jakob/anaconda3/condabin:/home/jakob/.opam/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/1858,unix/jakob-VM:/tmp/.ICE-unix/1858
+SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/1864,unix/jakob-VM:/tmp/.ICE-unix/1864
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/jakob/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-SNAP = /snap/code/101
+SNAP = /snap/code/105
 # environment
-SNAP_VERSION = b06ae3b2
+SNAP_VERSION = e4503b30
+# environment
+CONDA_PREFIX = /home/jakob/anaconda3
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
@@ -101,21 +107,25 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 2cc63bdb0a804b50be557ab9ccf55ef6
+INVOCATION_ID = 5d08518f273548be9af1686961bdcda7
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/101/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code/105/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
 # environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2960
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2351
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
+# environment
+CONDA_EXE = /home/jakob/anaconda3/bin/conda
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
@@ -123,23 +133,25 @@ PWD = /home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1823
+SSH_AGENT_PID = 1831
 # environment
-PKG_CONFIG_PATH = /home/jakob/.opam/default/lib/pkgconfig:
+PKG_CONFIG_PATH = /home/jakob/.opam/default/lib/pkgconfig:/home/jakob/.opam/default/lib/pkgconfig:
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
 GTK_MODULES = gail:atk-bridge
 # environment
-MANPATH = :/home/jakob/.opam/default/man
+MANPATH = :/home/jakob/.opam/default/man:/home/jakob/.opam/default/man
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /home/jakob
 # environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = /home/jakob/.config/Code/CachedData/b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a
+VSCODE_CODE_CACHE_PATH = /home/jakob/.config/Code/CachedData/e4503b30fc78200f846c62cf8091b76ff5547662
 # environment
 LOGNAME = jakob
 # environment
@@ -148,6 +160,8 @@ APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # environment
 SNAP_CONTEXT = 3lI7885cY0ZFdxQW09ZNJ7i1HU9X4HG_6X5Ioom_7RH0kplrxZct
+# environment
+CONDA_PROMPT_MODIFIER = (base) 
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # environment
@@ -162,6 +176,8 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 MAKELEVEL := 0
 # environment
 SNAP_REAL_HOME = /home/jakob
+# environment
+CONDA_DEFAULT_ENV = base
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -169,7 +185,7 @@ MAKECMDGOALS := all
 # environment
 QT_IM_MODULE = ibus
 # environment
-SNAP_USER_DATA = /home/jakob/snap/code/101
+SNAP_USER_DATA = /home/jakob/snap/code/105
 # environment
 SHLVL = 0
 # environment
@@ -179,7 +195,7 @@ MAKE_VERSION := 4.2.1
 # environment
 USER = jakob
 # environment
-SNAP_REVISION = 101
+SNAP_REVISION = 105
 # environment
 CAML_LD_LIBRARY_PATH = /home/jakob/.opam/default/lib/stublibs:/usr/local/lib/ocaml/4.08.1/stublibs:/usr/lib/ocaml/stublibs
 # makefile
@@ -188,6 +204,8 @@ CAML_LD_LIBRARY_PATH = /home/jakob/.opam/default/lib/stublibs:/usr/local/lib/oca
 XDG_CURRENT_DESKTOP = Unity
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
+# environment
+CONDA_SHLVL = 1
 # default
 MAKE_COMMAND := make
 # default
@@ -195,7 +213,7 @@ MAKE_COMMAND := make
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-4a0e5392-1.69.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-4a0e5392-1.70.2-main.sock
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # makefile
@@ -211,6 +229,8 @@ GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
 # environment
+GSETTINGS_SCHEMA_DIR_CONDA_BACKUP = /snap/code/105/usr/share/glib-2.0/schemas
+# environment
 QT_ACCESSIBILITY = 1
 # default
 MAKEFILES := 
@@ -223,6 +243,8 @@ SNAP_NAME = code
 # environment
 LC_ALL = C
 # environment
+CONDA_PYTHON_EXE = /home/jakob/anaconda3/bin/python
+# environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
@@ -230,6 +252,8 @@ GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 SUFFIXES := 
 # environment
 SNAP_REEXEC = 
+# environment
+_CE_M = 
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
@@ -243,9 +267,11 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3072
+VSCODE_PID = 2398
+# environment
+_CE_CONDA = 
 # variable set hash-table stats:
-# Load=116/1024=11%, Rehash=0, Collisions=16/141=11%
+# Load=129/1024=13%, Rehash=0, Collisions=18/154=12%
 
 # Pattern-specific Variable Values
 
@@ -255,6 +281,7 @@ VSCODE_PID = 3072
 
 # . (device 2053, inode 3932321): 8 files, no impossibilities.
 
+ 
 # 8 files, no impossibilities in 1 directories.
 
 # Implicit Rules
@@ -281,7 +308,6 @@ build:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 #  recipe to execute (from 'Makefile', line 2):
 	latexmk -pdf -halt-on-error -cd -outdir=../target src/main.tex
 
@@ -319,6 +345,6 @@ show: build
 # strcache performance: lookups = 24 / hit rate = 33%
 # hash-table stats:
 # Load=16/8192=0%, Rehash=0, Collisions=1/24=4%
-# Finished Make data base on Thu Aug 18 14:55:50 2022
+# Finished Make data base on Fri Sep  9 09:41:20 2022
 
  
