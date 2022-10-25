@@ -20,8 +20,6 @@ a(D, E) :- t(D, E).
 test(X) :- b(X), { a(X,_) } = 2.
 % Conditional literals
 test2(X) :- b(X), c(Y) : a(X, Y).
-% Disjunction
-s :- z ; e.
 
 % len(ele[0].literal.atom.symbol.arguments)
 

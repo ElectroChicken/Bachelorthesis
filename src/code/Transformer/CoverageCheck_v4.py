@@ -1,10 +1,10 @@
 from distutils.command import build
-from clingo.ast import ProgramBuilder, parse_files
+from clingo.ast import ProgramBuilder, parse_files, ASTType
 from clingo.control import Control
+from clingo import ast
 from collections import defaultdict
 import networkx as nx
-# from RuleTagger_v3 import RuleTagger
-from RuleTagger_v4 import RuleTagger
+from RuleTagger_v5 import RuleTagger
 from dependencygraph_tools import build_dependency_graph, find_sccs, find_loops
 
 class CoverageCheck():
@@ -18,112 +18,120 @@ class CoverageCheck():
         self.posCCov = set()
         self.negCCov = set()        
         self.numRules = 0
+        self.numDef = 0
+        self.numTestcases = 0
         self.rules = []
         self.heads = dict()
         self.loops = set()
         self.sccs = []
         self.graph = nx.DiGraph()
     
-    def on_model_loop(self, model):
-        self.atoms = set([atm.name for atm in model.symbols(atoms=True) if atm.name.startswith("_")])
-        print(model)
-
-        self.check_loop()
-
-        self.check_rule_positive()
-        self.check_rule_negative()
-        self.check_definition()
-
-    def on_model_scc(self, model):
-        self.atoms = set([atm.name for atm in model.symbols(atoms=True) if atm.name.startswith("_")])
-        print(model)
-
-        self.check_component()
-
-        self.check_rule_positive()
-        self.check_rule_negative()
-        self.check_definition()
 
     def on_model(self, model):
         self.atoms = set([atm.name for atm in model.symbols(atoms=True) if atm.name.startswith("_")])
         print(model)
 
+
+    def add_loops(self, ctl):
+        num_loops = 0
+        with ProgramBuilder(ctl) as bld:
+            for loop in self.loops:
+                body = []
+                pos = ast.Position('<string>', 1, 1)
+                loc = ast.Location(pos, pos)
+                fun = ast.Function(loc, '_l{}'.format(num_loops), [], False)
+                atm = ast.SymbolicAtom(fun)
+                head = ast.Literal(loc, ast.Sign.NoSign, atm)
+                for lit in loop:
+                    key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
+                    fun = ast.Function(loc, '_d{}'.format(self.heads[key][0][0]), [], False)
+                    atm = ast.SymbolicAtom(fun)
+                    lit = ast.Literal(loc, ast.Sign.NoSign, atm)
+                    body.append(lit)
+                bld.add(ast.Rule(loc, head, body))
+                num_loops += 1
+            
+    def add_sccs(self, ctl):
+        num_sccs = 0
+        with ProgramBuilder(ctl) as bld:
+            for scc in self.sccs:
+                body = []
+                pos = ast.Position('<string>', 1, 1)
+                loc = ast.Location(pos, pos)
+                fun = ast.Function(loc, '_s{}'.format(num_sccs), [], False)
+                atm = ast.SymbolicAtom(fun)
+                head = ast.Literal(loc, ast.Sign.NoSign, atm)
+                for lit in scc:
+                    key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
+                    fun = ast.Function(loc, '_d{}'.format(self.heads[key][0][0]), [], False)
+                    atm = ast.SymbolicAtom(fun)
+                    lit = ast.Literal(loc, ast.Sign.NoSign, atm)
+                    body.append(lit)
+                bld.add(ast.Rule(loc, head, body))
+                # print(ast.Rule(loc, head, body))
+                num_sccs += 1
+
+    def add_input(self, node):
+        if not node.ast_type == ASTType.Program:
+            pos = ast.Position('<string>', 1, 1)
+            loc = ast.Location(pos, pos)
+            fun = ast.Function(loc, '_i{}'.format(self.numTestcases), [], False)
+            atm = ast.SymbolicAtom(fun)
+            body = ast.Literal(loc, ast.Sign.NoSign, atm)
+            with ProgramBuilder(self.ctl) as bld:
+                bld.add(ast.Rule(loc, node.head, [body]))
+
     def check_rule_positive(self):
-        self.posRCov.update(self.atoms)
+        self.posRCov.update(set([label for label in self.atoms if label.startswith("_r")]))
 
     def check_rule_negative(self):
         for i in range(self.numRules):
             if "_r"+str(i) not in self.atoms:
                 self.negRCov.add("_r"+str(i))
 
-    def check_definition(self):
-        for atm, body in self.heads.items():
-            if self.atoms.intersection(body[0]):
-                self.posDCov.add(atm)
-            else:
-                self.negDCov.add(atm)
-
     def check_definition_positive(self):
-        for atm, body in self.heads.items():
-            if self.atoms.intersection(body[0]):
-                self.posDCov.add(atm)
+        self.posDCov.update(set([label for label in self.atoms if label.startswith("_d")]))
 
     def check_definition_negative(self):
-        for atm, body in self.heads.items():
-            if not self.atoms.intersection(body[0]):
-                self.negDCov.add(atm)                
+        for i in range(self.numDef):
+            if "_d"+str(i) not in self.atoms:
+                self.negDCov.add("_d"+str(i))
 
-    def check_component(self):
-        for scc in self.sccs:
-            if all(self.atoms.intersection(self.heads[(atm.atom.symbol.name,len(atm.atom.symbol.arguments))][0]) for atm in scc):
-                self.posCCov.add(tuple(scc))
-            elif all(not self.atoms.intersection(self.heads[(atm.atom.symbol.name,len(atm.atom.symbol.arguments))][0]) for atm in scc):
-                self.negCCov.add(tuple(scc))
+    def check_component_positive(self):
+        self.posCCov.update(set([label for label in self.atoms if label.startswith("_s")]))
 
-    def check_loop(self):
-        for loop in self.loops:
-            covered = True
-            for atm in loop:
-                if not self.atoms.intersection(self.heads[(atm.atom.symbol.name,len(atm.atom.symbol.arguments))][0]):
-                    covered = False
-                    break
-            if covered:
-                self.posLCov.add(loop)
-            else:
-                self.negLCov.add(loop)
+    def check_component_negative(self):
+        for i in range(len(self.sccs)):
+            if "_s"+str(i) not in self.atoms:
+                self.negCCov.add("_s"+str(i))
 
-    def check_positive(self):
-        self.posRCov.update(self.atoms)
+    def check_loop_positive(self):
+        self.posLCov.update(set([label for label in self.atoms if label.startswith("_l")]))
 
-        for atm, body in self.heads.items():
-            if self.atoms.intersection(body[0]):
-                self.posDCov.add(atm)
+    def check_loop_negative(self):
+        for i in range(len(self.loops)):
+            if "_l"+str(i) not in self.atoms:
+                self.negLCov.add("_l"+str(i))
 
-    def check_negative(self):
-        for i in range(self.numRules):
-            if "_r"+str(i) not in self.atoms:
-                self.negRCov.add("_r"+str(i))
-
-        for atm, body in self.heads.items():
-            if not self.atoms.intersection(body[0]):
-                self.negDCov.add(atm)
 
     def check_coverage(self, program, testcases, verbose=True, loop="loop"):
         for file in testcases:
-            ctl = Control(["0"], message_limit=0)
-            transformer = RuleTagger(ctl)
-            with ProgramBuilder(ctl) as builder:
+            self.ctl = Control(["0"], message_limit=0)
+            transformer = RuleTagger(self.ctl)
+            with ProgramBuilder(self.ctl) as builder:
                 parse_files([program], lambda stm: builder.add(transformer(stm)))
                 parse_files([file], builder.add)
 
             if self.numRules == 0:
                 self.numRules = transformer.counter
+            if self.numDef == 0:
+                self.numDef = transformer.ndef
             if not self.heads:
                 self.heads = transformer.heads
             if not self.rules:
                 self.rules = transformer.rules
+            
 
-            ctl.ground([("base", [])])
 
             loop="loop"
             if loop == "loop":
@@ -133,8 +141,20 @@ class CoverageCheck():
                     self.sccs = find_sccs(self.graph)
                 if not self.loops:
                     self.loops = find_loops(self.graph, self.sccs)
-                res = ctl.solve(on_model=self.on_model_loop)
-                if not res.satisfiable:
+                self.add_loops(self.ctl)
+                self.ctl.ground([("base", [])])
+                self.ctl.configuration.solve.enum_mode = "cautious"
+                res = self.ctl.solve(on_model=self.on_model)
+                if res.satisfiable:
+                    self.check_rule_negative()
+                    self.check_definition_negative()
+                    self.check_loop_negative()
+                    self.ctl.configuration.solve.enum_mode = "brave"
+                    self.ctl.solve(on_model=self.on_model)
+                    self.check_rule_positive()
+                    self.check_definition_positive()
+                    self.check_loop_positive()
+                else:
                     print("Please enter a correct Testcase (solve call unsatisfiable)")
                     return 0
             elif loop == "scc":
@@ -142,18 +162,31 @@ class CoverageCheck():
                     self.graph = build_dependency_graph(self.rules)
                 if not self.sccs:
                     self.sccs = find_sccs(self.graph)
-                res = ctl.solve(on_model=self.on_model_scc)
-                if not res.satisfiable:
-                    print("Please enter a correct Testcase (solve call unsatisfiable)")
-                    return 0
-            else:
-                ctl.configuration.solve.enum_mode = "cautious"
-                res = ctl.solve(on_model=self.on_model)
+                self.add_sccs(self.ctl)
+                self.ctl.ground([("base", [])])
+                res = self.ctl.solve(on_model=self.on_model)
                 if res.satisfiable:
                     self.check_rule_negative()
                     self.check_definition_negative()
-                    ctl.configuration.solve.enum_mode = "brave"
-                    ctl.solve(on_model=self.on_model)
+                    self.check_component_negative()
+                    self.ctl.configuration.solve.enum_mode = "brave"
+                    self.ctl.solve(on_model=self.on_model)
+                    self.check_rule_positive()
+                    self.check_definition_positive()
+                    self.check_component_positive()
+                else:
+                    print("Please enter a correct Testcase (solve call unsatisfiable)")
+                    return 0
+            elif loop == "test":
+                print(self.ctl.solve(on_model=print))
+            else:
+                self.ctl.configuration.solve.enum_mode = "cautious"
+                res = self.ctl.solve(on_model=self.on_model)
+                if res.satisfiable:
+                    self.check_rule_negative()
+                    self.check_definition_negative()
+                    self.ctl.configuration.solve.enum_mode = "brave"
+                    self.ctl.solve(on_model=self.on_model)
                     self.check_rule_positive()
                     self.check_definition_positive()
                 else:
@@ -169,20 +202,20 @@ class CoverageCheck():
         if verbose and negativeR != 100.0:
             self.print_neg_Rcoverage()
 
-        positiveD = (len(self.posDCov)*100) / len(self.heads)
-        negativeD = (len(self.negDCov)*100) / len(self.heads)
-        print(f"\nPositive definition coverage: {positiveD}% ({len(self.posDCov)} out of {len(self.heads)} atoms)")
-        print(f"Negative definition coverage: {negativeD}% ({len(self.negDCov)} out of {len(self.heads)} atoms)")
+        positiveD = (len(self.posDCov)*100) / self.numDef
+        negativeD = (len(self.negDCov)*100) / self.numDef
+        print(f"\nPositive definition coverage: {positiveD}% ({len(self.posDCov)} out of {self.numDef} atoms)")
+        print(f"Negative definition coverage: {negativeD}% ({len(self.negDCov)} out of {self.numDef} atoms)")
         if verbose and positiveD != 100.0:
             self.print_pos_Dcoverage()
         if verbose and negativeD != 100.0:
             self.print_neg_Dcoverage()
 
         if loop == "loop":
-            positiveL = ((len(self.posLCov) + len(self.posDCov)) * 100) / (len(self.heads) + len(self.loops))
-            negativeL = ((len(self.negLCov) + len(self.negDCov)) * 100) / (len(self.heads) + len(self.loops))
-            print(f"\nPositive loop coverage: {positiveL}% ({len(self.posLCov) + len(self.posDCov)} out of {len(self.heads) + len(self.loops)} loops)")
-            print(f"Negative loop coverage: {negativeL}% ({len(self.negLCov) + len(self.negDCov)} out of {len(self.heads) + len(self.loops)} loops)")
+            positiveL = ((len(self.posLCov) + len(self.posDCov)) * 100) / (self.numDef + len(self.loops))
+            negativeL = ((len(self.negLCov) + len(self.negDCov)) * 100) / (self.numDef + len(self.loops))
+            print(f"\nPositive loop coverage: {positiveL}% ({len(self.posLCov) + len(self.posDCov)} out of {self.numDef + len(self.loops)} loops)")
+            print(f"Negative loop coverage: {negativeL}% ({len(self.negLCov) + len(self.negDCov)} out of {self.numDef + len(self.loops)} loops)")
             if verbose and positiveL != 100.0:
                 self.print_pos_Lcoverage()
             if verbose and negativeL != 100.0:
@@ -205,16 +238,16 @@ class CoverageCheck():
         #     print([atm.atom.symbol.name for atm in loop])
         # for scc in self.sccs:
         #     print([atm.atom.symbol.name for atm in scc])
-        # print(self.posLCov)
-        # print(self.negLCov)
-        # print(self.posRCov)
-        # print(self.posDCov)
-        # print(self.negRCov)
-        # print(self.negDCov)   
+        print(self.posRCov)
+        print(self.negRCov)
+        print(self.posDCov)
+        print(self.negDCov)   
+        print(self.posLCov)
+        print(self.negLCov)
         # print(self.heads) 
         # print(self.rules)    
-        print(self.loops)
-        print(self.sccs)
+        # print(self.loops)
+        # print(self.sccs)
            
 
     def print_pos_Rcoverage(self):
