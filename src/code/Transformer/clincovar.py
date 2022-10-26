@@ -1,10 +1,9 @@
 import sys, time
-from CoverageCheck_final import CoverageCheck
+from CoverageCheck_var import CoverageCheck
 import argparse
 
 def main():
     parser = argparse.ArgumentParser(description="A Program to calculate different coverage metrics for propositional answer set programs")
-    parser.add_argument("-p", "--program", action="store_true", help="check for program coverage")
     parser.add_argument("-r", "--rule", action="store_true", help="check for rule coverage")
     parser.add_argument("-d", "--definition", action="store_true", help="check for definition coverage")
     parser.add_argument("-l", "--loop", action="store_true", help="check for loop coverage")
@@ -14,17 +13,13 @@ def main():
     parser.add_argument("files", nargs="+", help="The program files")
     parser.add_argument("-t", "--testcases", nargs="+", required=True, help="The testcase files")
     args = parser.parse_args()
-    if not (args.program or args.rule or args.definition or args.loop or args.component):
+    if not (args.rule or args.definition or args.loop or args.component):
         parser.error("No coverage metric specified. Please add at least one coverage metric.")
     
-    ipt = input("Please enter all inputatoms seperated by comma:\n")
-    
-    check = CoverageCheck(args, ipt)
+    check = CoverageCheck(args)
     # start = time.time()
     check.setup()
     check.check_coverage()
-    # print(check.maxPosDCov)
-
     check.print_coverage()
     # print("\nComputationtime: {}".format(time.time()-start))
 
