@@ -1,3 +1,4 @@
+from ast import AST
 from clingo.control import Control
 from clingo.symbol import Function, Number, parse_term
 from clingo.ast import Transformer, ProgramBuilder, parse_files, parse_string, ASTType
@@ -58,33 +59,115 @@ import sys
 # #     check.check_coverage(program, testcases)
 # #     print("\nComputationtime: {}".format(time.time()-start))
 
-inputs = []
+atms = set()
 ctl = Control(["0"])
 def main():
-    testcases = sys.argv[1:]
-    global numIn
-    numIn = 0
-    with ProgramBuilder(ctl) as bld:
-        for file in testcases:
-            inputs.clear()
-            parse_files([file], test)
-            numIn += 1
-        str = ' '.join([f"_i{i};" for i in range(numIn)])
-        parse_string("{ "+str[:-1]+" } = 1.", bld.add)
-    ctl.ground([('base', [])])
-    print(ctl.solve(on_model=print))
+    prog = sys.argv[1]
+    # with ProgramBuilder(ctl) as bld:
+        # parse_files([prog], lambda stm: bld.add(test2(stm)))
+        # parse_string("#false.", lambda stm: bld.add(test2(stm)))
+    parse_files([prog], prints)
+    # print(sorted(atms))
+    # ctl.ground([('base', [])])
+    # print(ctl.solve(on_model=print))
 
-def test(rule):
-    # print(ast.values())
-    if not rule.ast_type == ASTType.Program:
-        # inputs.append(ast.head)
+def prints(node):
+    if node.ast_type != ASTType.Program:
+        print(node)
+        print(node.ast_type)
+        # print(node.items())
+
+def test2(node):
+    if node.ast_type != ASTType.Program:
+        if node.ast_type == ASTType.ShowSignature or node.ast_type == ASTType.ShowTerm:
+            print(node)
+            pos = ast.Position('<string>', 1, 1)
+            loc = ast.Location(pos, pos)
+            atm = ast.BooleanConstant(1)
+            lit = ast.Literal(loc, ast.Sign.NoSign, atm)
+            return ast.Rule(loc, lit, [])
+        elif str(node.head) == "#false":
+            print(node)
+            pos = ast.Position('<string>', 1, 1)
+            loc = ast.Location(pos, pos)
+            atm = ast.BooleanConstant(1)
+            lit = ast.Literal(loc, ast.Sign.NoSign, atm)
+            return ast.Rule(loc, lit, [])
+    return node
+
+def test(node):
+    if node.ast_type == ASTType.Rule:
+        # print(node.head.atom.symbol)
+        print(node.head)
+        print(node.head.ast_type)
+        print(node.head.elements)
+        print(node.head.elements[0].condition)
+        # print(node.head.atom.symbol.ast_type)
+        # print(node.head.atom.symbol.keys())
+        ### Body ###
+        for atm in node.body:
+            if atm.ast_type == ASTType.Literal:
+                if atm.atom.ast_type == ASTType.SymbolicAtom:
+                    if atm.atom.symbol.ast_type == ASTType.Pool:
+                        key = (atm.atom.symbol.arguments[0].name, len(atm.atom.symbol.arguments[0].arguments))
+                    else:
+                        key = (atm.atom.symbol.name, len(atm.atom.symbol.arguments))
+                    atms.add((key[0], key[1],"n"))
+                elif atm.atom.ast_type == ASTType.Aggregate or atm.atom.ast_type == ASTType.BodyAggregate:
+                    pass
+            elif atm.ast_type == ASTType.ConditionalLiteral:
+                atms.add((atm.literal.atom.symbol.name, len(atm.literal.atom.symbol.arguments),"n"))
+                for lit in atm.condition:
+                    if lit.atom.ast_type == ASTType.SymbolicAtom:
+                        atms.add((lit.atom.symbol.name, len(lit.atom.symbol.arguments),"n"))
+                    elif lit.atom.ast_type == ASTType.Aggregate or lit.atom.ast_type == ASTType.BodyAggregate:
+                        pass
+
+        ### Head ###            
+        if node.head.ast_type == ASTType.Literal:
+            if node.head.atom.ast_type == ASTType.SymbolicAtom:
+                if node.head.atom.symbol.ast_type == ASTType.Pool:
+                    key = (node.head.atom.symbol.arguments[0].name, len(node.head.atom.symbol.arguments[0].arguments))
+                else:
+                    key = (node.head.atom.symbol.name, len(node.head.atom.symbol.arguments))
+                atms.add(key)
+        elif node.head.ast_type == ASTType.Aggregate or node.head.ast_type == ASTType.Disjunction:
+            for elem in node.head.elements:
+                if elem.literal.atom.ast_type == ASTType.SymbolicAtom:
+                    atms.add((elem.literal.atom.symbol.name, len(elem.literal.atom.symbol.arguments)))
+                for lit in elem.condition:
+                    if lit.atom.ast_type == ASTType.SymbolicAtom:
+                        atms.add((lit.atom.symbol.name, len(lit.atom.symbol.arguments), "n"))    # dont set the rule here since it is not defined here
+        elif node.head.ast_type == ASTType.HeadAggregate:
+            for elem in node.head.elements:
+                if elem.condition.literal.atom.ast_type == ASTType.SymbolicAtom:
+                    atms.add((elem.condition.literal.atom.symbol.name, len(elem.condition.literal.atom.symbol.arguments)))
+                for lit in elem.condition.condition:
+                    if lit.atom.ast_type == ASTType.SymbolicAtom:
+                        atms.add((lit.atom.symbol.name, len(lit.atom.symbol.arguments),"n"))    # dont set the rule here since it is not defined here
+    
+    if node.ast_type == ASTType.ShowSignature or node.ast_type == ASTType.ShowTerm:
         pos = ast.Position('<string>', 1, 1)
         loc = ast.Location(pos, pos)
-        fun = ast.Function(loc, '_i{}'.format(numIn), [], False)
+        fun = ast.Function(loc, '_z', [], False)
         atm = ast.SymbolicAtom(fun)
-        body = ast.Literal(loc, ast.Sign.NoSign, atm)
-        with ProgramBuilder(ctl) as bld:
-            bld.add(ast.Rule(loc, rule.head, [body]))
+        lit = ast.Literal(loc, ast.Sign.NoSign, atm)
+        return ast.Rule(loc, lit, [])
+    return node           
+
+        # print(node.head)
+        # print(node.head.ast_type)
+        # print(node.head.keys())
+    # print(node.items())
+    # if not rule.ast_type == ASTType.Program:
+    #     # inputs.append(ast.head)
+    #     pos = ast.Position('<string>', 1, 1)
+    #     loc = ast.Location(pos, pos)
+    #     fun = ast.Function(loc, '_i{}'.format(numIn), [], False)
+    #     atm = ast.SymbolicAtom(fun)
+    #     body = ast.Literal(loc, ast.Sign.NoSign, atm)
+    #     with ProgramBuilder(ctl) as bld:
+    #         bld.add(ast.Rule(loc, rule.head, [body]))
         
     # print(inputs)
 

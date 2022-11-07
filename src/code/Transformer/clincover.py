@@ -21,11 +21,10 @@ def main():
     
     check = CoverageCheck(args, ipt)
     # start = time.time()
-    check.setup()
-    check.check_coverage()
-    # print(check.maxPosDCov)
-
-    check.print_coverage()
+    # check.setup()
+    # check.check_coverage()
+    # check.print_coverage()
+    check.full_check()
     # print("\nComputationtime: {}".format(time.time()-start))
 
 if __name__ == "__main__":

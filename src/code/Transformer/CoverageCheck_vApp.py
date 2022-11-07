@@ -136,7 +136,7 @@ class CoverageCheck(Application):
     def gather_info(self, node):
         if not node.ast_type == ASTType.Program:
             self.rules.append(node)
-
+            print(node)
             if str(node.head) != "#false":
                 if node.head.ast_type == ASTType.Aggregate or node.head.ast_type == ASTType.Disjunction:
                     for elem in node.head.elements:

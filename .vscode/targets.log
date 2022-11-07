@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Oct 20 09:13:59 2022
+# Make data base, printed on Wed Nov  2 15:03:53 2022
 
 # Variables
 
@@ -53,7 +51,7 @@ SNAP_DATA = /var/snap/code/111
 # environment
 VSCODE_NLS_CONFIG = {"locale":"de","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:82251
+JOURNAL_STREAM = 8:82363
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -75,7 +73,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 _ = /snap/code/111/usr/share/code/code
 # environment
-MANAGERPID = 1650
+MANAGERPID = 1584
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -89,7 +87,7 @@ PATH = /home/jakob/.opam/default/bin:/home/jakob/anaconda3/bin:/home/jakob/anaco
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/1870,unix/jakob-VM:/tmp/.ICE-unix/1870
+SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/1797,unix/jakob-VM:/tmp/.ICE-unix/1797
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -105,7 +103,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 245a45283f9f4c5ea4ee3b7b2b4f8699
+INVOCATION_ID = 0867bb761f53461b93d29029aa49ca9a
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/111/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -117,7 +115,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3751
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2975
 # automatic
 %F = $(notdir $%)
 # environment
@@ -131,7 +129,7 @@ PWD = /home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1833
+SSH_AGENT_PID = 1764
 # environment
 PKG_CONFIG_PATH = /home/jakob/.opam/default/lib/pkgconfig:/home/jakob/.opam/default/lib/pkgconfig:
 # environment
@@ -265,7 +263,7 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3807
+VSCODE_PID = 3022
 # environment
 _CE_CONDA = 
 # variable set hash-table stats:
@@ -281,6 +279,8 @@ _CE_CONDA =
 
 # 8 files, no impossibilities in 1 directories.
  
+make: *** No rule to make target 'all'.  Stop.
+
 
 # Implicit Rules
 
@@ -343,6 +343,6 @@ show: build
 # strcache performance: lookups = 24 / hit rate = 33%
 # hash-table stats:
 # Load=16/8192=0%, Rehash=0, Collisions=1/24=4%
-# Finished Make data base on Thu Oct 20 09:13:59 2022
+# Finished Make data base on Wed Nov  2 15:03:53 2022
 
  
