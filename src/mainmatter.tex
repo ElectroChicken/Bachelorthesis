@@ -286,29 +286,18 @@ with the other coverage metrics -> has to be computed seperately from the other 
 - the given definitions of the coverage metrics are only for propositional programs but this is not very practical as most programs 
 are more complex than that. They contain many complex language constructs supported by ASP/clingo
 
--> to make this coverage check actually usable these metrics haev to be extended to work for all these constructs
+-> to make this coverage check actually usable these metrics have to be extended to work for all these constructs
 
 - the label approach allows me to easily apply these coverage metrics to further program classes with very little adjustments!
 
 - go through all the additional constructs one by one, explain how they should work, why they do work like that or not?
+-> table
 
-- Big differences: 
-    - maximal coverage can not be computed as this requires listing all possible inputs. This is not possible with variables 
-    as there can be infinitely many -> give coverage as covered/total existing (!!! is this even a correct coverage function???)
+- Big difference: maximal coverage can not be computed as this requires listing all possible inputs. This is not possible with variables 
+as there can be infinitely many -> give coverage as covered/total existing (!!! is this even a correct coverage function???)
 (!!! possible extension: allow user to specify domain for each variable -> if domain is not infinite then computing max cov is possible !!!) 
 
 -> thats all the difference!?!
-
-- why does it still work?
-
-- why is this correct / comparable to what was done without variables? (is this still a coverage function?)
-
-\section{What works / what doesnt work}     % Is this a section? If not where do i put this?
-\label{sec:Implementation/What Works}
-- Table with all the language constructs in ASP/clingo and which work / dont work
-
-- how should they work
-- overview and explanation of all the existing language constructs in ASP/clingo and why they work / dont work
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Outlook}
