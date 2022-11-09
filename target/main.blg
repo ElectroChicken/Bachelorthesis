@@ -1,17 +1,17 @@
 [0] Config.pm:304> INFO - This is Biber 2.14 (beta)
 [0] Config.pm:307> INFO - Logfile is '../target/main.blg'
-[154] biber:322> INFO - === Mi Okt 26, 2022, 11:32:03
-[182] Biber.pm:415> INFO - Reading '../target/main.bcf'
-[348] Biber.pm:943> INFO - Found 1 citekeys in bib section 0
-[380] Biber.pm:4256> INFO - Processing section 0
-[380] Utils.pm:75> INFO - Globbing data source 'bibliography.bib'
-[381] Utils.pm:91> INFO - Globbed data source 'bibliography.bib' to bibliography.bib
-[407] Biber.pm:4455> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
-[410] bibtex.pm:1653> INFO - LaTeX decoding ...
-[476] bibtex.pm:1471> INFO - Found BibTeX data source 'bibliography.bib'
-[572] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[572] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[572] Biber.pm:4084> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
-[572] Biber.pm:4090> INFO - No sort tailoring available for locale 'en-US'
-[576] bbl.pm:652> INFO - Writing '../target/main.bbl' with encoding 'UTF-8'
-[578] bbl.pm:755> INFO - Output to ../target/main.bbl
+[105] biber:322> INFO - === Di Nov  8, 2022, 12:47:06
+[124] Biber.pm:415> INFO - Reading '../target/main.bcf'
+[208] Biber.pm:943> INFO - Found 2 citekeys in bib section 0
+[224] Biber.pm:4256> INFO - Processing section 0
+[225] Utils.pm:75> INFO - Globbing data source 'bibliography.bib'
+[225] Utils.pm:91> INFO - Globbed data source 'bibliography.bib' to bibliography.bib
+[241] Biber.pm:4455> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
+[243] bibtex.pm:1653> INFO - LaTeX decoding ...
+[273] bibtex.pm:1471> INFO - Found BibTeX data source 'bibliography.bib'
+[392] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[392] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[392] Biber.pm:4084> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[392] Biber.pm:4090> INFO - No sort tailoring available for locale 'en-US'
+[398] bbl.pm:652> INFO - Writing '../target/main.bbl' with encoding 'UTF-8'
+[401] bbl.pm:755> INFO - Output to ../target/main.bbl

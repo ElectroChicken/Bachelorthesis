@@ -56,6 +56,7 @@
       \strng{authorbibnamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
       \strng{authornamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
       \strng{authorfullhash}{c55b072b2675260194b238372d8a55f6}
+      \field{extraname}{1}
       \field{labelalpha}{Jan+10}
       \field{sortinit}{J}
       \field{sortinithash}{c45040a764d616897e7f5b30174d7b92}
@@ -65,6 +66,75 @@
       \field{title}{On testing answer-set programs}
       \field{year}{2010}
       \field{pages}{951\bibrangedash 956}
+      \range{pages}{6}
+    \endentry
+    \entry{Jan+11}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=ed6a24604d923493e91425fbb35ac736}{%
+           family={Janhunen},
+           familyi={J\bibinitperiod},
+           given={Tomi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=e92901947a7da887056e10cf30824296}{%
+           family={Niemelä},
+           familyi={N\bibinitperiod},
+           given={Ilkka},
+           giveni={I\bibinitperiod}}}%
+        {{hash=20f9a356fd9d9ca14e2dfdd0ef2f9293}{%
+           family={Oetsch},
+           familyi={O\bibinitperiod},
+           given={Johannes},
+           giveni={J\bibinitperiod}}}%
+        {{hash=ae8806f71af1ce1fc6b7cc8937da54e0}{%
+           family={Pührer},
+           familyi={P\bibinitperiod},
+           given={Jörg},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3931af166ed356b9eaa0061a63204ccd}{%
+           family={Tompits},
+           familyi={T\bibinitperiod},
+           given={Hans},
+           giveni={H\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=c0e42b65e5609a7761c7a0f411a91938}{%
+           family={Delgrande},
+           familyi={D\bibinitperiod},
+           given={James\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=e1629fff88cdb6d71cc8d8fc6f9b987a}{%
+           family={Faber},
+           familyi={F\bibinitperiod},
+           given={Wolfgang},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
+      \strng{fullhash}{c55b072b2675260194b238372d8a55f6}
+      \strng{bibnamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
+      \strng{authorbibnamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
+      \strng{authornamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
+      \strng{authorfullhash}{c55b072b2675260194b238372d8a55f6}
+      \strng{editorbibnamehash}{3653f29bda3797bbe8b09008026e9570}
+      \strng{editornamehash}{3653f29bda3797bbe8b09008026e9570}
+      \strng{editorfullhash}{3653f29bda3797bbe8b09008026e9570}
+      \field{extraname}{2}
+      \field{labelalpha}{Jan+11}
+      \field{sortinit}{J}
+      \field{sortinithash}{c45040a764d616897e7f5b30174d7b92}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Answer-set programming (ASP) is an established paradigm for declarative problem solving, yet comparably little work on testing of answer-set programs has been done so far. In a recent paper, foundations for structure-based testing of answer-set programs building on a number of coverage notions have been proposed. In this paper, we develop a framework for testing answer-set programs based on this work and study how good the structure-based approach to test input generation is compared to random test input generation. The results indicate that random testing is quite ineffective for some benchmarks, while structure-based techniques catch faults with a high rate more consistently also in these cases.}
+      \field{booktitle}{Logic Programming and Nonmonotonic Reasoning}
+      \field{isbn}{978-3-642-20895-9}
+      \field{title}{Random vs. Structure-Based Testing of Answer-Set Programs: An Experimental Comparison}
+      \field{year}{2011}
+      \field{pages}{242\bibrangedash 247}
       \range{pages}{6}
     \endentry
   \enddatalist

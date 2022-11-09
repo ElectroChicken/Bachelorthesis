@@ -1,14 +1,215 @@
 \chapter{Introduction}
 \label{ch:Introduction}
+- Answer Set Programming is of growing importance in both academic and industry work (source?) and clingo is a popular solver for this
 
-Einleitung
-- what am i doing? (Fragestellung/Goal)
+- Workflow Tools that make working with such programs easier and more comfortable barely exist. Research into these topics is only 
+now getting more traction (source?)
 
-- why am i doing it?
+- Testing is a very important part of a conventional software design approach.(source?)
 
-\section{Coverage in general}
-\label{sec:Introduction/Coverage in general}
-- theoretical discussion of coverage metrics in this paper
+- The topic of code coverage and it's use for conventional programming languages has been shown (source?)
+
+- With this work I want to build on the previous work done on code coverage in answer set programming in this paper by \textcite{Jan+10}
+
+- To this end I developped a way to efficiently implement the coverage metrics defined in the paper.
+
+- My implementation allows me to compute coverage using answer set programming. It also extends the given metrics to function with
+almost all existing language construct instead of just for propositional programs.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Preliminaries}
+\label{ch:Preliminaries}
+
+\section{Answer Set Programming}
+\label{sec:Preliminaries/Answer Set Programming}
+- Basic introduction to asp giving all the relevant definitions (with examples + sources (for all/some?)) 
+    
+    - rule, head, (positive/negative)body
+    
+    - interpretation that satisfies (positive/negative)body, rule, program
+
+    - Def(a), SuppR(P,I)
+
+    - answer sets, brave/cautious consequence
+
+    - positive atom dependency graph, loops, strongly connected components
+
+-> adjust these so they work for variables etc. or do this later? (is this needed?/ is it a big adjustment?)
+
+\section{Testing in Answer Set Programming}
+\label{sec:Preliminaries/Testing in Answer Set Programming}
+- What is input and output of a program?
+
+- what is a testcase and a testsuite
+
+- exhaustive test suite for P -> all possible testcases
+
+- maybe Specification -> the correct (expected) output for every input, what does it mean for a program to "pass/be compliant 
+with" a testcase, when is a program "correct" with respect to a specification (not actually needed for coverage as coverage 
+does not care about specification!)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Coverage metrics}
+\label{ch:Coverage metrics}
+- Analogous to concepts of coverage in other (conventional) programming languages (source) I introduce path-like and branch-like coverage
+metrics according to \textcite{Jan+10}
+
+\section{Coverage functions}
+\label{sec:Coverage metrics/Coverage functions}
+- general definition of coverage functions (maybe additional source? / compare to what paper did)
+
+- talk about the difference between all objects and coverable objects
+
+- trivial/clairvoyant coverage functions maybe not important to discuss?
+
+\section{Path-like coverage}
+\label{sec:Coverage metrics/Path-like coverage}
+- general introduction to path like coverage in conventional programming languages (source)
+
+    - use the controlflow graph and cover every possible path through this graph
+
+- generally the most "complete" coverage metric
+
+-> these are generally very computationally expensive (exponentially many possible paths)
+
+\subsection{Program coverage}
+\label{subsec:Coverage metrics/Path-like coverage/Program coverage}
+- Analogous to the conventional path-like coverage I define program coverage
+
+- Definition + example
+
+- show that total program coverage means all possible answer sets get produced by the testsuite
+
+- talk about the problems here? (complexity + not possible for programs with variables as it is necessary to enumerate all 
+possible inputs to find maximum coverage)
+
+\section{Branch-like coverage}
+\label{sec:Coverage metrics/Branch-like coverage}
+- general introduction to branch-like coverage in conventional programming languages (source)
+
+    - use the controlflow graph and cover every possible branch through this graph
+
+- less complete but easier to compute, still very potent(?) (source)
+
+- there are different types of branch like coverage even in conventional programming languages (source), the same is true here
+
+\subsection{Rule coverage}
+\label{subsec:Coverage metrics/Branch-like coverage/Rule coverage}
+- Definition + example
+
+- similar to program coverage in some ways but less complex!
+
+- some rules may sometimes (or always) not be coverable -> examples -> ties back to beginning of the chapter / thats why coverage 
+is defined on coverable objects
+
+(- total program coverage implies total rule coverage -> not so relevant but maybe interesting to mention?)
+
+\subsubsection{Constraint coverage}
+\label{subsubsec:Coverage metrics/Branch-like coverage/Rule coverage/Constraint coverage}
+(is this an extra section or should this be in the rule coverage section?)
+
+- constraints are a special type of rule and have to be handled slightly differently because when the body of a constraint is true 
+(=normal rule coverage) this will imply false and therefore not create an answer set / create an unsatisfiable solve call -> we 
+cant check constraints the same way we check other rules
+
+- solution: (following the suggestion in the paper by \textcite{Jan+11}) remove the constraint from the program in order to check 
+for its covereage!
+
+- Definition + examples
+
+(- maybe reminder that these coverage metrics dont really care about what the output of the program is and whether its according to 
+the specification, therefore removing constraints is okay even though it might completely destroy the functionality of the program)
+
+\subsection{Loop coverage}
+\label{subsec:Coverage metrics/Branch-like coverage/Loop coverage}
+- loops play an important role in ASP as seen in (source). Therefore constructing a coverage metric that focuses on them makes sense
+
+- Definition + example
+
+- generally number of loops in a program in exponential in the number of rules -> expensive to compute! -> introduce 2 more 
+coverage metrics that approximate loop coverage! (one for minimal (singleton) loops and one for maximal loops (strongyl connected 
+components))
+
+(- no real relation to rule coverage (neither implies the other)
+
+- total program coverage implies total loop coverage -> not so relevant but maybe interesting to mention?)
+
+\subsection{Definition coverage}
+\label{subsec:Coverage metrics/Branch-like coverage/Definition coverage}
+- 2 ways to introduce definition coverage: 
+    
+    - as a coverage metric for singleton loops (minimal loops) and therefore a special case of loop coverage
+
+    - as a representation of the disjunctions in the program (if an atom "a" is defined in multiple rules you could rewrite 
+    this as a if B1 v B2 v ...) -> this coverage metric covers these implicit disjunctions
+-> discuss both but in which order?
+
+- Definition + example
+
+(- this is different to rule coverage! -> total positive rule coverage implies total positive definition coverage, not the other 
+way around and no connection for negative coverage!
+
+- total loop coverage implies total definition coverage
+
+- total program coverage implies total definition coverage)
+
+\subsection{Component coverage}
+\label{subsec:Coverage cetrics/Branch-like coverage/Component coverage}
+- strongly connected components are the maximal loops of the program, therefore this is an approximation of loop coverage
+
+- Definition + example
+
+- Definition of negative coverage is different from loop coverage!
+
+- because of this different definition positive/negative component coverage of a specific component implies positive/negative loop 
+coverage for all subset loops of the component (would not be the case for negative coverage if definition is different)
+
+(- total positive loop coverage implies total positive component coverage, however this is not true for negative coverage because 
+of the different definition (see above)
+
+- total program coverage implies total component coverage)
+
+\section{Complexity}
+\label{sec:Coverage metrics/Complexity}         % should this be in here??
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Implementation}
+\label{ch:Implementation}
+
+(maybe include a short history of what i tried but didnt work?)
+
+\section{General approach}
+\label{sec:Implementation/General approach}
+- explain general approach of itroducing labels to the program in order to compute the coverage using ASP
+
+- why does this work?
+
+- why does this not change the program?
+
+\section{Adjustments to original definitions / Implementing coverage for further program classes}
+\label{sec:Implementation/Adjustments to original definitions}
+- what has to change when trying to use this with variables etc.?
+
+- why does it still work?
+
+- why is this correct / comparable to what was done without variables?
+
+\section{What works / what doesnt work}
+\label{sec:Implementation/What Works}
+- overview and explanation of all the existing language constructs in ASP/clingo and why they work / dont work
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Outlook}
+\label{ch:Outlook}
+- what remains to be done? 
+
+- what can be added?
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Conclusion}
+\label{ch:Conclusion}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

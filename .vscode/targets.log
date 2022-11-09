@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Nov  2 15:03:53 2022
+# Make data base, printed on Wed Nov  9 10:05:50 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ SNAP_DATA = /var/snap/code/111
 # environment
 VSCODE_NLS_CONFIG = {"locale":"de","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:82363
+JOURNAL_STREAM = 8:83202
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -71,19 +71,15 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-_ = /snap/code/111/usr/share/code/code
-# environment
-MANAGERPID = 1584
-# environment
-LESSOPEN = | /usr/bin/lesspipe %s
+MANAGERPID = 1580
 # environment
 VSCODE_CWD = /home/jakob
 # environment
-GSETTINGS_SCHEMA_DIR = /home/jakob/anaconda3/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /snap/code/111/usr/share/glib-2.0/schemas
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/jakob/.opam/default/bin:/home/jakob/anaconda3/bin:/home/jakob/anaconda3/condabin:/home/jakob/.opam/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/jakob/.opam/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
@@ -97,31 +93,25 @@ SNAP = /snap/code/111
 # environment
 SNAP_VERSION = d045a5ed
 # environment
-CONDA_PREFIX = /home/jakob/anaconda3
-# environment
 XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 0867bb761f53461b93d29029aa49ca9a
+INVOCATION_ID = 6bc03bdbacb7410d8e43e97336c70528
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/111/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
-LS_COLORS = 
-# environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2975
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2849
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
-# environment
-CONDA_EXE = /home/jakob/anaconda3/bin/conda
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
@@ -131,19 +121,17 @@ PWD = /home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis
 # environment
 SSH_AGENT_PID = 1764
 # environment
-PKG_CONFIG_PATH = /home/jakob/.opam/default/lib/pkgconfig:/home/jakob/.opam/default/lib/pkgconfig:
+PKG_CONFIG_PATH = /home/jakob/.opam/default/lib/pkgconfig:
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
 GTK_MODULES = gail:atk-bridge
 # environment
-MANPATH = :/home/jakob/.opam/default/man:/home/jakob/.opam/default/man
+MANPATH = :/home/jakob/.opam/default/man
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /home/jakob
-# environment
-LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_CLI = 1
 # environment
@@ -156,8 +144,6 @@ APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # environment
 SNAP_CONTEXT = 3lI7885cY0ZFdxQW09ZNJ7i1HU9X4HG_6X5Ioom_7RH0kplrxZct
-# environment
-CONDA_PROMPT_MODIFIER = (base) 
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # environment
@@ -172,8 +158,6 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 MAKELEVEL := 0
 # environment
 SNAP_REAL_HOME = /home/jakob
-# environment
-CONDA_DEFAULT_ENV = base
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -186,6 +170,8 @@ SNAP_USER_DATA = /home/jakob/snap/code/111
 SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
+# environment
+LATEXWORKSHOP_DOCKER_LATEX = 
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -200,8 +186,6 @@ CAML_LD_LIBRARY_PATH = /home/jakob/.opam/default/lib/stublibs:/usr/local/lib/oca
 XDG_CURRENT_DESKTOP = Unity
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
-# environment
-CONDA_SHLVL = 1
 # default
 MAKE_COMMAND := make
 # default
@@ -225,8 +209,6 @@ GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
 # environment
-GSETTINGS_SCHEMA_DIR_CONDA_BACKUP = /snap/code/111/usr/share/glib-2.0/schemas
-# environment
 QT_ACCESSIBILITY = 1
 # default
 MAKEFILES := 
@@ -239,8 +221,6 @@ SNAP_NAME = code
 # environment
 LC_ALL = C
 # environment
-CONDA_PYTHON_EXE = /home/jakob/anaconda3/bin/python
-# environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
@@ -248,8 +228,6 @@ GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 SUFFIXES := 
 # environment
 SNAP_REEXEC = 
-# environment
-_CE_M = 
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
@@ -263,11 +241,9 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3022
-# environment
-_CE_CONDA = 
+VSCODE_PID = 2970
 # variable set hash-table stats:
-# Load=128/1024=12%, Rehash=0, Collisions=18/153=12%
+# Load=116/1024=11%, Rehash=0, Collisions=16/141=11%
 
 # Pattern-specific Variable Values
 
@@ -278,9 +254,6 @@ _CE_CONDA =
 # . (device 2053, inode 3932321): 8 files, no impossibilities.
 
 # 8 files, no impossibilities in 1 directories.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 
 # Implicit Rules
 
@@ -306,6 +279,9 @@ build:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 #  recipe to execute (from 'Makefile', line 2):
 	latexmk -pdf -halt-on-error -cd -outdir=../target src/main.tex
 
@@ -343,6 +319,6 @@ show: build
 # strcache performance: lookups = 24 / hit rate = 33%
 # hash-table stats:
 # Load=16/8192=0%, Rehash=0, Collisions=1/24=4%
-# Finished Make data base on Wed Nov  2 15:03:53 2022
+# Finished Make data base on Wed Nov  9 10:05:50 2022
 
  
