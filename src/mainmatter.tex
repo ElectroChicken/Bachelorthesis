@@ -170,9 +170,6 @@ of the different definition (see above)
 
 - total program coverage implies total component coverage)
 
-\section{Complexity}
-\label{sec:Coverage metrics/Complexity}         % should this be in here??
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Implementation}
 \label{ch:Implementation}
@@ -195,91 +192,91 @@ Instead use one solve call with brave consequences and one with cautious consequ
 - labels can also be used to add the testcases to the program -> this way coverage for all testcases can be computed in the same solve 
 call instead of needing one call per testcase
 
--> this is done by: adding a choice rule {_i0;...;_in}. for n testcases in the testsuite, adding rules a_i :- i_j. for every atom i 
+-> this is done by: adding a choice rule $\{\_i0;...;\_in\}$. for n testcases in the testsuite, adding rules $a_i :- i_j$. for every atom i 
 in the testcase j.
 (- why does this work?
 - why does this not change the program?)
 
 - maximum coverage needs to be computed to get accurate coverage numbers!
 
--> done by calculating the coverage normally but instead of testcases adding a rule {a_0;...;a_n}. where a_0...a_n are all possible 
+-> done by calculating the coverage normally but instead of testcases adding a rule $\{a_0;...;a_n\}$. where $a_0...a_n$ are all possible 
 inputatoms (see definition input/output) -> these have to be specified in advance by the user!
 
 \subsection{Rule coverage}
 \label{subsec:Implementation/General approach/Rule coverage}
-- _ri label for every rule i
+- $\_ri$ label for every rule i
 
-- add new rule to program for each label: {_ri} is the head, the body is identical to the body of the rule i
+- add new rule to program for each label: $\{\_ri\}$ is the head, the body is identical to the body of the rule i
 
 - example
 
-- if the body of rule i is true in some answer set (aka X |= B(r_i)) then rule i is positively covered and _ri will appear in the answer set 
+- if the body of rule i is true in some answer set (aka $X |= B(r_i)$) then rule i is positively covered and $\_ri$ will appear in the answer set 
 
--> _ri in answer set <=> rule i is positively covered
+-> $\_ri$ in answer set <=> rule i is positively covered
 
--> _ri not in answer set <=> rule i is negatively covered (proof for these?)
+-> $\_ri$ not in answer set <=> rule i is negatively covered (proof for these?)
 
 \subsection{Definition coverage}
 \label{subsec:Implementation/General approach/Definition coverage}
-- _di label for every atom i
+- $\_di$ label for every atom i
 
-- if atom i is definable (it appears in the head of a rule, aka Def(a_i)=/=∅) add new rule to program: _di :- _rj. for every rule j that defines atom i 
-(every rule j that has atom i in its head, aka every r_j ∈ Def(a_i))
+- if atom i is definable (it appears in the head of a rule, aka $Def(a_i)\neq\emptyset$) add new rule to program: $\_di :- \_rj$. for every rule j that defines atom i 
+(every rule j that has atom i in its head, aka every $r_j \in Def(a_i)$)
 
 - example
 
-- if one of the rules is covered (its body is true) then atom i is covered and _di will appear in the answer set
+- if one of the rules is covered (its body is true) then atom i is covered and $\_di$ will appear in the answer set
 
--> _di in answer set <=> atom i is positively covered
+-> $\_di$ in answer set <=> atom i is positively covered
 
--> _di not in answer set <=> atom i is negatively covered (proof for these?)
+-> $\_di$ not in answer set <=> atom i is negatively covered (proof for these?)
 
 \subsection{Loop coverage}
 \label{subsec:Implementation/General approach/Loop coverage}
-- _li label for every loop i
+- $\_li$ label for every loop i
 
 - first need to find all the loops in the program! -> build positive atom dependency graph, find sccs and then find subsets of sccs 
 that are loops
 
-- for each loop i that consists of atoms a_m to a_n add new rule to program: _li :- _dm, ..., _dn.
+- for each loop i that consists of atoms $a_m$ to $a_n$ add new rule to program: $\_li :- \_dm, ..., \_dn$.
 
-- if all the atoms a_m to a_n that constitute the loop i are defined (aka definition covered), then all the _dm to _dn are true, 
-then loop i is covered and _li will be in the answer set.
+- if all the atoms $a_m$ to $a_n$ that constitute the loop i are defined (aka definition covered), then all the $\_dm$ to $\_dn$ are true, 
+then loop i is covered and $\_li$ will be in the answer set.
 
--> _li in answer set <=> loop i is positively covered
+-> $\_li$ in answer set <=> loop i is positively covered
 
-- if any of the atoms a_m to a_n are not defined the loop is negatively covered and  _li will not be in the answer set
+- if any of the atoms $a_m$ to $a_n$ are not defined the loop is negatively covered and  $\_li$ will not be in the answer set
 
--> _li not in answer set <=> loop i is negatively covered
+-> $\_li$ not in answer set <=> loop i is negatively covered
 
 \subsection{Component coverage}
 \label{subsec:Implementation/General approach/Component coverage}
-- _si label for every strongly connected component i
+- $\_si$ label for every strongly connected component i
 
 - find sccs same way as loops
 
-- construct new rules same way as for loops: _si :- _dm, ... , _dn.
+- construct new rules same way as for loops: $\_si :- \_dm, ... , \_dn$.
 
--> _si in answer set <=> scc i is positively covered
+-> $\_si$ in answer set <=> scc i is positively covered
 
-- HOWEVER! _si not in answer set -/> scc i is negatively covered! (see definition of component coverage)
+- HOWEVER! $\_si$ not in answer set -/> scc i is negatively covered! (see definition of component coverage)
 
--> add additional rules to program: _nsi :- not _dm, ..., not _dn.
+-> add additional rules to program: $\_nsi :- not \_dm, ..., not \_dn$.
 
-- if NONE of the atoms a_m to a_n are defined (aka definition covered), scc i is negatively covered and _nsi will be in the anser set
+- if NONE of the atoms $a_m$ to $a_n$ are defined (aka definition covered), scc i is negatively covered and $\_nsi$ will be in the anser set
 
--> _nsi in answer set <=> scc i is negatively covered
+-> $\_nsi$ in answer set <=> scc i is negatively covered
 
 \subsection{Program coverage}
 \label{subsec:Implementation/General approach/Program coverage}
-- use the _ri labels from rule coverage, no new labels needed!
+- use the $\_ri$ labels from rule coverage, no new labels needed!
 
-- a subprogram P' ⊆ P is covered if exactly all rules contained in P' are covered and no other rules are covered
+- a subprogram $P' \subseteq P$ is covered if exactly all rules contained in $P'$ are covered and no other rules are covered
 
 -> each answer set covers exactly one subprogram -> it is necessary to look at every answer set instead of just brave/cautious like 
 with the other coverage metrics -> has to be computed seperately from the other coverage metrics!
 
-- for P = {r_1,...,r_n},  {_rx,...,_ry} are the rule labels in an answer set <=> P'={r_x,...,r_y} is covered
+- for $P = \{r_1,...,r_n\}$,  $\{\_rx,...,\_ry\}$ are the rule labels in an answer set <=> $P'=\{r_x,...,r_y\}$ is covered
 
 \section{Implementing coverage for further program classes}
 \label{sec:Implementation/Implementing coverage for further program classes}
@@ -313,7 +310,7 @@ or easier (by allowing interaction with the clingo solver through the command li
 - for this prototype I tried to take the existing definitions of coverage in ASP and extend them to more complex programs with as little 
 changes to the definitions as possible. This might not be the best way! Some of the definitions might need more changes:
 
-    - Definition coverage and choice rules: if an atom is only defined in a choice rule (ex. {a}.) it will only be considered positively 
+    - Definition coverage and choice rules: if an atom is only defined in a choice rule (ex. $\{a\}.$) it will only be considered positively 
     covered, not negatively covered, if the body is true, even though the atom will be false in some answer sets (therefore acting as if 
     it was negatively covered -> the "path" where the atom is negatively covered is executed, but the atom is not considered negatively covered)
 
