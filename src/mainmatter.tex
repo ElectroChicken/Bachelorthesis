@@ -302,15 +302,55 @@ as there can be infinitely many -> give coverage as covered/total existing (!!! 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Outlook}
 \label{ch:Outlook}
-- what remains to be done? 
+- As mentioned in the previous section, theory atoms and constraint terms are currently not considered when calculating definition, loop 
+and component coverage -> should be an easy extension!
 
-- what can be added?
+- rebuilding the app to work with the ClingoApp could make working with external atoms, constants and different program parts possible 
+or easier (by allowing interaction with the clingo solver through the command line)
 
+- in this work, complexity and efficiency are not priorities, therefore the current program is not very optimized!
+
+- for this prototype I tried to take the existing definitions of coverage in ASP and extend them to more complex programs with as little 
+changes to the definitions as possible. This might not be the best way! Some of the definitions might need more changes:
+
+    - Definition coverage and choice rules: if an atom is only defined in a choice rule (ex. {a}.) it will only be considered positively 
+    covered, not negatively covered, if the body is true, even though the atom will be false in some answer sets (therefore acting as if 
+    it was negatively covered -> the "path" where the atom is negatively covered is executed, but the atom is not considered negatively covered)
+
+    - loop/component coverage: a loop is considered covered, if all atoms contained in the loop are definition covered. Due to the nature 
+    of definition coverage it is however possible for an atom to be covered at multiple places! -> it is thus possible to cover all 
+    atoms in a loop without ever "executing" the loop -> this can lead to problems that are caused by a loop not being discovered by 
+    a testcase, even though that testcase has total loop coverage! (example!)
+
+- simply checking coverage for a given testsuite is only one use case for coverage metrics! They can also be used to automatically generate 
+testcases that are meant to catch a maximum amount of errors. The idea is explored in \cite{Jan+11}. This can certainly also be done with 
+my implementation.
+
+- these coverage metrics have not really been tested! In the paper \cite{Jan+11} only rule and definition coverage have been tested for 
+their practicality in a "real world" scenario. It is unknown how effective loop and component coverage are. -> This needs testing! 
+During these tests potential changes to the definitions could also be evaluated.
+
+- also in the line of testing the coverage metrics it would be interesting to see how well definition and component coverage approximate 
+loop coverage and whether program coverage does actually give the best results given that it is the most "complete" metric
+-> maybe figure out a guideline on which metrics to use when. The current setup where mixing any metrics is possible does not make much 
+sense (as for example definition coverage is fully contained in loop coverage)!
+
+- based on the idea of adding labels to the existing program in order to compute coverage with ASP it should be relatively easy to 
+realise any changes or even add potentially new coverage metrics  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusion}
 \label{ch:Conclusion}
+- I managed to implement the coverage metrics defined by \textcite{Jan+10} in a way that makes it possible to compute the coverage 
+of an entire testsuite with the help of just 2 clingo solve calls
 
+- I also extended the coverage metrics to cover almost all existing language constructs in ASP/clingo, making them more "real world" 
+applicable
+
+- with this I laid the ground work to one day implement coverage checks and maybe coverage-based testgeneration in a full unit testing 
+api for ASP programs
+
+- the simple nature of my approach should make it easy to extend to program with new or improved coverage metrics
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
