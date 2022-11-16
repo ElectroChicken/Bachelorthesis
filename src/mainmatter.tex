@@ -171,13 +171,18 @@ of the different definition (see above)
 - total program coverage implies total component coverage)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Implementation}
-\label{ch:Implementation}
+\chapter{Computing coverage metrics for propositional programs}
+\label{ch:Computing coverage metrics for propositional programs}
+- one of the main contributions of this thesis is finding a way to build a prototype tool for checking coverage of ASP programs 
+based on the theoretic definitions of coverage described in the previous chapter.
+
+- as the definitions are only applicable to propositional programs, those will be my focus for now. However such a tool would not 
+be very practical so ideally an approach should be chosen that can easily be extended.
 
 (maybe include a short history of what i tried but didnt work? -> meta programming with reify output)
 
 \section{General approach}
-\label{sec:Implementation/General approach}
+\label{sec:Computing coverage metrics for propositional programs/General approach}
 - the goal is to compute the coverage using ASP
 
 -> introduce labels for each coverage metric -> add them to the program in a specific way (based on the coverage metric)  -> solve 
@@ -203,7 +208,7 @@ in the testcase j.
 inputatoms (see definition input/output) -> these have to be specified in advance by the user!
 
 \subsection{Rule coverage}
-\label{subsec:Implementation/General approach/Rule coverage}
+\label{subsec:Computing coverage metrics for propositional programs/General approach/Rule coverage}
 - $\_ri$ label for every rule i
 
 - add new rule to program for each label: $\{\_ri\}$ is the head, the body is identical to the body of the rule i
@@ -217,7 +222,7 @@ inputatoms (see definition input/output) -> these have to be specified in advanc
 -> $\_ri$ not in answer set <=> rule i is negatively covered (proof for these?)
 
 \subsection{Definition coverage}
-\label{subsec:Implementation/General approach/Definition coverage}
+\label{subsec:Computing coverage metrics for propositional programs/General approach/Definition coverage}
 - $\_di$ label for every atom i
 
 - if atom i is definable (it appears in the head of a rule, aka $Def(a_i)\neq\emptyset$) add new rule to program: $\_di :- \_rj$. for every rule j that defines atom i 
@@ -232,7 +237,7 @@ inputatoms (see definition input/output) -> these have to be specified in advanc
 -> $\_di$ not in answer set <=> atom i is negatively covered (proof for these?)
 
 \subsection{Loop coverage}
-\label{subsec:Implementation/General approach/Loop coverage}
+\label{subsec:Computing coverage metrics for propositional programs/General approach/Loop coverage}
 - $\_li$ label for every loop i
 
 - first need to find all the loops in the program! -> build positive atom dependency graph, find sccs and then find subsets of sccs 
@@ -250,7 +255,7 @@ then loop i is covered and $\_li$ will be in the answer set.
 -> $\_li$ not in answer set <=> loop i is negatively covered
 
 \subsection{Component coverage}
-\label{subsec:Implementation/General approach/Component coverage}
+\label{subsec:Computing coverage metrics for propositional programs/General approach/Component coverage}
 - $\_si$ label for every strongly connected component i
 
 - find sccs same way as loops
@@ -268,7 +273,7 @@ then loop i is covered and $\_li$ will be in the answer set.
 -> $\_nsi$ in answer set <=> scc i is negatively covered
 
 \subsection{Program coverage}
-\label{subsec:Implementation/General approach/Program coverage}
+\label{subsec:Computing coverage metrics for propositional programs/General approach/Program coverage}
 - use the $\_ri$ labels from rule coverage, no new labels needed!
 
 - a subprogram $P' \subseteq P$ is covered if exactly all rules contained in $P'$ are covered and no other rules are covered
@@ -278,15 +283,25 @@ with the other coverage metrics -> has to be computed seperately from the other 
 
 - for $P = \{r_1,...,r_n\}$,  $\{\_rx,...,\_ry\}$ are the rule labels in an answer set <=> $P'=\{r_x,...,r_y\}$ is covered
 
-\section{Implementing coverage for further program classes}
-\label{sec:Implementation/Implementing coverage for further program classes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Coverage for further program classes}
+\label{ch:Coverage for further program classes}
 - the given definitions of the coverage metrics are only for propositional programs but this is not very practical as most programs 
 are more complex than that. They contain many complex language constructs supported by ASP/clingo
 
 -> to make this coverage check actually usable these metrics have to be extended to work for all these constructs
 
-- the label approach allows me to easily apply these coverage metrics to further program classes with very little adjustments!
+- in general, the label approach should allow me to easily apply these coverage metrics to further program classes with very little 
+adjustments!
 
+\section{Adjusted definitions}
+\label{sec:Coverage for further program classes/Adjusted definitions}
+- starting with basic definitions, which have to be changed? -> list here
+
+- then go through coverage metric definitions -> if they dont have to be changed, why?
+
+\section{Language construct}
+\label{sec:Coverage for further program classes/Language constructs}
 - go through all the additional constructs one by one, explain how they should work, why they do work like that or not?
 -> table
 
@@ -297,8 +312,17 @@ as there can be infinitely many -> give coverage as covered/total existing (!!! 
 -> thats all the difference!?!
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Outlook}
-\label{ch:Outlook}
+\chapter{Conclusion}
+\label{ch:Conclusion}
+(Zusammenfassung)
+- I managed to implement the coverage metrics defined by \textcite{Jan+10} in a way that makes it possible to compute the coverage 
+of an entire testsuite with the help of just 2 clingo solve calls
+
+- I also extended the coverage metrics to cover almost all existing language constructs in ASP/clingo, making them more "real world" 
+applicable
+
+
+(Outlook)
 - As mentioned in the previous section, theory atoms and constraint terms are currently not considered when calculating definition, loop 
 and component coverage -> should be an easy extension!
 
@@ -332,22 +356,17 @@ loop coverage and whether program coverage does actually give the best results g
 -> maybe figure out a guideline on which metrics to use when. The current setup where mixing any metrics is possible does not make much 
 sense (as for example definition coverage is fully contained in loop coverage)!
 
-- based on the idea of adding labels to the existing program in order to compute coverage with ASP it should be relatively easy to 
-realise any changes or even add potentially new coverage metrics  
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusion}
-\label{ch:Conclusion}
-- I managed to implement the coverage metrics defined by \textcite{Jan+10} in a way that makes it possible to compute the coverage 
-of an entire testsuite with the help of just 2 clingo solve calls
+(Fazit)
+- in this thesis I laid the ground work to one day implement coverage checks and maybe coverage-based testgeneration in a full unit 
+testing api for ASP programs
 
-- I also extended the coverage metrics to cover almost all existing language constructs in ASP/clingo, making them more "real world" 
-applicable
+- the simple nature of my approach should make it easy to extend to program with new or improved coverage metrics and implement it 
+into a larger testing framework
 
-- with this I laid the ground work to one day implement coverage checks and maybe coverage-based testgeneration in a full unit testing 
-api for ASP programs
+- this is working towards making Answer Set Programming more accessible and more efficient by providing tools to support the 
+developpement process
 
-- the simple nature of my approach should make it easy to extend to program with new or improved coverage metrics
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
