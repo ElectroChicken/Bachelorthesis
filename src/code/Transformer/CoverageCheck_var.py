@@ -1,8 +1,9 @@
-from clingo.ast import ProgramBuilder, parse_files, parse_string, ASTType
-from clingo.control import Control
-from clingo import ast
 import networkx as nx
-from dependencygraph_tools import build_dependency_graph, find_sccs, find_loops
+from clingo import ast
+from clingo.ast import ASTType, ProgramBuilder, parse_files, parse_string
+from clingo.control import Control
+from dependencygraph_tools import build_dependency_graph, find_loops, find_sccs
+
 
 class CoverageCheck():
     def __init__(self, args):
@@ -13,7 +14,8 @@ class CoverageCheck():
         self.posLCov = set()
         self.negLCov = set()
         self.posCCov = set()
-        self.negCCov = set()      
+        self.negCCov = set()
+        self.pCov = set()
         self.numRules = 0
         self.numDef = 0
         self.numTestcases = 0
@@ -122,140 +124,35 @@ class CoverageCheck():
                 parse_string(str, bld.add)
                 parse_files(self.args.files, lambda stm: bld.add(self.gather_info(stm)))
                 self.numRules = len(self.rules)
+                # print(str)
 
         
-    def gather_info(self, node):
+    def gather_info(self, node, prog=False):
         if node.ast_type == ASTType.Rule:
             self.rules.append(node)
-            ### Head ###
-            if node.head.ast_type == ASTType.Aggregate or node.head.ast_type == ASTType.Disjunction:
-                for elem in node.head.elements:
-                    if elem.literal.atom.ast_type == ASTType.SymbolicAtom:
-                        if elem.literal.atom.symbol.ast_type == ASTType.Pool:
-                            key = (elem.literal.atom.symbol.arguments[0].name, len(elem.literal.atom.symbol.arguments[0].arguments))
-                        else:
-                            key = (elem.literal.atom.symbol.name, len(elem.literal.atom.symbol.arguments))
-                        if key not in self.heads.keys():
-                            if elem.literal.sign == 0:
-                                self.heads[key] = [[self.numDef],[elem.literal.location],[len(self.rules)-1]]
-                                self.numDef += 1
+            if not prog:
+                ### Head ###
+                if node.head.ast_type == ASTType.Aggregate or node.head.ast_type == ASTType.Disjunction:
+                    for elem in node.head.elements:
+                        if elem.literal.atom.ast_type == ASTType.SymbolicAtom:
+                            if elem.literal.atom.symbol.ast_type == ASTType.Pool:
+                                key = (elem.literal.atom.symbol.arguments[0].name, len(elem.literal.atom.symbol.arguments[0].arguments))
                             else:
-                                self.heads[key] = [[self.numDef], [elem.literal.location],[]]
-                                self.numDef += 1
-                        else:
-                            if elem.literal.sign == 0:
-                                if not self.heads[key][2]:
-                                    self.heads[key][1] = []
-                                self.heads[key][1].append(elem.literal.location)
-                                self.heads[key][2].append(len(self.rules)-1)
-                    for lit in elem.condition:
-                        if lit.atom.ast_type == ASTType.SymbolicAtom:
-                            if lit.atom.symbol.ast_type == ASTType.Pool:
-                                key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
-                            else:
-                                key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
+                                key = (elem.literal.atom.symbol.name, len(elem.literal.atom.symbol.arguments))
                             if key not in self.heads.keys():
-                                self.heads[key] = [[self.numDef],[lit.location],[]]
-                                self.numDef += 1
-            elif node.head.ast_type == ASTType.Literal:
-                if node.head.atom.ast_type == ASTType.SymbolicAtom:
-                    if node.head.atom.symbol.ast_type == ASTType.Pool:
-                        key = (node.head.atom.symbol.arguments[0].name, len(node.head.atom.symbol.arguments[0].arguments))
-                    else:
-                        key = (node.head.atom.symbol.name, len(node.head.atom.symbol.arguments))
-                    if key not in self.heads.keys():
-                        if node.head.sign == 0:
-                            self.heads[key] = [[self.numDef],[node.head.location],[len(self.rules)-1]]
-                            self.numDef += 1
-                        else:
-                            self.heads[key] = [[self.numDef], [node.head.location],[]]
-                            self.numDef += 1
-                    else:
-                        if node.head.sign == 0:
-                            if not self.heads[key][2]:
-                                self.heads[key][1] = []
-                            self.heads[key][1].append(node.head.location)
-                            self.heads[key][2].append(len(self.rules)-1)
-            elif node.head.ast_type == ASTType.HeadAggregate:
-                for elem in node.head.elements:
-                    if elem.condition.literal.atom.ast_type == ASTType.SymbolicAtom:
-                        if elem.condition.literal.atom.symbol.ast_type == ASTType.Pool:
-                            key = (elem.condition.literal.atom.symbol.arguments[0].name, len(elem.condition.literal.atom.symbol.arguments[0].arguments))
-                        else:
-                            key = (elem.condition.literal.atom.symbol.name, len(elem.condition.literal.atom.symbol.arguments))
-                        if key not in self.heads.keys():
-                            if elem.condition.literal.sign == 0:
-                                self.heads[key] = [[self.numDef],[elem.condition.literal.location],[len(self.rules)-1]]
-                                self.numDef += 1
-                            else:
-                                self.heads[key] = [[self.numDef],[elem.condition.literal.location],[]]
-                                self.numDef += 1
-                        else:
-                            if elem.condition.literal.sign == 0:
-                                if not self.heads[key][2]:
-                                    self.heads[key][1] = []
-                                self.heads[key][1].append(elem.condition.literal.location)
-                                self.heads[key][2].append(len(self.rules)-1)
-                    for lit in elem.condition.condition:
-                        if lit.atom.ast_type == ASTType.SymbolicAtom:
-                            if lit.atom.symbol.ast_type == ASTType.Pool:
-                                key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
-                            else:
-                                key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
-                            if key not in self.heads.keys():
-                                self.heads[key] = [[self.numDef],[lit.location],[]]
-                                self.numDef += 1
-            ### Body ###
-            for atm in node.body:
-                if atm.ast_type == ASTType.Literal:
-                    if atm.atom.ast_type == ASTType.SymbolicAtom:
-                        if atm.atom.symbol.ast_type == ASTType.Pool:
-                            key = (atm.atom.symbol.arguments[0].name, len(atm.atom.symbol.arguments[0].arguments))
-                        else:
-                            key = (atm.atom.symbol.name, len(atm.atom.symbol.arguments))
-                        if key not in self.heads.keys():
-                            self.heads[key] = [[self.numDef],[atm.location],[]]
-                            self.numDef += 1
-                    elif atm.atom.ast_type == ASTType.Aggregate:
-                        for elem in atm.atom.elements:
-                            if elem.literal.atom.ast_type == ASTType.SymbolicAtom:
-                                if elem.literal.atom.symbol.ast_type == ASTType.Pool:
-                                    key = (elem.literal.atom.symbol.arguments[0].name, len(elem.literal.atom.symbol.arguments[0].arguments))
-                                else:
-                                    key = (elem.literal.atom.symbol.name, len(elem.literal.atom.symbol.arguments))
-                                if key not in self.heads.keys():
-                                    self.heads[key] = [[self.numDef],[elem.literal.location],[]]
+                                if elem.literal.sign == 0:
+                                    self.heads[key] = [[self.numDef],[elem.literal.location],[len(self.rules)-1]]
                                     self.numDef += 1
-                            for lit in elem.condition:
-                                if lit.atom.ast_type == ASTType.SymbolicAtom:
-                                    if lit.atom.symbol.ast_type == ASTType.Pool:
-                                        key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
-                                    else:
-                                        key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
-                                    if key not in self.heads.keys():
-                                        self.heads[key] = [[self.numDef],[lit.location],[]]
-                                        self.numDef += 1
-                    elif atm.atom.ast_type == ASTType.BodyAggregate:
-                        for elem in atm.atom.elements:
-                            for lit in elem.condition:
-                                if lit.atom.ast_type == ASTType.SymbolicAtom:
-                                    if lit.atom.symbol.ast_type == ASTType.Pool:
-                                        key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
-                                    else:
-                                        key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
-                                    if key not in self.heads.keys():
-                                        self.heads[key] = [[self.numDef],[lit.location],[]]
-                                        self.numDef += 1                               
-                elif atm.ast_type == ASTType.ConditionalLiteral:
-                        if atm.literal.atom.ast_type == ASTType.SymbolicAtom:
-                            if atm.literal.atom.symbol.ast_type == ASTType.Pool:
-                                key = (atm.literal.atom.symbol.arguments[0].name, len(atm.literal.atom.symbol.arguments[0].arguments))
+                                else:
+                                    self.heads[key] = [[self.numDef], [elem.literal.location],[]]
+                                    self.numDef += 1
                             else:
-                                key = (atm.literal.atom.symbol.name, len(atm.literal.atom.symbol.arguments))
-                            if key not in self.heads.keys():
-                                self.heads[key] = [[self.numDef],[atm.literal.location],[]]
-                                self.numDef += 1
-                        for lit in atm.condition:
+                                if elem.literal.sign == 0:
+                                    if not self.heads[key][2]:
+                                        self.heads[key][1] = []
+                                    self.heads[key][1].append(elem.literal.location)
+                                    self.heads[key][2].append(len(self.rules)-1)
+                        for lit in elem.condition:
                             if lit.atom.ast_type == ASTType.SymbolicAtom:
                                 if lit.atom.symbol.ast_type == ASTType.Pool:
                                     key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
@@ -264,18 +161,125 @@ class CoverageCheck():
                                 if key not in self.heads.keys():
                                     self.heads[key] = [[self.numDef],[lit.location],[]]
                                     self.numDef += 1
-                                    
-            if str(node.head) == "#false":
+                elif node.head.ast_type == ASTType.Literal:
+                    if node.head.atom.ast_type == ASTType.SymbolicAtom:
+                        if node.head.atom.symbol.ast_type == ASTType.Pool:
+                            key = (node.head.atom.symbol.arguments[0].name, len(node.head.atom.symbol.arguments[0].arguments))
+                        else:
+                            key = (node.head.atom.symbol.name, len(node.head.atom.symbol.arguments))
+                        if key not in self.heads.keys():
+                            if node.head.sign == 0:
+                                self.heads[key] = [[self.numDef],[node.head.location],[len(self.rules)-1]]
+                                self.numDef += 1
+                            else:
+                                self.heads[key] = [[self.numDef], [node.head.location],[]]
+                                self.numDef += 1
+                        else:
+                            if node.head.sign == 0:
+                                if not self.heads[key][2]:
+                                    self.heads[key][1] = []
+                                self.heads[key][1].append(node.head.location)
+                                self.heads[key][2].append(len(self.rules)-1)
+                elif node.head.ast_type == ASTType.HeadAggregate:
+                    for elem in node.head.elements:
+                        if elem.condition.literal.atom.ast_type == ASTType.SymbolicAtom:
+                            if elem.condition.literal.atom.symbol.ast_type == ASTType.Pool:
+                                key = (elem.condition.literal.atom.symbol.arguments[0].name, len(elem.condition.literal.atom.symbol.arguments[0].arguments))
+                            else:
+                                key = (elem.condition.literal.atom.symbol.name, len(elem.condition.literal.atom.symbol.arguments))
+                            if key not in self.heads.keys():
+                                if elem.condition.literal.sign == 0:
+                                    self.heads[key] = [[self.numDef],[elem.condition.literal.location],[len(self.rules)-1]]
+                                    self.numDef += 1
+                                else:
+                                    self.heads[key] = [[self.numDef],[elem.condition.literal.location],[]]
+                                    self.numDef += 1
+                            else:
+                                if elem.condition.literal.sign == 0:
+                                    if not self.heads[key][2]:
+                                        self.heads[key][1] = []
+                                    self.heads[key][1].append(elem.condition.literal.location)
+                                    self.heads[key][2].append(len(self.rules)-1)
+                        for lit in elem.condition.condition:
+                            if lit.atom.ast_type == ASTType.SymbolicAtom:
+                                if lit.atom.symbol.ast_type == ASTType.Pool:
+                                    key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
+                                else:
+                                    key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
+                                if key not in self.heads.keys():
+                                    self.heads[key] = [[self.numDef],[lit.location],[]]
+                                    self.numDef += 1
+                ### Body ###
+                for atm in node.body:
+                    if atm.ast_type == ASTType.Literal:
+                        if atm.atom.ast_type == ASTType.SymbolicAtom:
+                            if atm.atom.symbol.ast_type == ASTType.Pool:
+                                key = (atm.atom.symbol.arguments[0].name, len(atm.atom.symbol.arguments[0].arguments))
+                            else:
+                                key = (atm.atom.symbol.name, len(atm.atom.symbol.arguments))
+                            if key not in self.heads.keys():
+                                self.heads[key] = [[self.numDef],[atm.location],[]]
+                                self.numDef += 1
+                        elif atm.atom.ast_type == ASTType.Aggregate:
+                            for elem in atm.atom.elements:
+                                if elem.literal.atom.ast_type == ASTType.SymbolicAtom:
+                                    if elem.literal.atom.symbol.ast_type == ASTType.Pool:
+                                        key = (elem.literal.atom.symbol.arguments[0].name, len(elem.literal.atom.symbol.arguments[0].arguments))
+                                    else:
+                                        key = (elem.literal.atom.symbol.name, len(elem.literal.atom.symbol.arguments))
+                                    if key not in self.heads.keys():
+                                        self.heads[key] = [[self.numDef],[elem.literal.location],[]]
+                                        self.numDef += 1
+                                for lit in elem.condition:
+                                    if lit.atom.ast_type == ASTType.SymbolicAtom:
+                                        if lit.atom.symbol.ast_type == ASTType.Pool:
+                                            key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
+                                        else:
+                                            key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
+                                        if key not in self.heads.keys():
+                                            self.heads[key] = [[self.numDef],[lit.location],[]]
+                                            self.numDef += 1
+                        elif atm.atom.ast_type == ASTType.BodyAggregate:
+                            for elem in atm.atom.elements:
+                                for lit in elem.condition:
+                                    if lit.atom.ast_type == ASTType.SymbolicAtom:
+                                        if lit.atom.symbol.ast_type == ASTType.Pool:
+                                            key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
+                                        else:
+                                            key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
+                                        if key not in self.heads.keys():
+                                            self.heads[key] = [[self.numDef],[lit.location],[]]
+                                            self.numDef += 1                               
+                    elif atm.ast_type == ASTType.ConditionalLiteral:
+                            if atm.literal.atom.ast_type == ASTType.SymbolicAtom:
+                                if atm.literal.atom.symbol.ast_type == ASTType.Pool:
+                                    key = (atm.literal.atom.symbol.arguments[0].name, len(atm.literal.atom.symbol.arguments[0].arguments))
+                                else:
+                                    key = (atm.literal.atom.symbol.name, len(atm.literal.atom.symbol.arguments))
+                                if key not in self.heads.keys():
+                                    self.heads[key] = [[self.numDef],[atm.literal.location],[]]
+                                    self.numDef += 1
+                            for lit in atm.condition:
+                                if lit.atom.ast_type == ASTType.SymbolicAtom:
+                                    if lit.atom.symbol.ast_type == ASTType.Pool:
+                                        key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
+                                    else:
+                                        key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
+                                    if key not in self.heads.keys():
+                                        self.heads[key] = [[self.numDef],[lit.location],[]]
+                                        self.numDef += 1
+                                        
+                if str(node.head) == "#false":
+                    pos = ast.Position('<string>', 1, 1)
+                    loc = ast.Location(pos, pos)
+                    lit = ast.Literal(loc, ast.Sign.NoSign, ast.BooleanConstant(1))
+                    return node.update(head=lit)
+        elif node.ast_type == ASTType.ShowSignature or node.ast_type == ASTType.ShowTerm:
+            if not prog:
                 pos = ast.Position('<string>', 1, 1)
                 loc = ast.Location(pos, pos)
                 lit = ast.Literal(loc, ast.Sign.NoSign, ast.BooleanConstant(1))
-                return node.update(head=lit)
-
-        elif node.ast_type == ASTType.ShowSignature or node.ast_type == ASTType.ShowTerm:
-            pos = ast.Position('<string>', 1, 1)
-            loc = ast.Location(pos, pos)
-            lit = ast.Literal(loc, ast.Sign.NoSign, ast.BooleanConstant(1))
-            return ast.Rule(loc, lit, [])
+                return ast.Rule(loc, lit, [])
         return node
 
 
@@ -356,7 +360,10 @@ class CoverageCheck():
                 if self.args.loop:
                     self.check_loop_negative()
             else:
-                print("Please enter a correct Testcase (solve call unsatisfiable)")
+                print("Please enter a correct Program/Testcase (solve call unsatisfiable)")
+                return 0
+        if self.args.program:
+            if self.program_coverage() == 0:
                 return 0
 
         # for loop in self.loops:
@@ -415,6 +422,11 @@ class CoverageCheck():
                     self.print_pos_Ccoverage()
                 if negativeC != 100:
                     self.print_neg_Ccoverage()
+
+        if self.args.program:
+            max = 2 ** self.numRules
+            positiveP = (len(self.pCov)*100) / max if max else 100
+            print(f"\nProgram coverage: {positiveP:.3g}% ({len(self.pCov)} out of {max} subprograms)")                   
 
 
     def print_pos_Rcoverage(self):
@@ -521,6 +533,33 @@ class CoverageCheck():
                     for j in range(len(locs)):
                         print("line: {}, column: {}".format(locs[j].begin[1], locs[j].begin[2]))
 
+
+    def on_model_prog(self, model):
+        self.pCov.add(tuple([atm.name for atm in model.symbols(atoms=True) if atm.name.startswith("_r")]))
+        # print(self.pCov)
+
+
+    def program_coverage(self):
+        self.ctl = Control(["0"], message_limit=0)
+        self.ctl.configuration.solve.opt_mode = "ignore"
+        self.numTestcases = 0
+        for file in self.args.testcases:
+            parse_files([file], self.add_input)
+            self.numTestcases += 1
+        with ProgramBuilder(self.ctl) as bld:
+            if not self.rules:
+                parse_files(self.args.files, lambda stm: bld.add(self.gather_info(stm, prog=True)))
+                self.numRules = len(self.rules)
+            else:
+                parse_files(self.args.files, bld.add)
+            str = "{ " + " ".join([f"_i{num};" for num in range(self.numTestcases)])[:-1] + " } = 1."
+            parse_string(str, bld.add)
+        self.add_rules()
+        self.ctl.ground([("base", [])])
+        res = self.ctl.solve(on_model=self.on_model_prog)
+        if not res.satisfiable:
+            print("Solve call unsatisfiable during program coverage!")
+            return 0
 
     def full_check(self):
         self.setup()

@@ -1,4 +1,3 @@
-from more_itertools import powerset
 from clingo.ast import ProgramBuilder, parse_files, parse_string, ASTType
 from clingo.control import Control
 from clingo import ast
@@ -23,11 +22,11 @@ class CoverageCheck():
         self.maxPosCCov = set()
         self.negCCov = set()   
         self.maxNegCCov = set()     
+        self.pCov = set()
+        self.maxPCov = set()
         self.numRules = 0
         self.numDef = 0
         self.numTestcases = 0
-        self.pCov = set()
-        self.maxPCov = set()
         self.rules = []
         self.heads = dict()
         self.loops = set()
@@ -134,6 +133,7 @@ class CoverageCheck():
                 parse_string(str, bld.add)
                 parse_files(self.args.files, lambda stm: bld.add(self.gather_info(stm)))
                 self.numRules = len(self.rules)
+                # print(str)
 
     def prep_prog(self, node):
         if node.ast_type == ASTType.Rule:
@@ -438,10 +438,11 @@ class CoverageCheck():
                     self.check_loop_negative()
                 self.check_possible_coverage()
             else:
-                print("Please enter a correct Testcase (solve call unsatisfiable)")
+                print("Please enter a correct Program/Testcase (solve call unsatisfiable)")
                 return 0
         if self.args.program:
-            self.program_coverage()
+            if self.program_coverage() == 0:
+                return 0
 
         # for loop in self.loops:
         #     print([atm.atom.symbol.name for atm in loop])
@@ -503,10 +504,10 @@ class CoverageCheck():
                     self.print_neg_Ccoverage()
 
         if self.args.program:
-            positive = (len(self.pCov)*100) / len(self.maxPCov)
-            print(f"\nProgram coverage: {positive:.3g}% ({len(self.pCov)} out of {len(self.maxPCov)} coverable subprograms, {len(sorted(powerset(range(self.numRules))))} total subprograms)")
+            positiveP = (len(self.pCov)*100) / len(self.maxPCov) if self.maxPCov else 100
+            print(f"\nProgram coverage: {positiveP:.3g}% ({len(self.pCov)} out of {len(self.maxPCov)} coverable subprograms, {2 ** self.numRules} total subprograms)")
             if self.args.verbose:
-                if positive != 100:
+                if positiveP != 100:
                     self.print_Pcoverage()
 
 
@@ -662,7 +663,10 @@ class CoverageCheck():
             parse_files(self.args.files, bld.add)
         self.add_rules()
         self.ctl.ground([("base", [])])
-        self.ctl.solve(on_model=self.on_model_prog)
+        res = self.ctl.solve(on_model=self.on_model_prog)
+        if not res.satisfiable:
+            print("Please enter a correct Program/Testcase (solve call unsatisfiable)")
+            return 0
         # print(self.pCov)
 
     def full_check(self):

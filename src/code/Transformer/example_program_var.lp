@@ -18,8 +18,8 @@ test(X) :- b(X), { a(X,_) } = 2.                % in the body
 c :- #count{1 : y(X); 2 : z(X); 3 : b(X)} = 7.   
 s(S) :- S = #sum{X,d : d(X); X,y : y(X); X,z : z(X); X,e : e(X)}.
 s2(S) :- S = #sum+{-X,d : d(X); X,y : y(X); X,z : z(X); X,e : e(X)}.
-min(M) :- M = #min{X,d : d(X); X,y : y(X); X,e : e(X)}.
-max(M) :- M = #max{X,d : d(X); X,y : y(X); X,e : e(X)}.
+min(M) :- M = #min{X,d : d(X); X,y : y(X); X,z : z(X); X,e : e(X)}.
+max(M) :- M = #max{X,d : d(X); X,y : y(X); X,z : z(X); X,e : e(X)}.
 
 % Disjunctions
 e(X) ; e(-X) :- g(X).
@@ -40,7 +40,7 @@ j(X) :- max(M), X=1..M.
 
 % pools
 c(X;Y):- a(X,Y).    
-:- c(5;10).         
+% :- c(5;10).         
 
 % Conditional literals
 % k(X) : e(-X) :- b(X).           % in the head
@@ -91,10 +91,11 @@ task (1.. n ). duration ( T,200 * T ) :- task ( T ).
 % r(@rnd(X)) :- a(X).
 
 % % #show
-#show.
-#show sum/1.
-#show r/1.
-#show X : a(X), c(X).
+% #show.
+% #show sum/1.
+% #show r/1.
+% #show X : a(X), c(X).
+% #show c/1.
 
 % #external
 #external h(X) : a(X).
