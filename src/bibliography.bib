@@ -69,7 +69,7 @@
 @InProceedings{GOT17,
   author        = {Gre{\ss}ler, Alexander and Oetsch, Johannes and Tompits, Hans},
   editor        = {Balduccini, Marcello and Janhunen, Tomi},
-  title         = {{\$}{\$}{\backslash}mathsf {\{}Harvey{\}}{\$}{\$}: A System for Random Testing in ASP},
+  title         = {Harvey: A System for Random Testing in ASP},
   booktitle     = {Logic Programming and Nonmonotonic Reasoning},
   year          = {2017},
   publisher     = {Springer International Publishing},
@@ -143,6 +143,36 @@
   doi           = {10.1109/QRS.2015.30}
 } %%% Effectiveness of code coverage
 
+@article{BJ98,
+  author    = {Fevzi Belli and Oliver Jack},
+  title     = {Declarative Paradigm of Test Coverage},
+  journal   = {Softw. Test. Verification Reliab.},
+  volume    = {8},
+  number    = {1},
+  pages     = {15--47},
+  year      = {1998},
+  url       = {https://doi.org/10.1002/(SICI)1099-1689(199803)8:1\<15::AID-STVR146\>3.0.CO;2-D},
+  doi       = {10.1002/(SICI)1099-1689(199803)8:1\<15::AID-STVR146\>3.0.CO;2-D},
+  timestamp = {Wed, 01 Apr 2020 08:46:21 +0200},
+  biburl    = {https://dblp.org/rec/journals/stvr/BelliJ98.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+} %%% Code coverage in Prolog/declarative programming
+
+@InProceedings{LGL10,
+  author={Lazaar, Nadjib and Gotlieb, Arnaud and Lebbah, Yahia},
+  editor={Cohen, David},
+  title={On Testing Constraint Programs},
+  booktitle={Principles and Practice of Constraint Programming -- CP 2010},
+  year={2010},
+  publisher={Springer Berlin Heidelberg},
+  address={Berlin, Heidelberg},
+  pages={330--344},
+  abstract={The success of several constraint-based modeling languages such as OPL, ZINC, or COMET, appeals for better software engineering practices, particularly in the testing phase. This paper introduces a testing framework enabling automated test case generation for constraint programming. We propose a general framework of constraint program development which supposes that a first declarative and simple constraint model is available from the problem specifications analysis. Then, this model is refined using classical techniques such as constraint reformulation, surrogate and global constraint addition, or symmetry-breaking to form an improved constraint model that must be thoroughly tested before being used to address real-sized problems. We think that most of the faults are introduced in this refinement step and propose a process which takes the first declarative model as an oracle for detecting non-conformities. We derive practical test purposes from this process to generate automatically test data that exhibit non-conformities. We implemented this approach in a new tool called CPTEST that was used to automatically detect non-conformities on two classical benchmark programs, namely the Golomb rulers and the car-sequencing problem.},
+  isbn={978-3-642-15396-9},
+  doi={10.1007/978-3-642-15396-9_28}
+} %%% Testing constraint programs
+
+
 @article{TH02,
   author        = {Tikir, Mustafa M. and Hollingsworth, Jeffrey K.},
   title         = {Efficient Instrumentation for Code Coverage Testing},
@@ -155,13 +185,13 @@
   issn          = {0163-5948},
   url           = {https://doi.org/10.1145/566171.566186},
   doi           = {10.1145/566171.566186},
-  abstract      = {Evaluation of Code Coverage is the problem of identifying the parts of a program that did not execute in one or more runs of a program. The traditional approach for code coverage tools is to use static code instrumentation. In this paper we present a new approach to dynamically insert and remove instrumentation code to reduce the runtime overhead of code coverage. We also explore the use of dominator tree information to reduce the number of instrumentation points needed. Our experiments show that our approach reduces runtime overhead by 38-90% compared with purecov, a commercial code coverage tool. Our tool is fully automated and available for download from the Internet.},
+  abstract      = {Evaluation of Code Coverage is the problem of identifying the parts of a program that did not execute in one or more runs of a program. The traditional approach for code coverage tools is to use static code instrumentation. In this paper we present a new approach to dynamically insert and remove instrumentation code to reduce the runtime overhead of code coverage. We also explore the use of dominator tree information to reduce the number of instrumentation points needed. Our experiments show that our approach reduces runtime overhead by 38-90\% compared with purecov, a commercial code coverage tool. Our tool is fully automated and available for download from the Internet.},
   journal       = {SIGSOFT Softw. Eng. Notes},
   month         = {jul},
   pages         = {86-96},
   numpages      = {11},
   keywords      = {dynamic code patching, testing, code coverage, on-demand instrumentation, dominator tree, dynamic code deletion}
-  }
+}
   
 
 @article{WDC10,
@@ -193,21 +223,4 @@
   numpages      = {11},
   location      = {Rome, Italy},
   series        = {KR'12}
-}
-
-
-
-@article{DBLP:journals/stvr/BelliJ98,
-  author    = {Fevzi Belli and Oliver Jack},
-  title     = {Declarative Paradigm of Test Coverage},
-  journal   = {Softw. Test. Verification Reliab.},
-  volume    = {8},
-  number    = {1},
-  pages     = {15--47},
-  year      = {1998},
-  url       = {https://doi.org/10.1002/(SICI)1099-1689(199803)8:1\<15::AID-STVR146\>3.0.CO;2-D},
-  doi       = {10.1002/(SICI)1099-1689(199803)8:1\<15::AID-STVR146\>3.0.CO;2-D},
-  timestamp = {Wed, 01 Apr 2020 08:46:21 +0200},
-  biburl    = {https://dblp.org/rec/journals/stvr/BelliJ98.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
 }
