@@ -1,15 +1,22 @@
 \chapter{Introduction}
 \label{ch:Introduction}
-Answer Set Programming (ASP) is one of the most successful programming paradigms for declarative problem solving in particular 
-in the field of knowledge representation and reasoning. As such, it has found applications in many different fields both in 
-academic and industry work~\cite{EGL16}. However, even though it has been around for over 20 years~\cite{Nie99, MT98}, there 
-is still a significant lack of good workflow tools. Such tools can help make the development process more streamlined and allow 
-approaches that are very effective in more conventional programming languages such as test driven development (TDD,~\cite{Fra+03}).
-This also helps increase the reach and acceptance of ASP.
-Research into these topics exists and has yielded results, however many topics remain unexplored.
+Answer Set Programming (ASP) is one of the most successful programming paradigms for declarative problem solving in particular in the field of knowledge representation and reasoning. As such, it has found applications in many different fields both in academic and industry work~\cite{EGL16}.
+However, even though it has been around for over 20 years~\cite{Nie99, MT98}, there is still a significant lack of good workflow tools. Tools like a testing suite, debugging tool or a annotation language can help make the development process more streamlined and allow different approaches that have proven very effective in conventional programming languages such as test driven development (TDD,~\cite{Fra+03}). Research into these topics exists and has yielded results, however many topics remain unexplored.
 
-In this Thesis I want to focus on the topic of code coverage for ASP. 
+In this thesis I want to focus on one of these mostly unexplored topics which is code coverage for ASP. Code coverage is a concept that is widely used in conventional programming languages. It's efficacy has been evaluated many times and it has proven to be one of the most practical ways to test the adequacy of existing test suites or to generate new test suites with high fault detection~\cite{GJG14}.
+Unfortunately, the coverage concepts applied in conventional testing cannot be easily applied to answer set programs. Notions such as \emph{path coverage} or \emph{branch coverage} common in procedural programming languages rely on evaluating paths through the control flow graph of a program, but such a graph cannot be constructed for answer set programs since, due to their declarative nature, no explicit notion of execution exists.
 
+Testing and coverage has been discussed for declarative programming. In~\cite{BJ98} \citeauthor{BJ98} introduce coverage notions for logic programs based on the Prolog model of posing queries to a program and resolving them using SLD resolution. The concepts of unification and anti-instances are used to define the coverage metrics. This means that even though Prolog is a declarative language and in many ways similar to ASP, these notions are not compatible with ASP as it relies on rule instantiation instead of unification.
+Work has also been done on testing constraint programs, another paradigm used in logic programming, however it was concluded, that developing notions of test coverage would not be possible in this case~\cite{LGL10}.
+
+Finally, while general approaches to testing in ASP have been discussed multiple times~\cite[examples:][]{GOT17, ABR21, Oet22}, the only attempt at realising code coverage for answer set programs has been done in the paper \citetitle{Jan+10} by~\textcite{Jan+10}. 
+There, five coverage metrics are defined for propositional normal programs based on the existing concepts of path and branch coverage in conventional testing. With this work my contributions to this topic are twofold:
+\begin{enumerate}
+    \item I introduce a syntactic transformation of answer set programs which allows me to compute the coverage metrics defined by \citeauthor{Jan+10} using the integrated ASP system clingo.
+    \item I extend the given definitions so that they can also apply to more complex program classes.
+\end{enumerate}
+
+\begin{comment}
 - Answer Set Programming is of growing importance in both academic and industry work (source?) and clingo is a popular solver for this
 
 - Workflow Tools that make working with such programs easier and more comfortable barely exist. Research into these topics is only 
@@ -19,20 +26,29 @@ now getting more traction (source?)
 
 - The topic of code coverage and it's use for conventional programming languages has been shown (source?)
 
-- With this work I want to build on the previous work done on code coverage in answer set programming in this paper by \textcite{Jan+10}
+- With this work I want to build on the previous work done on code coverage in answer set programming in this paper by~\textcite{Jan+10}
 
-- To this end I developped a way to efficiently implement the coverage metrics defined in the paper.
+- To this end I developed a way to efficiently implement the coverage metrics defined in the paper.
 
 - My implementation allows me to compute coverage using answer set programming. It also extends the given metrics to function with
 almost all existing language construct instead of just for propositional programs.
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Preliminaries}
-\label{ch:Preliminaries}
-
+\chapter{Preliminaries on answer set programming}
+\label{ch:Preliminaries on answer set programming}
+This chapter will provide a short introduction to ASP and lay down the basic definitions that will be used in the rest of the thesis. As mentioned in \Cref{ch:Introduction}, the coverage metrics are restricted to propositional normal programs. Hence we will focus on defining these type of programs instead of the larger class of ASP programs.
 \section{Answer Set Programming}
-\label{sec:Preliminaries/Answer Set Programming}
+\label{sec:Preliminaries on answer set programming/Answer Set Programming}
+A normal logic program is a (finite) set of rules. These rules take the form
+\[
+    a \leftarrow b_1, \ldots , b_m, \text{not}\ c_1, \ldots , \text{not}\ c_n,
+\]
+where \(a, b_1, \ldots , b_m, c_1, \ldots ,c_n\) are propositional atoms with \(m,\ n \geq 0\) and "not" denotes \emph{negation-as-failure}. For such a rule, the \emph{head} of the rule $r$ is defined as \(H(r) = \{a\}\), the \emph{positive body} of $r$ \(B^+(r) = \{ b_1, \ldots , b_m\}\) and the \emph{negative body} of $r$ \(B^-(r) = \{c_1, \ldots ,c_n\}\). Finally, the \emph{body} of $r$ is the Union of the positive body and the default negation of each atom in the negative body \(B(r) = B^+(r) \cup \{\text{not}\ c\ |\ c \in B^-(r)\}\). A rule $r$ is called a \emph{fact} if \(B(r) = \emptyset\).
+
+
+\begin{comment}
 - Basic introduction to asp giving all the relevant definitions (with examples + sources (for all/some?)) 
     
     - rule, head, (positive/negative)body
@@ -57,7 +73,9 @@ almost all existing language construct instead of just for propositional program
 
 - maybe Specification -> the correct (expected) output for every input, what does it mean for a program to "pass/be compliant 
 with" a testcase, when is a program "correct" with respect to a specification (not actually needed for coverage as coverage 
-does not care about specification!)
+does not care about specification!)    
+\end{comment}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Coverage metrics}
