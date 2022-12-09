@@ -39,14 +39,16 @@
 \usepackage{amssymb}
 
 \usepackage{amsthm}
-
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
 %%% add line below chapter title
 \renewcommand*\chapterheadendvskip{\noindent\rule{\linewidth}{1pt}\par\vspace{\baselineskip}}
 
 %\usepackage{xcolor}
 %\definecolor{CTtitle}{cmyk}{1, 0.50, 0, 0}
 
-\newcommand{\myTitle}{Titel}
+\newcommand{\myTitle}{Computing coverage metrics for answer set programms}
 \newcommand{\mySubtitle}{Bachelorthesis}
 \newcommand{\myName}{Jakob Westphal}
 \newcommand{\myFirstSupervisor}{Prof. Dr. Torsten Schaub}
@@ -71,3 +73,5 @@
 \usepackage[noabbrev]{cleveref}                  % schönere Verlinkungen
 
 \usepackage{comment}                             % multiline comments
+
+\usepackage{tikz}                                % Graphen malen
