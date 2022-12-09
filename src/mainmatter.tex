@@ -3,17 +3,17 @@
 Answer Set Programming (ASP) is one of the most successful programming paradigms for declarative problem solving in particular in the field of knowledge representation and reasoning. As such, it has found applications in many different fields both in academic and industry work~\cite{EGL16}.
 However, even though it has been around for over 20 years~\cite{Nie99, MT98}, there is still a significant lack of good workflow tools. Tools like a testing suite, debugging tool or a annotation language can help make the development process more streamlined and allow different approaches that have proven very effective in conventional programming languages such as test driven development (TDD,~\cite{Fra+03}). Research into these topics exists and has yielded results, however many topics remain unexplored.
 
-In this thesis I want to focus on one of these mostly unexplored topics which is code coverage for ASP. Code coverage is a concept that is widely used in conventional programming languages. It's efficacy has been evaluated many times and it has proven to be one of the most practical ways to test the adequacy of existing test suites or to generate new test suites with high fault detection~\cite{GJG14}.
+This thesis will focus on one of these mostly unexplored topics which is code coverage for ASP. Code coverage is a concept that is widely used in conventional programming languages. It's efficacy has been evaluated many times and it has proven to be one of the most practical ways to test the adequacy of existing test suites or to generate new test suites with high fault detection~\cite{GJG14}.
 Unfortunately, the coverage concepts applied in conventional testing cannot be easily applied to answer set programs. Notions such as \emph{path coverage} or \emph{branch coverage} common in procedural programming languages rely on evaluating paths through the control flow graph of a program, but such a graph cannot be constructed for answer set programs since, due to their declarative nature, no explicit notion of execution exists.
 
 Testing and coverage has been discussed for declarative programming. In~\cite{BJ98} \citeauthor{BJ98} introduce coverage notions for logic programs based on the Prolog model of posing queries to a program and resolving them using SLD resolution. The concepts of unification and anti-instances are used to define the coverage metrics. This means that even though Prolog is a declarative language and in many ways similar to ASP, these notions are not compatible with ASP as it relies on rule instantiation instead of unification.
 Work has also been done on testing constraint programs, another paradigm used in logic programming, however it was concluded, that developing notions of test coverage would not be possible in this case~\cite{LGL10}.
 
 Finally, while general approaches to testing in ASP have been discussed multiple times~\cite[examples:][]{GOT17, ABR21, Oet22}, the only attempt at realising code coverage for answer set programs has been done in the paper \citetitle{Jan+10} by~\textcite{Jan+10}. 
-There, five coverage metrics are defined for propositional normal programs based on the existing concepts of path and branch coverage in conventional testing. With this work my contributions to this topic are twofold:
+There, five coverage metrics are defined for propositional normal programs based on the existing concepts of path and branch coverage in conventional testing. The contributions of this work to this topic are twofold:
 \begin{enumerate}
-    \item I introduce a syntactic transformation of answer set programs which allows me to compute the coverage metrics defined by \citeauthor{Jan+10} using the integrated ASP system clingo.
-    \item I extend the given definitions so that they can also apply to more complex program classes.
+    \item Introduction of a syntactic transformation of answer set programs which allows the computation of the coverage metrics defined by \citeauthor{Jan+10} using the integrated ASP system clingo.
+    \item Extension of the given definitions so that they can also apply to more complex program classes.
 \end{enumerate}
 
 \begin{comment}
@@ -39,37 +39,149 @@ almost all existing language construct instead of just for propositional program
 \chapter{Preliminaries on answer set programming}
 \label{ch:Preliminaries on answer set programming}
 This chapter will provide a short introduction to ASP and lay down the basic definitions that will be used in the rest of the thesis. As mentioned in \Cref{ch:Introduction}, the coverage metrics are restricted to propositional normal programs. Hence we will focus on defining these type of programs instead of the larger class of ASP programs.
-\section{Answer Set Programming}
-\label{sec:Preliminaries on answer set programming/Answer Set Programming}
+
+
+\section{Answer Set Programs}
+\label{sec:Preliminaries on answer set programming/Answer Set Programs}
+
 A normal logic program is a (finite) set of rules. These rules take the form
 \[
     a \leftarrow b_1, \ldots , b_m, \text{not}\ c_1, \ldots , \text{not}\ c_n,
 \]
-where \(a, b_1, \ldots , b_m, c_1, \ldots ,c_n\) are propositional atoms with \(m,\ n \geq 0\) and "not" denotes \emph{negation-as-failure}. For such a rule, the \emph{head} of the rule $r$ is defined as \(H(r) = \{a\}\), the \emph{positive body} of $r$ \(B^+(r) = \{ b_1, \ldots , b_m\}\) and the \emph{negative body} of $r$ \(B^-(r) = \{c_1, \ldots ,c_n\}\). Finally, the \emph{body} of $r$ is the Union of the positive body and the default negation of each atom in the negative body \(B(r) = B^+(r) \cup \{\text{not}\ c\ |\ c \in B^-(r)\}\). A rule $r$ is called a \emph{fact} if \(B(r) = \emptyset\).
+where \(a, b_1, \ldots , b_m, c_1, \ldots ,c_n\) are propositional atoms with \(m,\ n \geq 0\) and "not" denotes \emph{negation-as-failure}. For such a rule, the \emph{head} of the rule $r$ is defined as \(H(r) = \{a\}\), the \emph{positive body} of $r$ \(B^+(r) = \{ b_1, \ldots , b_m\}\) and the \emph{negative body} of $r$ \(B^-(r) = \nolinebreak \{c_1, \ldots ,c_n\}\). Finally, the \emph{body} of $r$ is the Union of the positive body and the default negation of each atom in the negative body \(B(r) = B^+(r) \cup \{\text{not}\ c\ |\ c \in B^-(r)\}\). A rule $r$ is called a \emph{fact} if \(B(r) = \emptyset\) and $r$ is called a \emph{constraint} if \(H(r) = \emptyset\).
+All atoms in a program come from the same fixed alphabet $A$.
+
+An \emph{interpretation} $I$ is a finite set of atoms from the alphabet $A$. This interpretation \emph{satisfies} the body of a rule $r$, written as \(I \models B(r)\), if and only if \(B^+(r) \subseteq I\ \text{and}\ B^-(r) \cap I = \emptyset\). Given this definition one can then say that $I$ satisfies a rule $r$ or \(I \models r\), iff \(I \cap H(r) \neq \emptyset \ \text{whenever}\ I \models B(r)\). For a program $P$, an interpretation is a \emph{model} of $P$, \(I \models P\), iff for every rule \(r \in P,\ I \models r\) holds.
+% examples? -> program a<-b. c<-not d., I={a,b,c} is a model of P
+\begin{definition}
+\label{def:reduct}
+    The \emph{reduct} of a program $P$ relative to an interpretation $I$ is the program \(P^I = \{ H(r) \leftarrow B^+(r) \ | \ r \in P \ \text{and} \ B^-(r) \cap I = \emptyset\}\) \cite{GL88}
+\end{definition}
+An interpretation $I$ is called an \emph{answer set} of $P$, iff it is a minimal model of the reduct \(P^I\), i.e. \(I \models P^I \) and there exists no subset \( I' \subset I \) for which \( I' \models P^{I}\) holds. The collection of all answer sets of a program $P$ is denoted \(\text{AS}(P)\).
+\begin{example}
+\label{ex:reduct}
+    Given the program $P$
+    \begin{align*}
+        a &\leftarrow \\
+        c &\leftarrow a, b \\
+        d &\leftarrow a,\ \text{not}\ b
+    \end{align*}
+    and the interpretation \(I = \{a, d\}\), the \emph{reduct} of $P$ relative to $I$ is \(P^I = \{a \leftarrow\ ; c \leftarrow a, b\ ; d \leftarrow a\}\). It can then be verified, that the set \(\{a,d\}\) is a minimal model of the reduct \(P^I\) as it satisfies every rule of the reduct. Therefore the interpretation $I$ is an \emph{answer set} of the program $P$. Indeed it is the only answer set of the program.
+\end{example}
+An atom $a$ is called a \emph{brave consequence} of the program $P$ if it is contained in at least one answer set of $P$, i.e. \(\exists X \in \text{AS}(P) \ \text{such that}\ a \in X\). The set of brave consequences of $P$ is \(\text{BC}(P) = \bigcup \text{AS}(P)\).
+Respectively, an atom $a$ is called a \emph{cautious consequence} of $P$ if it is contained in all the answers sets of $P$, i.e. \(\forall X \in \text{AS}(P) \ \text{it holds that}\ a \in X\). The set of cautious consequences of $P$ is therefore \(\text{CC}(P) = \bigcap \text{AS}(P)\).
+
+\begin{definition}
+\label{def:herbrand universe}
+    The \emph{herbrand universe} of a program $P$, \(\text{HU}_P\), is the set of all \emph{ground terms} that can be formed from all the constant symbols and function symbols in $P$.
+\end{definition}
+
+\begin{example}
+\label{ex:herbrand universe}
+    Let \(P = \{a \leftarrow\ ; b \leftarrow a\}\) then the set of constant symbols in $P$ is \(\{a,b\}\) and the set of function symbols is \(\emptyset\) as this is a propositional program. In this case \(\text{HU}_P = \{a,b\}\).
+\end{example}
+
+\begin{definition}
+\label{def:herbrand base}
+    The \emph{herbrand base} of a program $P$, \(\text{HB}_P\), is the set of all ground atomic formulas that can be formed from all the predicate symbols of $P$ and the terms in \(\text{HU}_P\).
+\end{definition}
+
+\begin{example}
+\label{ex:herbrand base}
+    For the program used in the previous example, there are no predicate symbols. Therefore \(\text{HB}_{P} = \text{HU}_{P} = \{a,b\}\). This is also true for any other propositional program. 
+\end{example}
+
+The \emph{definition} of an atom in a program $P$ is the set of defining rules for the atom \(a \in \text{HB}_P\), given by
+\(
+    \text{Def}_P(a) = \{r \in P \ | \ H(r) = \{a\}\}
+\)
+Furthermore, the set of \emph{supporting rules} of $P$ under an interpretation $I$ is defined as
+\(
+    \text{SuppR}(P, I) = \{r \in P \ | \ I \models B(r)\}
+\)
+\begin{example}
+\label{ex:def/supp}
+    Consider the program $P$
+    \begin{align*}
+        a &\leftarrow \\
+        b &\leftarrow a,\ \text{not}\ c \\
+        b &\leftarrow c,\ \text{not}\ a
+    \end{align*}
+    and the interpretation \(I = \{a, b\}\), then the set of defining rules of the atom b is \(\text{Def}_P(b) = \{b \leftarrow a,\ \text{not}\ c\ ; b \leftarrow c,\ \text{not}\ a\}\) and the set of supported rules under $I$ is \(\text{SuppR}(P, I) = \{a \leftarrow\ ; b \leftarrow a,\ \text{not}\ c\}\).
+\end{example}
+
+Finally we define the \emph{positive atom dependency graph} of a program $P$ as the directed graph \(G = (V, E)\) where the vertices are all the atoms occurring in the program \(V = \text{HB}_P\) and the edge \((a,b) \in E\) exists, iff there exists a rule \(r \in P\) such that \(a \in H(r) \ \text{and}\ b \in B^+(r)\) hold.
+For such a graph, a \emph{loop} is a non empty set $L$ of atoms for which the subgraph of $G$ induced by $L$ is strongly connected. This means that for every pair of atoms \(a,b \in L\) there is a path $\pi$ in $G$ from $a$ to $b$ such that each atom in $\pi$ is in $L$.
+A \emph{strongly connected component} (SCC) of a directed graph $G$ is a loop, i.e. it is strongly connected, that is maximal, meaning no additional vertices of $G$ can be added to the set without breaking its property of being strongly connected. Consequently any subset of a strongly connected component is also a loop.
+A loop that contains exactly one atom is called singleton loop.
+\begin{example}
+\label{ex:dependency graph}
+    Using the program given in \cref{ex:def/supp}, the positive atom dependency graph is defined as \(G = (V, E)\) with \(V = \{a, b, c\}\ \text{and}\ E = \{(b, a), (b, c)\}\). Therefore, the only loops this program contains are the singleton loops \(\{a\},\ \{b\},\ \text{and}\ \{c\}\). These are also all strongly connected components. 
+    However, if the rules \(a \leftarrow b.\ \text{and}\ c \leftarrow a.\) are added to the program, the dependency graph of $P$ will now be \(G = (V, E)\ \text{with}\ V = \{a,b,c\}\ \text{and}\ E = \{(b,a), (b,c), (a,b), (c,a)\}\) (see \cref{fig:dependency graph}. In this new graph the set of all loops is \(L = \{\{a\},\{b\},\{c\},\{a,b\},\{a,b,c\}\}\). The set of SCCs only contains one element: \(C = \{\{a,b,c\}\}\).
+\end{example}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[node distance={25mm}, thick, main/.style = {draw, circle}] 
+        \node[main] (1) at (0,1) {a}; 
+        \node[main] (2) at (2,1) {b}; 
+        \node[main] (3) at (1,0) {c};  
+        \draw[->] (1) edge [bend left=45] (2); 
+        \draw[->] (2) -- (1); 
+        \draw[->] (3) -- (1);
+        \draw[->] (2) -- (3);
+    \end{tikzpicture} 
+    \caption{dependency graph of program in \cref{ex:dependency graph}}
+    \label{fig:dependency graph}
+\end{figure}
 
 
 \begin{comment}
 - Basic introduction to asp giving all the relevant definitions (with examples + sources (for all/some?)) 
     
-    - rule, head, (positive/negative)body
+    - rule, head, (positive/negative)body \/
     
-    - interpretation that satisfies (positive/negative)body, rule, program
+    - interpretation that satisfies (positive/negative)body, rule, program \/
 
-    - Def(a), SuppR(P,I)
+    - Def(a), SuppR(P,I) \/
 
-    - answer sets, brave/cautious consequence
+    - answer sets, brave/cautious consequence \/
 
-    - positive atom dependency graph, loops, strongly connected components
+    - positive atom dependency graph, loops, strongly connected components  \/
 
 -> adjust these so they work for variables etc. or do this later? (is this needed?/ is it a big adjustment?)
+\end{comment}
 
 \section{Testing in Answer Set Programming}
-\label{sec:Preliminaries/Testing in Answer Set Programming}
-- What is input and output of a program?
+\label{sec:Preliminaries on answer set programming/Testing in Answer Set Programming}
+In order to talk about testing answer set programs, some additional notions need to be established. Conventional testing generally consists of using a specific input to a program and observing whether the output of the program matches the expected output~\cite[71\psqq]{AO16}.
 
-- what is a testcase and a testsuite
+In ASP it is common practice that a problem is split in two separate programs: a \emph{problem instance} that contains the specific description of one instance of the problem class, represented as a set of facts and a \emph{uniform problem encoding} that describes the general problem class and its solutions. Thus when inputting a problem instance into the problem encoding it will find the corresponding solution and output it in form of answer sets that are usually filtered to dedicated output atoms. It is therefore natural to equate the problem instance to the conventional input and the answer sets encoding the solution to the conventional output. Based on this, we can define the \emph{input alphabet} as well as the \emph{output alphabet} of a program as a subsets of the alphabet $A$: \(\mathbb{I}_P \subseteq A\ \text{and}\ \mathbb{O}_P \subseteq A\), where the input alphabet contains all the atoms that may occur in a problem instance and the output alphabet contains the atoms relevant for the output.
 
-- exhaustive test suite for P -> all possible testcases
+In conventional software testing, a test case for a program $P$ always consists of an input $I$ of $P$ as well as the expected output of $P$ given $I$~\cite{MB11}. That way it can be verified, that a program produces the correct output given the input $I$.
+
+A \emph{test suite} for $P$ is a collection of individual test cases and the \emph{exhaustive test suite} for $P$ is the suite \(\varepsilon_P\) that contains every possible test case for $P$, meaning that for every possible input \(I \subseteq \mathbb{I}_P\) there is a test case in the exhaustive test suite that consists of $I$ and the corresponding output, meaning there are a total of \(2^{|\mathbb{I}_P|}\) test cases in the exhaustive test suite and the inputs of $\varepsilon_P$ are the power set of the input alphabet \(inp(\varepsilon_P) = 2^{\mathbb{I}_P}\).
+
+\begin{example}
+\label{ex:test suite}
+    Consider the program $P$
+    \begin{align*}
+        d &\leftarrow a,\ \text{not}\ b \\
+        e &\leftarrow b, c \\
+        f &\leftarrow a, b,\ \text{not}\ c \\
+    \end{align*}
+    Assuming that \(\mathbb{I}_P = \{a, b, c\}\) and \(\mathbb{O}_P = \{d, e, f\}\) a possible test case could be the pair \((I, O)\) where \(I = \{a, b\}\) and \(O = \{f\}\).
+    The exhaustive test suite for this program would contain \(2^3 = 8\) different test cases: \(T_1 = (\emptyset, \emptyset)\), \(T_2 = (\{a\}, \{d\})\), \(T_3 
+ = (\{b\}, \emptyset)\), \(T_4 = (\{c\}, \emptyset)\), \(T_5 = (\{a, b\}, \{f\})\), \(T_6 = (\{a, c\}, \{d\})\), \(T_7 = (\{b, c\}, \{e\})\), \(T_8 = (\{a, b, c\}, \{e\})\)
+\end{example}
+
+\begin{comment}
+    
+% - What is input and output of a program? /
+
+- what is a testcase and a testsuite \/
+
+- exhaustive test suite for P -> all possible testcases \/
 
 - maybe Specification -> the correct (expected) output for every input, what does it mean for a program to "pass/be compliant 
 with" a testcase, when is a program "correct" with respect to a specification (not actually needed for coverage as coverage 
@@ -80,58 +192,81 @@ does not care about specification!)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Coverage metrics}
 \label{ch:Coverage metrics}
-- Analogous to concepts of coverage in other (conventional) programming languages (source) I introduce path-like and branch-like coverage
-metrics according to \textcite{Jan+10}
+
+
+\begin{comment}
+    - Analogous to concepts of coverage in other (conventional) programming languages (source) I introduce path-like and branch-like coverage metrics according to \textcite{Jan+10}
+\end{comment}
 
 \section{Coverage functions}
 \label{sec:Coverage metrics/Coverage functions}
-- general definition of coverage functions (maybe additional source? / compare to what paper did)
 
-- talk about the difference between all objects and coverable objects
 
-- trivial/clairvoyant coverage functions maybe not important to discuss?
+\begin{comment}
+    - general definition of coverage functions (maybe additional source? / compare to what paper did)
+    
+    - talk about the difference between all objects and coverable objects
+    
+    - trivial/clairvoyant coverage functions maybe not important to discuss    
+\end{comment}
 
 \section{Path-like coverage}
 \label{sec:Coverage metrics/Path-like coverage}
-- general introduction to path like coverage in conventional programming languages (source)
 
-    - use the controlflow graph and cover every possible path through this graph
 
-- generally the most "complete" coverage metric
-
--> these are generally very computationally expensive (exponentially many possible paths)
+\begin{comment}
+    - general introduction to path like coverage in conventional programming languages (source)
+    
+        - use the controlflow graph and cover every possible path through this graph
+    
+    - generally the most "complete" coverage metric
+    
+    -> these are generally very computationally expensive (exponentially many possible paths)
+\end{comment}
 
 \subsection{Program coverage}
 \label{subsec:Coverage metrics/Path-like coverage/Program coverage}
-- Analogous to the conventional path-like coverage I define program coverage
 
-- Definition + example
 
-- show that total program coverage means all possible answer sets get produced by the testsuite
-
-- talk about the problems here? (complexity + not possible for programs with variables as it is necessary to enumerate all 
-possible inputs to find maximum coverage)
+\begin{comment}
+    - Analogous to the conventional path-like coverage I define program coverage
+    
+    - Definition + example
+    
+    - show that total program coverage means all possible answer sets get produced by the testsuite
+    
+    - talk about the problems here? (complexity + not possible for programs with variables as it is necessary to enumerate all 
+    possible inputs to find maximum coverage)
+\end{comment}
 
 \section{Branch-like coverage}
 \label{sec:Coverage metrics/Branch-like coverage}
-- general introduction to branch-like coverage in conventional programming languages (source)
 
-    - use the controlflow graph and cover every possible branch through this graph
 
-- less complete but easier to compute, still very potent(?) (source)
-
-- there are different types of branch like coverage even in conventional programming languages (source), the same is true here
+\begin{comment}
+    - general introduction to branch-like coverage in conventional programming languages (source)
+    
+        - use the control flow graph and cover every possible branch through this graph
+    
+    - less complete but easier to compute, still very potent(?) (source)
+    
+    - there are different types of branch like coverage even in conventional programming languages (source), the same is true here
+\end{comment}
 
 \subsection{Rule coverage}
 \label{subsec:Coverage metrics/Branch-like coverage/Rule coverage}
-- Definition + example
 
-- similar to program coverage in some ways but less complex!
 
-- some rules may sometimes (or always) not be coverable -> examples -> ties back to beginning of the chapter / thats why coverage 
-is defined on coverable objects
-
-(- total program coverage implies total rule coverage -> not so relevant but maybe interesting to mention?)
+\begin{comment}
+    - Definition + example
+    
+    - similar to program coverage in some ways but less complex!
+    
+    - some rules may sometimes (or always) not be coverable -> examples -> ties back to beginning of the chapter / thats why coverage 
+    is defined on coverable objects
+    
+    (- total program coverage implies total rule coverage -> not so relevant but maybe interesting to mention?)
+\end{comment}
 
 \subsubsection{Constraint coverage}
 \label{subsubsec:Coverage metrics/Branch-like coverage/Rule coverage/Constraint coverage}
