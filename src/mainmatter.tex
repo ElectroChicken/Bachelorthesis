@@ -66,10 +66,10 @@ An interpretation $I$ is called an \emph{answer set} of $P$, iff it is a minimal
         c &\leftarrow a, b \\
         d &\leftarrow a,\ \text{not}\ b
     \end{align*}
-    and the interpretation \(I = \{a, d\}\), the \emph{reduct} of $P$ relative to $I$ is \(P^I = \{a \leftarrow\ ; c \leftarrow a, b\ ; d \leftarrow a\}\). It can then be verified, that the set \(\{a,d\}\) is a minimal model of the reduct \(P^I\) as it satisfies every rule of the reduct. Therefore the interpretation $I$ is an \emph{answer set} of the program $P$. Indeed it is the only answer set of the program.
+    and the interpretation \(I = \{a, d\}\), the \emph{reduct} of $P$ relative to $I$ is \(P^I = \{a \leftarrow\ ;\ c \leftarrow a, b\ ;\ d \leftarrow a\}\). It can then be verified, that the set \(\{a,d\}\) is a minimal model of the reduct \(P^I\) as it satisfies every rule of the reduct and no subset of it is a model. Therefore the interpretation $I$ is an \emph{answer set} of the program $P$. Indeed it is the only answer set of the program.
 \end{example}
 An atom $a$ is called a \emph{brave consequence} of the program $P$ if it is contained in at least one answer set of $P$, i.e. \(\exists X \in \text{AS}(P) \ \text{such that}\ a \in X\). The set of brave consequences of $P$ is \(\text{BC}(P) = \bigcup \text{AS}(P)\).
-Respectively, an atom $a$ is called a \emph{cautious consequence} of $P$ if it is contained in all the answers sets of $P$, i.e. \(\forall X \in \text{AS}(P) \ \text{it holds that}\ a \in X\). The set of cautious consequences of $P$ is therefore \(\text{CC}(P) = \bigcap \text{AS}(P)\).
+Respectively, an atom $a$ is called a \emph{cautious consequence} of $P$ if it is contained in all the answers sets of $P$, i.e. \(\forall X \in \text{AS}(P) \ \text{it holds that}\ a \in X\). The set of cautious consequences of $P$ is therefore \(\text{CC}(P) = \bigcap \text{AS}(P)\)~\cite{FGR22}.
 
 \begin{definition}
 \label{def:herbrand universe}
@@ -78,7 +78,7 @@ Respectively, an atom $a$ is called a \emph{cautious consequence} of $P$ if it i
 
 \begin{example}
 \label{ex:herbrand universe}
-    Let \(P = \{a \leftarrow\ ; b \leftarrow a\}\) then the set of constant symbols in $P$ is \(\{a,b\}\) and the set of function symbols is \(\emptyset\) as this is a propositional program. In this case \(\text{HU}_P = \{a,b\}\).
+    Let \(P = \{a \leftarrow\ ;\ b \leftarrow a\}\) then the set of constant symbols in $P$ is \(\{a,b\}\) and the set of function symbols is \(\emptyset\) as this is a propositional program. In this case \(\text{HU}_P = \{a,b\}\).
 \end{example}
 
 \begin{definition}
@@ -107,7 +107,7 @@ Furthermore, the set of \emph{supporting rules} of $P$ under an interpretation $
         b &\leftarrow a,\ \text{not}\ c \\
         b &\leftarrow c,\ \text{not}\ a
     \end{align*}
-    and the interpretation \(I = \{a, b\}\), then the set of defining rules of the atom b is \(\text{Def}_P(b) = \{b \leftarrow a,\ \text{not}\ c\ ; b \leftarrow c,\ \text{not}\ a\}\) and the set of supported rules under $I$ is \(\text{SuppR}(P, I) = \{a \leftarrow\ ; b \leftarrow a,\ \text{not}\ c\}\).
+    and the interpretation \(I = \{a, b\}\), then the set of defining rules of the atom b is \(\text{Def}_P(b) = \{b \leftarrow a,\ \text{not}\ c\ ;\ b \leftarrow c,\ \text{not}\ a\}\) and the set of supported rules under $I$ is \(\text{SuppR}(P, I) = \{a \leftarrow\ ;\ b \leftarrow a,\ \text{not}\ c\}\).
 \end{example}
 
 Finally we define the \emph{positive atom dependency graph} of a program $P$ as the directed graph \(G = (V, E)\) where the vertices are all the atoms occurring in the program \(V = \text{HB}_P\) and the edge \((a,b) \in E\) exists, iff there exists a rule \(r \in P\) such that \(a \in H(r) \ \text{and}\ b \in B^+(r)\) hold.
@@ -117,10 +117,10 @@ A loop that contains exactly one atom is called singleton loop.
 \begin{example}
 \label{ex:dependency graph}
     Using the program given in \cref{ex:def/supp}, the positive atom dependency graph is defined as \(G = (V, E)\) with \(V = \{a, b, c\}\ \text{and}\ E = \{(b, a), (b, c)\}\). Therefore, the only loops this program contains are the singleton loops \(\{a\},\ \{b\},\ \text{and}\ \{c\}\). These are also all strongly connected components. 
-    However, if the rules \(a \leftarrow b.\ \text{and}\ c \leftarrow a.\) are added to the program, the dependency graph of $P$ will now be \(G = (V, E)\ \text{with}\ V = \{a,b,c\}\ \text{and}\ E = \{(b,a), (b,c), (a,b), (c,a)\}\) (see \cref{fig:dependency graph}. In this new graph the set of all loops is \(L = \{\{a\},\{b\},\{c\},\{a,b\},\{a,b,c\}\}\). The set of SCCs only contains one element: \(C = \{\{a,b,c\}\}\).
+    However, if the rules "\(a \leftarrow b.\)" and "\(c \leftarrow a.\)" are added to the program, the dependency graph of $P$ will now be \(G = (V, E)\ \text{with}\ V = \{a,b,c\}\ \text{and}\ E = \{(b,a), (b,c), (a,b), (c,a)\}\) (see \cref{fig:dependency graph}. In this new graph the set of all loops is \(L = \{\{a\},\{b\},\{c\},\{a,b\},\{a,b,c\}\}\). The set of SCCs only contains one element: \(C = \{\{a,b,c\}\}\).
 \end{example}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \begin{tikzpicture}[node distance={25mm}, thick, main/.style = {draw, circle}] 
         \node[main] (1) at (0,1) {a}; 
@@ -139,15 +139,7 @@ A loop that contains exactly one atom is called singleton loop.
 \begin{comment}
 - Basic introduction to asp giving all the relevant definitions (with examples + sources (for all/some?)) 
     
-    - rule, head, (positive/negative)body \/
-    
-    - interpretation that satisfies (positive/negative)body, rule, program \/
-
-    - Def(a), SuppR(P,I) \/
-
-    - answer sets, brave/cautious consequence \/
-
-    - positive atom dependency graph, loops, strongly connected components  \/
+    -  is  Herbrand Universe/Base needed? -> not really but should it be taken out?
 
 -> adjust these so they work for variables etc. or do this later? (is this needed?/ is it a big adjustment?)
 \end{comment}
@@ -158,9 +150,9 @@ In order to talk about testing answer set programs, some additional notions need
 
 In ASP it is common practice that a problem is split in two separate programs: a \emph{problem instance} that contains the specific description of one instance of the problem class, represented as a set of facts and a \emph{uniform problem encoding} that describes the general problem class and its solutions. Thus when inputting a problem instance into the problem encoding it will find the corresponding solution and output it in form of answer sets that are usually filtered to dedicated output atoms. It is therefore natural to equate the problem instance to the conventional input and the answer sets encoding the solution to the conventional output. Based on this, we can define the \emph{input alphabet} as well as the \emph{output alphabet} of a program as a subsets of the alphabet $A$: \(\mathbb{I}_P \subseteq A\ \text{and}\ \mathbb{O}_P \subseteq A\), where the input alphabet contains all the atoms that may occur in a problem instance and the output alphabet contains the atoms relevant for the output.
 
-In conventional software testing, a test case for a program $P$ always consists of an input $I$ of $P$ as well as the expected output of $P$ given $I$~\cite{MB11}. That way it can be verified, that a program produces the correct output given the input $I$.
+In conventional software testing, a test case for a program $P$ always consists of an input $I$ of $P$ as well as the expected output of $P$ given $I$~\cite{MB12}. That way it can be verified, that a program produces the correct output given the input $I$.
 
-A \emph{test suite} for $P$ is a collection of individual test cases and the \emph{exhaustive test suite} for $P$ is the suite \(\varepsilon_P\) that contains every possible test case for $P$, meaning that for every possible input \(I \subseteq \mathbb{I}_P\) there is a test case in the exhaustive test suite that consists of $I$ and the corresponding output, meaning there are a total of \(2^{|\mathbb{I}_P|}\) test cases in the exhaustive test suite and the inputs of $\varepsilon_P$ are the power set of the input alphabet \(inp(\varepsilon_P) = 2^{\mathbb{I}_P}\).
+A \emph{test suite} for $P$ is a collection of individual test cases and the \emph{exhaustive test suite} for $P$ is the suite \(\varepsilon_P\) that contains every possible test case for $P$, meaning that for every possible input \(I \subseteq \mathbb{I}_P\) there is a test case in the exhaustive test suite that consists of $I$ and the corresponding output. There are a total of \(2^{|\mathbb{I}_P|}\) test cases in the exhaustive test suite and the inputs of $\varepsilon_P$ are the power set of the input alphabet \(inp(\varepsilon_P) = 2^{\mathbb{I}_P}\).
 
 \begin{example}
 \label{ex:test suite}
@@ -176,13 +168,6 @@ A \emph{test suite} for $P$ is a collection of individual test cases and the \em
 \end{example}
 
 \begin{comment}
-    
-% - What is input and output of a program? /
-
-- what is a testcase and a testsuite \/
-
-- exhaustive test suite for P -> all possible testcases \/
-
 - maybe Specification -> the correct (expected) output for every input, what does it mean for a program to "pass/be compliant 
 with" a testcase, when is a program "correct" with respect to a specification (not actually needed for coverage as coverage 
 does not care about specification!)    
@@ -192,46 +177,76 @@ does not care about specification!)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Coverage metrics}
 \label{ch:Coverage metrics}
+Coverage metrics in conventional software testing are a method of \emph{structural testing}, also known as \emph{white box testing}. The Idea behind white box testing is to examine a programs logic and derive test cases based this information. Therefore, this approach requires explicit knowledge of the internal structure of the program. The more parts of a programs logic (source code) are executed during a test, the more likely it is, that a bug is found. This is where coverage metrics come into play as they measure how much of a program is \emph{covered} - i.e. executed - by a test case.
 
+There are several ways to measure this and thus, many different coverage metrics exist. Most of them take the control flow graph of a program as the basis of analysis. The most complete coverage metric is called \emph{path coverage} and measures how many of the possible paths through the control flow graph of the program are explored by a test case. The problem with this is, that the number of paths is exponential in the number of branching statements in the program and therefore this coverage metric is very expensive. A less expensive alternative in conventional testing that approximates path coverage is called \emph{branch coverage}. This entails executing each branch direction at least once, i.e. covering each edge in the control flow graph at least once~\cite[41\psqq]{MB12}.
 
-\begin{comment}
-    - Analogous to concepts of coverage in other (conventional) programming languages (source) I introduce path-like and branch-like coverage metrics according to \textcite{Jan+10}
-\end{comment}
+While no real equivalent to the control flow graph exists in answer set programming, the coverage metrics that we define can be seen as the counterparts to path and branch coverage in conventional testing.
+
+It is worth noting that due to its focus on the structure of a program, it is impossible to find errors relating to the specification of the program when using white-box testing - be it a faulty specification or the program not adhering to the specification.
+
 
 \section{Coverage functions}
 \label{sec:Coverage metrics/Coverage functions}
+Simply speaking, the coverage of a test case is defined as the number of elements covered by the input of the test case relative to the total number of (coverable) elements. This general definition allows us to define a function schema, that can be used as the basis for different coverage metrics for different coverable elements (like programs, rules, loops etc.). 
 
+For a class $X$ of elements the function \(\text{covered}_X(I, P)\) describes the amount of elements of $X$ that are covered by some input $I$ for the program $P$. It follows that \(\text{covered}_X(2^{\mathbb{I}_P}, P)\) describes the maximum amount of elements of $X$ in $P$ that can be covered by inputs from the input alphabet \(\mathbb{I}\). It is important to note that this number is often different from the total number of elements of $X$ that exist in $P$. Based on this function we introduce the \emph{basic coverage function schema} analogous to  \textcite{Jan+10} as follows:
+\begin{equation}
+\label{eq:coverage function schema}
+    C_X(I, P) = 
+    \begin{cases}
+        \frac{\text{covered}_X(I, P)}{\text{covered}_X(2^{\mathbb{I}_P}, P)}, & \text{if covered}_X(2^{\mathbb{I}_P}, P) > 0 \\
+        1, & \text{otherwise.}
+    \end{cases}
+\end{equation}
+
+This function is standardized between 0 and 1 with worse coverage leading to a lower score. We say a collection of inputs \(I \subseteq 2^{\mathbb{I}_P}\) for program $P$ yields \emph{total coverage} with respect to a class $X$ of elements exactly if the coverage function $C_X(I, P) = 1$.
+
+In the following we will use this schema to define a total of 5 different coverage metrics. For some of these we introduce the notions positive and negative $X$ coverage. Total $X$ coverage holds if and only if both total positive and total negative $X$ coverage hold.
 
 \begin{comment}
-    - general definition of coverage functions (maybe additional source? / compare to what paper did)
-    
-    - talk about the difference between all objects and coverable objects
-    
-    - trivial/clairvoyant coverage functions maybe not important to discuss    
+    - general definition of coverage functions (maybe additional source? / compare to what paper did)   \/
+
+    - (trivial/clairvoyant coverage functions)
 \end{comment}
 
 \section{Path-like coverage}
 \label{sec:Coverage metrics/Path-like coverage}
+As described above, path coverage in conventional testing is about covering every possible path through the control flow graph of the program. It is the most complete coverage metric in conventional testing, meaning that it includes any other coverage metric~\cite{Nta88}. It would therefore be the most ideal coverage metric if one were to disregard the cost of computing this metric. In practice, path coverage is almost never used. If the program contains loops that can be executed arbitrarily often, the number of possible paths becomes infinite and finding total path coverage goes from being very computationally expensive to actually impossible. 
 
+We define here the metric \emph{program coverage} following \textcite{Jan+10}, that is analogous to conventional path coverage in that it is the most complete coverage metric for answer set programs and it is also very expensive - often unreasonably so. However a clear difference to conventional path coverage is that the maximum coverable elements can only become infinite if the program itself is infinite, as it is dependent on the number of rules in the program.
 
-\begin{comment}
-    - general introduction to path like coverage in conventional programming languages (source)
-    
-        - use the controlflow graph and cover every possible path through this graph
-    
-    - generally the most "complete" coverage metric
-    
-    -> these are generally very computationally expensive (exponentially many possible paths)
-\end{comment}
 
 \subsection{Program coverage}
 \label{subsec:Coverage metrics/Path-like coverage/Program coverage}
+The idea behind program coverage is to partition the program $P$ into \emph{subprograms} \(P' \subseteq P\) and measuring how many of the possible subprograms are covered by a test case.
+
+\begin{definition}
+\label{def:program coverage}
+    Let $P$ be a program, \(P' \subseteq P\) a subprogram of $P$ and $I$ an input of $P$. We say $I$ \emph{covers} $P'$ iff $P'$ is identical to the set of supported rules of $P$ under some answer set of program $P$ with input $I$, i.e. 
+    \[
+        I\ \text{covers}\ P' \Longleftrightarrow \exists X \in \text{AS}(P \cup I)\ \text{such that}\ P' = \text{SuppR}(P, X)
+    \]
+\end{definition}
+
+We can thus define \(\text{covered}_P(I, P)\) for a collection of inputs $I$ for program $P$ as the amount of subprograms of $P$ that are covered by the inputs in $I$ and consequently instantiate the basic coverage function schema defined in \cref{sec:Coverage metrics/Coverage functions} to define \(C_P(I, P)\) the \emph{program coverage of I for P}.
+
+\begin{example}
+\label{ex:program coverage}
+    Consider the program given in \cref{ex:test suite}. The input \(I = \{a, b\}\) has only one answer set: \(\text{AS}(P \cup I) = \{\{a, b, f\}\}\). The supported rules of this answer set are: \(\text{SuppR}(P, X) = \{f \leftarrow a, b,\ \text{not}\ c\}\) so the given input only covers a single subprogram of $P$. The total amount of subprograms that exist is \(2^{|P|} = 2^3 = 8\), however to calculate the program coverage of $I$ for $P$ we need to first calculate the number of coverable subprograms: \(\text{covered}_P(2^{\mathbb{I}_P},P) = \text{covered}_P(\{\emptyset, \{a\}, \{b\}, \{c\}, \{a, b\}, \{b, c\}, \{a, c\}, \\ \{a, b, c\}\},P) = |\ \{\emptyset, \{d \leftarrow a,\ \text{not}\ b\}, \{f \leftarrow a, b,\ \text{not}\ c\}, \{e \leftarrow b, c\}\}\ | = 4\). One can see that only half of the existing subprograms are actually coverable and thus \(C_P(I, P) = 0.25\).
+\end{example}
+
+This notion of program coverage can be very expensive to calculate as, similar to paths in a graph, the number of subprograms is exponential in the number of rules in a program. However, it is also a very powerful metric that subsumes all other coverage metrics that we will define for answer set programs. This is clear due to the fact that total program coverage of a test suite $S$ for a program $P$ implies, that every obtainable answer set of $P$ can be obtained by using only the inputs in $S$, i.e. 
+\(
+    \text{For inp}(S) \subseteq \mathbb{I}_P,\ C_P(\text{inp}(S),P) = 1 \Longleftrightarrow \forall I \in \mathbb{I}_P, \forall X \in \text{AS}(P \cup I), \exists T \in S \ \text{such that} \\ \exists Y \in \text{AS}(P \cup \text{inp}(T))\ \text{for which}\ X / \mathbb{I}_P = Y / \mathbb{I}_P
+\).
+This is shown by \textcite[in theorem 2]{Jan+10}. BUT IT IS WRONG???
 
 
 \begin{comment}
-    - Analogous to the conventional path-like coverage I define program coverage
+    - Analogous to the conventional path-like coverage I define program coverage    \/
     
-    - Definition + example
+    - Definition + example      \/
     
     - show that total program coverage means all possible answer sets get produced by the testsuite
     
@@ -241,97 +256,220 @@ does not care about specification!)
 
 \section{Branch-like coverage}
 \label{sec:Coverage metrics/Branch-like coverage}
+Since in conventional testing, path coverage is often not realistically achievable, many more metrics have been developed that intend to approximate path coverage while keeping the cost much lower. They generally consist of defining some subset of all paths that needs to be covered. Depending on the size of this subset the metric can be more or less powerful and more or less expensive. One of the most widely used metrics that approximate path coverage is branch coverage, also known as edge coverage. It consists of covering each direction after a branching statement at least once. This is equivalent to requiring each edge of the control flow graph to be covered at least once~\cite[Chapter 7.2]{AO16}.
 
+In the following, we use the definitions given by \textcite{Jan+10} to introduce four different coverage metrics that, like branch coverage in conventional testing, try to approximate the path-like metric of program coverage while being simpler to compute.
 
 \begin{comment}
-    - general introduction to branch-like coverage in conventional programming languages (source)
+    - general introduction to branch-like coverage in conventional programming languages (source)     \/
     
-        - use the control flow graph and cover every possible branch through this graph
+        - use the control flow graph and cover every possible branch through this graph   \/
     
-    - less complete but easier to compute, still very potent(?) (source)
+    - less complete but easier to compute, still very potent(?) (source)    (\/)
     
-    - there are different types of branch like coverage even in conventional programming languages (source), the same is true here
+    - there are different types of branch like coverage even in conventional programming languages (source), the same is true here      \/
+
+    - maybe example for both branch and path coverage?? -> requires conventional program as example -> maybe not
 \end{comment}
 
 \subsection{Rule coverage}
 \label{subsec:Coverage metrics/Branch-like coverage/Rule coverage}
+We start by introducing the simplest one of the branch-like metrics called \emph{rule coverage}. Here, the focus is on the rules of a program, which means the coverage of a test case $T$ is decided by checking whether each individual rule in the program $P$ is supporting or not for each answer set \(X \in \text{AS}(P \cup \text{inp}(T))\).
 
+\begin{definition}
+\label{def:rule coverage}
+    Let $P$ be a program and $I$ an input for $P$. A rule \(r \in P\) is \emph{positively covered} by $I$ iff some answer set $X$ satisfies the body of $r$, i.e. 
+    \[
+        I\ \text{positively covers}\ r \in P \Longleftrightarrow \exists X \in \text{AS}(P \cup I)\ \text{such that}\ X \models B(r)
+    \]
+    This is equivalent to saying $I$ covers $r$ iff \(r \in \text{SuppR}(P, X)\) for some answer set $X$. On the other hand, a rule $r$ is \emph{negatively covered} iff some answer set $X$ does not satisfy the body of $r$, i.e.  
+    \[
+        I\ \text{negatively covers}\ r \in P \Longleftrightarrow \exists X \in \text{AS}(P \cup I)\ \text{such that}\ X \not\models B(r)
+    \]
+\end{definition}
+
+For a collection of inputs $I$ for a program $P$ we define \(\text{covered}_{R^+}(I, P)\) and \(\text{covered}_{R^-}\\(I, P)\) as the number of rules that are positively (respectively negatively) covered by an input in $I$, and again, the basic coverage function schema~(\ref{eq:coverage function schema}) is used to define \(C_{R^+}(I, P)\ \text{and}\ C_{R^-}(I, P)\) as the \emph{positive and negative rule coverage} of $I$ for $P$. We call \(C_R(I, P)\) the \emph{rule coverage} of $I$ for $P$ based on the function \(\text{covered}_{R}(I, P) = \text{covered}_{R^+}(I, P) + \text{covered}_{R^+}(I, P)\).
+
+\begin{example}
+\label{ex:rule coverage}
+    We again look at the program from \cref{ex:test suite} with two different inputs \(I_1 = \{a, b\}\) and \(I_2 = \{b, c\}\). The corresponding answer sets are \(\text{AS}(P \cup I_1) = \{\{a, b, f\}\} = \{X_1\}\) and \(\text{AS}(P \cup I_2) = \{\{b, c, e\}\} = \{X_2\}\). Therefore the first input covers the third rule of the program positively, as \(X_1 \models B(r_3)\) holds, and the two other rules negatively, while the second input covers the second rule positively (\(X_2 \models B(r_2)\)) and the first and third rule negatively. Considering all 3 rules can be both positively and negatively covered, a test suite $S$ containing these two inputs would yield a positive rule coverage of \(C_{R^+}(S, P) = 2/3\), a negative rule coverage of \(C_{R^-}(S, P) = 1\) and a rule coverage of \(C_R(S, P) = 5/6\).
+\end{example}
+
+Analogous to how some subprograms may not be coverable by any input (see \cref{ex:program coverage}), it is also possible for rules to not be positively or negatively coverable. For example a fact can never be negatively covered, as any interpretation will always satisfy an empty body. On the other hand, rules of the form "\(a \leftarrow \text{not}\ a.\)" can never be positively covered. This is due to the fact that any interpretation that satisfies the body of this rule can not be an answer set of the program containing this rule.
+
+\begin{example}
+\label{ex:special rules}
+    Consider the program \(P = \{a \leftarrow \text{ not } a\}\).
+    The interpretation \(I = \emptyset\) satisfies the body or the rule (\(I \models B(r)\)) since \(B^+(r) = \emptyset \subseteq I\) and \(B^-(r) = \{a\} \cap I = \emptyset\) both hold. However $I$ does not satisfy the rule, because while \(I \models B(r)\) holds, \(I \cap H(r) \neq \emptyset\) does not hold. Therefore $I$ is not a model for this program and no model can exists that satisfies the body of this rule.
+\end{example}
+
+Consequently, this also means that constraints can never be positively rule covered. This is obvious when considering that a constraint "\(\leftarrow a.\)" is nothing other than a shorthand notation for the rule "\(x \leftarrow a, \text{ not } x.\)", where $x$ is a new atom, which matches the pattern of the rule in \cref{ex:special rules} \cite[p. 17]{Geb+12}. It is also possible for a normal rule to not be positively or negatively coverable due to the program surrounding it, for example if an atom that is never defined in the program and not part of the input alphabet occurs positively in the body of a rule, this rule can never be positively covered. Note however that any rule has to always be either positively or negatively covered.
+
+Finally it is easy to see that rule coverage is indeed implied by program coverage, as rule coverage only considers the coverage of each rule individually, while program coverage looks at all possible sets of rules. As an example a program with a total of four rules has 16 coverable elements for program coverage only four of which are coverable elements for rule coverage.
 
 \begin{comment}
-    - Definition + example
+    - Definition + example      \/
     
-    - similar to program coverage in some ways but less complex!
+    - (similar to program coverage in some ways but less complex!)
     
     - some rules may sometimes (or always) not be coverable -> examples -> ties back to beginning of the chapter / thats why coverage 
-    is defined on coverable objects
+    is defined on coverable objects     \/
     
-    (- total program coverage implies total rule coverage -> not so relevant but maybe interesting to mention?)
+    (- total program coverage implies total rule coverage -> not so relevant but maybe interesting to mention?)      \/
 \end{comment}
 
 \subsubsection{Constraint coverage}
 \label{subsubsec:Coverage metrics/Branch-like coverage/Rule coverage/Constraint coverage}
-(is this an extra section or should this be in the rule coverage section?)
+[SHOULD I DEFINE THIS??] Probably not here - maybe next chapter
 
-- constraints are a special type of rule and have to be handled slightly differently because when the body of a constraint is true 
-(=normal rule coverage) this will imply false and therefore not create an answer set / create an unsatisfiable solve call -> we 
-cant check constraints the same way we check other rules
-
-- solution: (following the suggestion in the paper by \textcite{Jan+11}) remove the constraint from the program in order to check 
-for its covereage!
-
-- Definition + examples
-
-(- maybe reminder that these coverage metrics dont really care about what the output of the program is and whether its according to 
-the specification, therefore removing constraints is okay even though it might completely destroy the functionality of the program)
+\begin{comment}
+    - constraints are a special type of rule and have to be handled slightly differently because when the body of a constraint is true 
+    (=normal rule coverage) this will imply false and therefore not create an answer set / create an unsatisfiable solve call -> we 
+    cant check constraints the same way we check other rules
+    
+    - solution: (following the suggestion in the paper by \textcite{Jan+11}) remove the constraint from the program in order to check 
+    for its covereage!
+    
+    - Definition + examples
+    
+    (- maybe reminder that these coverage metrics dont really care about what the output of the program is and whether its according to 
+    the specification, therefore removing constraints is okay even though it might completely destroy the functionality of the program)
+\end{comment}
 
 \subsection{Loop coverage}
 \label{subsec:Coverage metrics/Branch-like coverage/Loop coverage}
-- loops play an important role in ASP as seen in (source). Therefore constructing a coverage metric that focuses on them makes sense
+Since rule coverage only considers individual rules, it can not explore possible connections between rules or atoms. On the other hand, a concept that has been shown to be very important when computing answer sets is the concept of loops in answer set programs \cite{LZ04}. Therefore, a matching coverage metric is also introduced to capture these positive dependencies between atoms in the program.
 
-- Definition + example
+\begin{definition}
+\label{def:loop coverage}
+    Let $P$ be a program and $I$ an input for $P$. A loop $L$ of $P$ is \emph{positively loop covered} by $I$ iff some answer set $X$ exists such that every atom \(a \in L\) is defined in \(P \cup I\), i.e.
+    \[
+        I\ \text{positively covers}\ L \Longleftrightarrow \exists X \in\ \text{AS}(P \cup I)\ \text{such that}\ \forall a \in L, \exists r \in \text{Def}_P(a), r \in \text{SuppR}(P,X)
+    \]
+    and $L$ is \emph{negatively loop covered} by $I$ iff some answer set $X$ exists such that at least one atom \(a \in L\) is not defined in \(P \cup I\), i.e.
+    \begin{align*}
+        I\ \text{negatively covers}\ &L \Longleftrightarrow \exists X \in\ \text{AS}(P \cup I)\ \text{such that}\ \exists a \in L\ \text{for which}\ \text{Def}_P(a) \neq \emptyset \\ 
+        &\text{and}\ \nexists r \in \text{Def}_P(a)\ \text{for which}\ r \in \text{SuppR}(P,X)
+    \end{align*}
+\end{definition}
 
-- generally number of loops in a program in exponential in the number of rules -> expensive to compute! -> introduce 2 more 
-coverage metrics that approximate loop coverage! (one for minimal (singleton) loops and one for maximal loops (strongyl connected 
-components))
+As above, we again define for program $P$ and the input collection $I$ for $P$ \(C_{L^+}(I, P)\), \(C_{L^-}(I, P)\) and \(C_{L}(I, P)\) as the (\emph{positive} or \emph{negative}) \emph{loop coverage} of $I$ for $P$.
 
-(- no real relation to rule coverage (neither implies the other)
+Since positive loop coverage for $L$ requires, that for every atom \(a \in L\), \(\text{Def}_P(a) \neq \emptyset\) holds, loops containing atoms that only appear in the body of rules can not be positively covered. Although this can only happen with singleton loops, because in order for an atom $a$ to be part of a loop of size two or more, it needs to have at least one incoming edge in the positive atom dependency graph, thus \(| \text{Def}_P(a) | \geq 1\).
 
-- total program coverage implies total loop coverage -> not so relevant but maybe interesting to mention?)
+\begin{example}
+\label{ex:loop coverage}
+    Consider the program $P$
+    \begin{align*}
+        a &\leftarrow b, c \\
+        b &\leftarrow a, d \\
+        a &\leftarrow e,\ \text{not}\ c
+    \end{align*}
+    with \(\mathbb{I}_P = \{a, b, c, d, e\}\). We can achieve total rule coverage for $P$ with the three test inputs \(I_1 = \{b, c\}\), \(I_2 = \{a, d\}\) and \(I_3 = \{e\}\). However, while these inputs cover the two singleton loops \(\{a\}\) and \(\{b\}\) positively and negatively, the loop \(L = \{a, b\}\) between the first two rules is only negatively covered. In order to positively cover $L$, a different input such as \(I_4 = \{b, c, d\}\) is needed.
+    Note that inputs \(I_1, I_2\) and \(I_4\) together yield total loop coverage, as the singleton loops \(\{c\}\), \(\{d\}\) and \(\{e\}\) can not be positively loop covered.
+\end{example}
+
+The problem with loop coverage is that the number of loops in a program is, in the worst case, exponential in the number of rules of the program. Thus, while it is still an approximation of program coverage, i.e. total program coverage implies total loop coverage~\cite{Jan+10}, it can still be a rather expensive metric to compute. Therefore the next two coverage metrics are introduced to approximate loop coverage.
+
+\begin{comment}
+    - loops play an important role in ASP as seen in (source). Therefore constructing a coverage metric that focuses on them makes sense        \/
+    
+    - Definition + example      \/
+    
+    - generally number of loops in a program in exponential in the number of rules -> expensive to compute! -> introduce 2 more coverage metrics that approximate loop coverage! (one for minimal (singleton) loops and one for maximal loops (strongyl connected components))      \/
+    
+    (- no real relation to rule coverage (neither implies the other)
+    
+    - total program coverage implies total loop coverage -> not so relevant but maybe interesting to mention?)
+\end{comment}
 
 \subsection{Definition coverage}
 \label{subsec:Coverage metrics/Branch-like coverage/Definition coverage}
-- 2 ways to introduce definition coverage: 
+There are two ways to think about the definition coverage metric. On one hand, it is, as mentioned above, an approximation of loop coverage as it simply looks at only the coverage of the singleton loops of a program. On the other hand one could say that definition coverage is a metric that looks at the \emph{definable atoms} of a program $P$, i.e. the set of atoms $a_i$ for which \(\text{Def}_P(a_i) \neq \emptyset\) holds, as opposed to rule coverage looking at rules.
+
+\begin{definition}
+    Let $P$ be a program, $I$ an input for $P$ and $A$ the set of definable atoms of $P$. An atom \(a \in A\) is \emph{positively definition covered} by $I$ iff some answer set $X$ exists such that $a$ is defined in \(P \cup I\), i.e.
+    \[
+        I \text{ positively covers } a \in A \Longleftrightarrow \exists X \in \text{AS}(P \cup I) \text{ such that } \exists r \in \text{Def}_P(a), r \in \text{SuppR}(P, X)
+    \]
+    and $a$ is \emph{negatively definition covered} by $I$ iff some answer set $X$ exists such that $a$ is not defined, i.e.
+    \[
+        I \text{ negatively covers } a \in A \Longleftrightarrow \exists X \in \text{AS}(P \cup I) \text{ such that } \nexists r \in \text{Def}_P(a), r \in \text{SuppR}(P, X)
+    \]
+\end{definition}
+
+We define \(C_{D^+}(I, P)\) and \(C_{D^-}(I, P)\) as the \emph{positive} and \emph{negative definition coverage} for an input collection $I$ and a program $P$, as well as the \emph{definition coverage} \(C_D(I, P)\), in the same way as with the other metrics.
+
+It is important to note that total positive rule coverage implies total positive definition coverage but total negative rule coverage does not imply total negative definition coverage. However, since definition coverage is effectively singleton loop coverage, total loop coverage implies total definition coverage.
+
+\begin{example}
+    Consider the program and inputs from \cref{ex:loop coverage}. Inputs $I_1$, $I_2$ and $I_3$ together yield total rule coverage as well as total definition coverage since both singleton loops \(\{a\}\) and \(\{b\}\) are both positively and negatively covered. It is however also possible to achieve total definition coverage with just the two inputs $I_1$ and $I_2$ or $I_2$ and $I_3$. On the other hand while the two inputs \(I_1 = \{b, c\}\) and \(I_5 = \{a, d, e\}\) yield total rule coverage, they do not negatively definition cover the atom $a$ and thus only yield total positive definition coverage.
+\end{example}
+
+Whether or not a atom is (positively or negatively) coverable always depends on the rules of the program it appears in. A atom appearing as a fact in a program will always be positively definition covered and thus can not be negatively definition covered.
+
+\begin{comment}
+    - 2 ways to introduce definition coverage:  \/
+        
+        - as a coverage metric for singleton loops (minimal loops) and therefore a special case of loop coverage        \/
     
-    - as a coverage metric for singleton loops (minimal loops) and therefore a special case of loop coverage
-
-    - as a representation of the disjunctions in the program (if an atom "a" is defined in multiple rules you could rewrite 
-    this as a if B1 v B2 v ...) -> this coverage metric covers these implicit disjunctions
--> discuss both but in which order?
-
-- Definition + example
-
-(- this is different to rule coverage! -> total positive rule coverage implies total positive definition coverage, not the other 
-way around and no connection for negative coverage!
-
-- total loop coverage implies total definition coverage
-
-- total program coverage implies total definition coverage)
+        - as a representation of the disjunctions in the program (if an atom "a" is defined in multiple rules you could rewrite this as a if B1 v B2 v ...) -> this coverage metric covers these implicit disjunctions
+    -> discuss both but in which order?     \/
+    
+    - Definition + example      \/
+    
+    (- this is different to rule coverage! -> total positive rule coverage implies total positive definition coverage, not the other way around and no connection for negative coverage!       \/
+    
+    - total loop coverage implies total definition coverage     \/
+    
+    - total program coverage implies total definition coverage)
+\end{comment}
 
 \subsection{Component coverage}
 \label{subsec:Coverage cetrics/Branch-like coverage/Component coverage}
-- strongly connected components are the maximal loops of the program, therefore this is an approximation of loop coverage
+As seen above, definition coverage is a metric pertaining to the minimal loops of a program. Component coverage on the other hand is focused on the maximal loops of a program, i.e. its strongly connected components. As such it functions similarly to loop coverage with only a small difference in the definition of negative coverage.
 
-- Definition + example
+\begin{definition}
+\label{def:component coverage}
+    Let $P$ be a program and $I$ an input for $P$. A strongly connected component $C$ of $P$ is \emph{positively component covered} by $I$ iff some answer set $X$ exists such that every atom \(a \in C\) is defined in \(P \cup I\), i.e.
+    \[
+        I \text{ positively covers } C \Longleftrightarrow \exists X \in\ \text{AS}(P \cup I) \text{ such that } \forall a \in C,\ \exists r \in \text{Def}_P(a), r \in \text{SuppR}(P,X)
+    \]
+    and C is \emph{negatively component covered} by $I$ iff every atom in $C$ is definable and some answer set $X$ exists such that every atom \(a \in C\) is defined in \(P \cup I\), i.e.
+    \begin{align*}
+        I \text{ negatively covers } C \Longleftrightarrow &\exists X \in\ \text{AS}(P \cup I) \text{ such that } \forall a \in C,\ \text{Def}_P(a) \neq \emptyset \text{ and } \\
+        &\exists r \in \text{Def}_P(a), r \in \text{SuppR}(P,X)
+    \end{align*}
+\end{definition}
 
-- Definition of negative coverage is different from loop coverage!
+Once more the \emph{positive}, \emph{negative} and \emph{combined component coverage} for an input collection $I$ and a program $P$ is defined using the schema \ref{eq:coverage function schema}, yielding \(C_{C^+}(I, P)\), \(C_{C^+}(I, P)\) and \(C_{C}(I, P)\).
 
-- because of this different definition positive/negative component coverage of a specific component implies positive/negative loop 
-coverage for all subset loops of the component (would not be the case for negative coverage if definition is different)
+As with all the branch-like metrics, component coverage is implied by program coverage and just like definition coverage, it is an approximation of loop coverage and thus total positive loop coverage implies total positive component coverage.
+Because negative component coverage is defined slightly different than negative loop coverage (none of the atoms in the SCC can be supported as opposed to just one atom being unsupported is enough) negative component coverage is not implied by negative loop coverage, however it does allow the following result: if 
 
-(- total positive loop coverage implies total positive component coverage, however this is not true for negative coverage because 
-of the different definition (see above)
+\begin{example}
+    
+\end{example}
 
-- total program coverage implies total component coverage)
+\begin{comment}
+    - strongly connected components are the maximal loops of the program, therefore this is an approximation of loop coverage       
+    
+    - Definition + example
+    
+    - Definition of negative coverage is different from loop coverage!
+    
+    - because of this different definition positive/negative component coverage of a specific component implies positive/negative loop 
+    coverage for all subset loops of the component (would not be the case for negative coverage if definition is different)
+    
+    (- total positive loop coverage implies total positive component coverage, however this is not true for negative coverage because 
+    of the different definition (see above)
+    
+    - total program coverage implies total component coverage)
+
+    - with the help of definition coverage one could redefine loop and component coverage based on definition coverage
+
+    - both definition coverage and component coverage are capped on the number of rules in the program
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Computing coverage metrics for propositional programs}
