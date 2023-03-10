@@ -2,7 +2,7 @@ from clingo.ast import ProgramBuilder, parse_files, parse_string, ASTType
 from clingo.control import Control
 from clingo import ast
 import networkx as nx
-from dependencygraph_tools import build_dependency_graph, find_sccs, find_loops
+from dependencygraph_tools_v2 import build_dependency_graph, find_sccs, find_loops
 
 class CoverageCheck():
     def __init__(self, args, ipt):
@@ -28,7 +28,8 @@ class CoverageCheck():
         self.numDef = 0
         self.numTestcases = 0
         self.rules = []
-        self.heads = dict()
+        self.model = set()
+        self.atoms = dict()
         self.loops = set()
         self.sccs = []
         self.graph = nx.DiGraph()
@@ -38,8 +39,8 @@ class CoverageCheck():
     
 
     def on_model(self, model):
-        self.atoms = set([atm.name for atm in model.symbols(atoms=True) if atm.name.startswith("_")])
-        # print(model.symbols(atoms=True))
+        self.model = set([atm.name for atm in model.symbols(atoms=True) if (atm.name.startswith("_") or atm.name.startswith("-_"))])
+        # print(self.model)
 
 
     def add_rules(self):
@@ -48,25 +49,35 @@ class CoverageCheck():
                 pos = ast.Position('<string>', 1, 1)
                 loc = ast.Location(pos, pos)
                 fun = ast.Function(loc, '_r{}'.format(idx), [], False)
+                fun2 = ast.Function(loc, '-_r{}'.format(idx), [], False)
                 atm = ast.SymbolicAtom(fun)
+                atm2 = ast.SymbolicAtom(fun2)
                 lit = ast.Literal(loc, ast.Sign.NoSign, atm)
+                lit2 = ast.Literal(loc, ast.Sign.NoSign, atm2)
                 bld.add(ast.Rule(loc, lit, rule.body))
+                bld.add(ast.Rule(loc, lit2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
                 # print(ast.Rule(loc, lit, rule.body))
+                # print(ast.Rule(loc, lit2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
 
     def add_definitions(self):
         with ProgramBuilder(self.ctl) as bld:
-            for value in self.heads.values():
+            for value in self.atoms.values():
                 for idx in value[2]:
                     pos = ast.Position('<string>', 1, 1)
                     loc = ast.Location(pos, pos)
                     fun = ast.Function(loc, '_d{}'.format(value[0][0]), [], False)
                     atm = ast.SymbolicAtom(fun)
-                    head = ast.Literal(loc, ast.Sign.NoSign, atm)
-                    fun2 = ast.Function(loc, '_r{}'.format(idx), [], False)
-                    atm2 = ast.SymbolicAtom(fun2)
-                    body = ast.Literal(loc, ast.Sign.NoSign, atm2)
+                    head = ast.Literal(loc, ast.Sign.NoSign, atm)                    
+                    fun3 = ast.Function(loc, '_r{}'.format(idx), [], False)
+                    atm3 = ast.SymbolicAtom(fun3)
+                    body = ast.Literal(loc, ast.Sign.NoSign, atm3)
                     bld.add(ast.Rule(loc, head, [body]))
-                    # print(ast.Rule(loc, head, [body]))
+                if value[2]: 
+                    fun2 = ast.Function(loc, '-_d{}'.format(value[0][0]), [], False)
+                    atm2 = ast.SymbolicAtom(fun2)
+                    head2 = ast.Literal(loc, ast.Sign.NoSign, atm2)
+                    bld.add(ast.Rule(loc, head2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
+                    print(ast.Rule(loc, head2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
 
     def add_loops(self):
         with ProgramBuilder(self.ctl) as bld:
@@ -75,14 +86,21 @@ class CoverageCheck():
                 pos = ast.Position('<string>', 1, 1)
                 loc = ast.Location(pos, pos)
                 fun = ast.Function(loc, '_l{}'.format(idx), [], False)
+                fun2 = ast.Function(loc, '-_l{}'.format(idx), [], False)
                 atm = ast.SymbolicAtom(fun)
+                atm2 = ast.SymbolicAtom(fun2)
                 head = ast.Literal(loc, ast.Sign.NoSign, atm)
+                head2 = ast.Literal(loc, ast.Sign.NoSign, atm2)
                 for key in loop:
-                    fun = ast.Function(loc, '_d{}'.format(self.heads[key][0][0]), [], False)
-                    atm = ast.SymbolicAtom(fun)
-                    lit = ast.Literal(loc, ast.Sign.NoSign, atm)
-                    body.append(lit)
-                bld.add(ast.Rule(loc, head, body))
+                    if self.atoms[key][2]:
+                        fun3 = ast.Function(loc, '_d{}'.format(self.atoms[key][0][0]), [], False)
+                        atm3 = ast.SymbolicAtom(fun3)
+                        lit = ast.Literal(loc, ast.Sign.NoSign, atm3)
+                        body.append(lit)
+                if body:
+                    bld.add(ast.Rule(loc, head, body))
+                    bld.add(ast.Rule(loc, head2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
+                # print(ast.Rule(loc, head2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
                 # print(ast.Rule(loc, head, body))
             
     def add_sccs(self):
@@ -93,14 +111,14 @@ class CoverageCheck():
                 pos = ast.Position('<string>', 1, 1)
                 loc = ast.Location(pos, pos)
                 fun = ast.Function(loc, '_s{}'.format(idx), [], False)
-                fun2 = ast.Function(loc, '_ns{}'.format(idx), [], False)
+                fun2 = ast.Function(loc, '-_s{}'.format(idx), [], False)
                 atm = ast.SymbolicAtom(fun)
                 atm2 = ast.SymbolicAtom(fun2)
                 head = ast.Literal(loc, ast.Sign.NoSign, atm)
                 nhead = ast.Literal(loc, ast.Sign.NoSign, atm2)
                 for key in scc:
-                    if self.heads[key][2]:
-                        fun = ast.Function(loc, '_d{}'.format(self.heads[key][0][0]), [], False)
+                    if self.atoms[key][2]:
+                        fun = ast.Function(loc, '_d{}'.format(self.atoms[key][0][0]), [], False)
                         atm = ast.SymbolicAtom(fun)
                         lit = ast.Literal(loc, ast.Sign.NoSign, atm)
                         lit2 = ast.Literal(loc, ast.Sign.Negation, atm)
@@ -162,27 +180,27 @@ class CoverageCheck():
                                 key = (elem.literal.atom.symbol.arguments[0].name, len(elem.literal.atom.symbol.arguments[0].arguments))
                             else:
                                 key = (elem.literal.atom.symbol.name, len(elem.literal.atom.symbol.arguments))
-                            if key not in self.heads.keys():
+                            if key not in self.atoms.keys():
                                 if elem.literal.sign == 0:
-                                    self.heads[key] = [[self.numDef],[elem.literal.location],[len(self.rules)-1]]
+                                    self.atoms[key] = [[self.numDef],[elem.literal.location],[len(self.rules)-1]]
                                     self.numDef += 1
                                 else:
-                                    self.heads[key] = [[self.numDef], [elem.literal.location],[]]
+                                    self.atoms[key] = [[self.numDef], [elem.literal.location],[]]
                                     self.numDef += 1
                             else:
                                 if elem.literal.sign == 0:
-                                    if not self.heads[key][2]:
-                                        self.heads[key][1] = []
-                                    self.heads[key][1].append(elem.literal.location)
-                                    self.heads[key][2].append(len(self.rules)-1)
+                                    if not self.atoms[key][2]:
+                                        self.atoms[key][1] = []
+                                    self.atoms[key][1].append(elem.literal.location)
+                                    self.atoms[key][2].append(len(self.rules)-1)
                         for lit in elem.condition:
                             if lit.atom.ast_type == ASTType.SymbolicAtom:
                                 if lit.atom.symbol.ast_type == ASTType.Pool:
                                     key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
                                 else:
                                     key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
-                                if key not in self.heads.keys():
-                                    self.heads[key] = [[self.numDef],[lit.location],[]]
+                                if key not in self.atoms.keys():
+                                    self.atoms[key] = [[self.numDef],[lit.location],[]]
                                     self.numDef += 1
                 elif node.head.ast_type == ASTType.Literal:
                     if node.head.atom.ast_type == ASTType.SymbolicAtom:
@@ -190,19 +208,19 @@ class CoverageCheck():
                             key = (node.head.atom.symbol.arguments[0].name, len(node.head.atom.symbol.arguments[0].arguments))
                         else:
                             key = (node.head.atom.symbol.name, len(node.head.atom.symbol.arguments))
-                        if key not in self.heads.keys():
+                        if key not in self.atoms.keys():
                             if node.head.sign == 0:
-                                self.heads[key] = [[self.numDef],[node.head.location],[len(self.rules)-1]]
+                                self.atoms[key] = [[self.numDef],[node.head.location],[len(self.rules)-1]]
                                 self.numDef += 1
                             else:
-                                self.heads[key] = [[self.numDef], [node.head.location],[]]
+                                self.atoms[key] = [[self.numDef], [node.head.location],[]]
                                 self.numDef += 1
                         else:
                             if node.head.sign == 0:
-                                if not self.heads[key][2]:
-                                    self.heads[key][1] = []
-                                self.heads[key][1].append(node.head.location)
-                                self.heads[key][2].append(len(self.rules)-1)
+                                if not self.atoms[key][2]:
+                                    self.atoms[key][1] = []
+                                self.atoms[key][1].append(node.head.location)
+                                self.atoms[key][2].append(len(self.rules)-1)
                 elif node.head.ast_type == ASTType.HeadAggregate:
                     for elem in node.head.elements:
                         if elem.condition.literal.atom.ast_type == ASTType.SymbolicAtom:
@@ -210,27 +228,27 @@ class CoverageCheck():
                                 key = (elem.condition.literal.atom.symbol.arguments[0].name, len(elem.condition.literal.atom.symbol.arguments[0].arguments))
                             else:
                                 key = (elem.condition.literal.atom.symbol.name, len(elem.condition.literal.atom.symbol.arguments))
-                            if key not in self.heads.keys():
+                            if key not in self.atoms.keys():
                                 if elem.condition.literal.sign == 0:
-                                    self.heads[key] = [[self.numDef],[elem.condition.literal.location],[len(self.rules)-1]]
+                                    self.atoms[key] = [[self.numDef],[elem.condition.literal.location],[len(self.rules)-1]]
                                     self.numDef += 1
                                 else:
-                                    self.heads[key] = [[self.numDef],[elem.condition.literal.location],[]]
+                                    self.atoms[key] = [[self.numDef],[elem.condition.literal.location],[]]
                                     self.numDef += 1
                             else:
                                 if elem.condition.literal.sign == 0:
-                                    if not self.heads[key][2]:
-                                        self.heads[key][1] = []
-                                    self.heads[key][1].append(elem.condition.literal.location)
-                                    self.heads[key][2].append(len(self.rules)-1)
+                                    if not self.atoms[key][2]:
+                                        self.atoms[key][1] = []
+                                    self.atoms[key][1].append(elem.condition.literal.location)
+                                    self.atoms[key][2].append(len(self.rules)-1)
                         for lit in elem.condition.condition:
                             if lit.atom.ast_type == ASTType.SymbolicAtom:
                                 if lit.atom.symbol.ast_type == ASTType.Pool:
                                     key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
                                 else:
                                     key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
-                                if key not in self.heads.keys():
-                                    self.heads[key] = [[self.numDef],[lit.location],[]]
+                                if key not in self.atoms.keys():
+                                    self.atoms[key] = [[self.numDef],[lit.location],[]]
                                     self.numDef += 1
                 ### Body ###
                 for atm in node.body:
@@ -240,8 +258,8 @@ class CoverageCheck():
                                 key = (atm.atom.symbol.arguments[0].name, len(atm.atom.symbol.arguments[0].arguments))
                             else:
                                 key = (atm.atom.symbol.name, len(atm.atom.symbol.arguments))
-                            if key not in self.heads.keys():
-                                self.heads[key] = [[self.numDef],[atm.location],[]]
+                            if key not in self.atoms.keys():
+                                self.atoms[key] = [[self.numDef],[atm.location],[]]
                                 self.numDef += 1
                         elif atm.atom.ast_type == ASTType.Aggregate:
                             for elem in atm.atom.elements:
@@ -250,8 +268,8 @@ class CoverageCheck():
                                         key = (elem.literal.atom.symbol.arguments[0].name, len(elem.literal.atom.symbol.arguments[0].arguments))
                                     else:
                                         key = (elem.literal.atom.symbol.name, len(elem.literal.atom.symbol.arguments))
-                                    if key not in self.heads.keys():
-                                        self.heads[key] = [[self.numDef],[elem.literal.location],[]]
+                                    if key not in self.atoms.keys():
+                                        self.atoms[key] = [[self.numDef],[elem.literal.location],[]]
                                         self.numDef += 1
                                 for lit in elem.condition:
                                     if lit.atom.ast_type == ASTType.SymbolicAtom:
@@ -259,8 +277,8 @@ class CoverageCheck():
                                             key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
                                         else:
                                             key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
-                                        if key not in self.heads.keys():
-                                            self.heads[key] = [[self.numDef],[lit.location],[]]
+                                        if key not in self.atoms.keys():
+                                            self.atoms[key] = [[self.numDef],[lit.location],[]]
                                             self.numDef += 1
                         elif atm.atom.ast_type == ASTType.BodyAggregate:
                             for elem in atm.atom.elements:
@@ -270,8 +288,8 @@ class CoverageCheck():
                                             key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
                                         else:
                                             key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
-                                        if key not in self.heads.keys():
-                                            self.heads[key] = [[self.numDef],[lit.location],[]]
+                                        if key not in self.atoms.keys():
+                                            self.atoms[key] = [[self.numDef],[lit.location],[]]
                                             self.numDef += 1                             
                     elif atm.ast_type == ASTType.ConditionalLiteral:
                             if atm.literal.atom.ast_type == ASTType.SymbolicAtom:
@@ -279,8 +297,8 @@ class CoverageCheck():
                                     key = (atm.literal.atom.symbol.arguments[0].name, len(atm.literal.atom.symbol.arguments[0].arguments))
                                 else:
                                     key = (atm.literal.atom.symbol.name, len(atm.literal.atom.symbol.arguments))
-                                if key not in self.heads.keys():
-                                    self.heads[key] = [[self.numDef],[atm.literal.location],[]]
+                                if key not in self.atoms.keys():
+                                    self.atoms[key] = [[self.numDef],[atm.literal.location],[]]
                                     self.numDef += 1
                             for lit in atm.condition:
                                 if lit.atom.ast_type == ASTType.SymbolicAtom:
@@ -288,8 +306,8 @@ class CoverageCheck():
                                         key = (lit.atom.symbol.arguments[0].name, len(lit.atom.symbol.arguments[0].arguments))
                                     else:
                                         key = (lit.atom.symbol.name, len(lit.atom.symbol.arguments))
-                                    if key not in self.heads.keys():
-                                        self.heads[key] = [[self.numDef],[lit.location],[]]
+                                    if key not in self.atoms.keys():
+                                        self.atoms[key] = [[self.numDef],[lit.location],[]]
                                         self.numDef += 1
                                         
                 if str(node.head) == "#false":
@@ -316,7 +334,7 @@ class CoverageCheck():
             self.add_definitions()
             
         if self.args.loop or self.args.component:
-            self.graph = build_dependency_graph(self.rules, self.heads)
+            self.graph = build_dependency_graph(self.rules, self.atoms)
             self.sccs = find_sccs(self.graph)
 
         if self.args.loop:
@@ -329,58 +347,51 @@ class CoverageCheck():
 
     def check_rule_positive(self, max=False):
         if max:
-            self.maxPosRCov.update(set([label for label in self.atoms if label.startswith("_r")]))
+            self.maxPosRCov.update(set([label for label in self.model if label.startswith("_r")]))
         else:
-            self.posRCov.update(set([label for label in self.atoms if label.startswith("_r")]))
+            self.posRCov.update(set([label for label in self.model if label.startswith("_r")]))
 
     def check_rule_negative(self, max=False):
-        for i in range(self.numRules):
-            if "_r"+str(i) not in self.atoms:
-                if max:
-                    self.maxNegRCov.add("_r"+str(i))
-                else:
-                    self.negRCov.add("_r"+str(i))
+        if max:
+            self.maxNegRCov.update(set([label for label in self.model if label.startswith("-_r")]))
+        else:
+            self.negRCov.update(set([label for label in self.model if label.startswith("-_r")]))
 
     def check_definition_positive(self, max=False):
         if max:
-            self.maxPosDCov.update(set([label for label in self.atoms if label.startswith("_d")]))
+            self.maxPosDCov.update(set([label for label in self.model if label.startswith("_d")]))
         else:
-            self.posDCov.update(set([label for label in self.atoms if label.startswith("_d")]))
+            self.posDCov.update(set([label for label in self.model if label.startswith("_d")]))
 
     def check_definition_negative(self, max=False):
-        for value in self.heads.values():
-            if value[2]:
-                if "_d"+str(value[0][0]) not in self.atoms:
-                    if max:
-                        self.maxNegDCov.add("_d"+str(value[0][0]))
-                    else:
-                        self.negDCov.add("_d"+str(value[0][0]))
+        if max:
+            self.maxNegDCov.update(set([label for label in self.model if label.startswith("-_d")]))
+        else:
+            self.negDCov.update(set([label for label in self.model if label.startswith("-_d")]))
 
     def check_component_positive(self, max=False):
         if max:
-            self.maxPosCCov.update(set([label for label in self.atoms if label.startswith("_s")]))
+            self.maxPosCCov.update(set([label for label in self.model if label.startswith("_s")]))
         else:
-            self.posCCov.update(set([label for label in self.atoms if label.startswith("_s")]))
+            self.posCCov.update(set([label for label in self.model if label.startswith("_s")]))
 
     def check_component_negative(self, max=False):
         if max:
-            self.maxNegCCov.update(set([label for label in self.atoms if label.startswith("_ns")]))
+            self.maxNegCCov.update(set([label for label in self.model if label.startswith("-_s")]))
         else:
-            self.negCCov.update(set([label for label in self.atoms if label.startswith("_ns")]))
+            self.negCCov.update(set([label for label in self.model if label.startswith("-_s")]))
 
     def check_loop_positive(self, max=False):
         if max:
-            self.maxPosLCov.update(set([label for label in self.atoms if label.startswith("_l")]))
+            self.maxPosLCov.update(set([label for label in self.model if label.startswith("_l")]))
         else:
-            self.posLCov.update(set([label for label in self.atoms if label.startswith("_l")]))
+            self.posLCov.update(set([label for label in self.model if label.startswith("_l")]))
 
     def check_loop_negative(self, max=False):
-        for i in range(len(self.loops)):
-            if "_l"+str(i) not in self.atoms:
-                if max:
-                    self.maxNegLCov.add("_l"+str(i))
-                else:
-                    self.negLCov.add("_l"+str(i))
+        if max:
+            self.maxNegLCov.update(set([label for label in self.model if label.startswith("-_l")]))
+        else:
+            self.negLCov.update(set([label for label in self.model if label.startswith("-_l")]))
 
 
     def check_possible_coverage(self):
@@ -396,21 +407,16 @@ class CoverageCheck():
         self.ctl.solve(on_model=self.on_model)
         if self.args.rule:
             self.check_rule_positive(max=True)
-        if self.args.definition or self.args.loop:
+            self.check_rule_negative(max=True)
+        if self.args.definition:
             self.check_definition_positive(max=True)
+            self.check_definition_negative(max=True)
         if self.args.loop:
             self.check_loop_positive(max=True)
+            self.check_loop_negative(max=True)
         if self.args.component:
             self.check_component_positive(max=True)
             self.check_component_negative(max=True)
-        self.ctl.configuration.solve.enum_mode = "cautious"
-        self.ctl.solve(on_model=self.on_model)
-        if self.args.rule:
-            self.check_rule_negative(max=True)
-        if self.args.definition or self.args.loop:
-            self.check_definition_negative(max=True)
-        if self.args.loop:
-            self.check_loop_negative(max=True)
 
     def check_coverage(self):
         if self.args.rule or self.args.definition or self.args.loop or self.args.component:
@@ -421,21 +427,16 @@ class CoverageCheck():
             if res.satisfiable:
                 if self.args.rule:
                     self.check_rule_positive()
-                if self.args.definition or self.args.loop:
+                    self.check_rule_negative()
+                if self.args.definition:
                     self.check_definition_positive()
+                    self.check_definition_negative()
                 if self.args.loop:
                     self.check_loop_positive()
+                    self.check_loop_negative()
                 if self.args.component:
                     self.check_component_positive()
                     self.check_component_negative()
-                self.ctl.configuration.solve.enum_mode = "cautious"
-                self.ctl.solve(on_model=self.on_model)
-                if self.args.rule:
-                    self.check_rule_negative()
-                if self.args.definition or self.args.loop:
-                    self.check_definition_negative()
-                if self.args.loop:
-                    self.check_loop_negative()
                 self.check_possible_coverage()
             else:
                 print("Please enter a correct Program/Testcase (solve call unsatisfiable)")
@@ -452,7 +453,7 @@ class CoverageCheck():
         # print(self.negRCov)
         # print(self.maxPosRCov)
         # print(self.maxNegRCov)
-        # print(self.heads) 
+        # print(self.atoms) 
         # print(self.rules)    
         # print(self.loops)
         # print(self.sccs)
@@ -482,10 +483,10 @@ class CoverageCheck():
                     self.print_neg_Dcoverage()
 
         if self.args.loop:
-            positiveL = ((len(self.posLCov) + len(self.posDCov)) * 100) / (len(self.maxPosDCov) + len(self.maxPosLCov)) if (len(self.maxPosDCov) + len(self.maxPosLCov)) else 100
-            negativeL = ((len(self.negLCov) + len(self.negDCov)) * 100) / (len(self.maxNegDCov) + len(self.maxNegLCov)) if (len(self.maxNegDCov) + len(self.maxNegLCov)) else 100
-            print(f"\nPositive loop coverage: {positiveL:.3g}% ({len(self.posLCov) + len(self.posDCov)} out of {len(self.maxPosDCov) + len(self.maxPosLCov)} coverable loops, {len(self.loops) + self.numDef} total loops)")
-            print(f"Negative loop coverage: {negativeL:.3g}% ({len(self.negLCov) + len(self.negDCov)} out of {len(self.maxNegDCov) + len(self.maxNegLCov)} coverable loops, {len(self.loops) + self.numDef} total loops)")
+            positiveL = (len(self.posLCov) * 100) / (len(self.maxPosLCov)) if self.maxPosLCov else 100
+            negativeL = (len(self.negLCov) * 100) / (len(self.maxNegLCov)) if self.maxNegLCov else 100
+            print(f"\nPositive loop coverage: {positiveL:.3g}% ({len(self.posLCov)} out of {len(self.maxPosLCov)} coverable loops, {len(self.loops)} total loops)")
+            print(f"Negative loop coverage: {negativeL:.3g}% ({len(self.negLCov)} out of {len(self.maxNegLCov)} coverable loops, {len(self.loops)} total loops)")
             if self.args.verbose:
                 if positiveL != 100:
                     self.print_pos_Lcoverage()
@@ -521,107 +522,89 @@ class CoverageCheck():
 
     def print_neg_Rcoverage(self):
         notcov = self.maxNegRCov.difference(self.negRCov)
-        notcov = [int(label[2:]) for label in notcov]
+        notcov = [int(label[3:]) for label in notcov]
         
         print("\nRules that have not been negatively rule-covered:")
         for idx in notcov:
             print(str(self.rules[idx]) + "\nline: {}, column: {}".format(self.rules[idx].location[0][1], self.rules[idx].location[0][2]))
 
     def print_pos_Dcoverage(self):
-        cov = [int(label[2:]) for label in self.posDCov]
-        maxcov = [int(label[2:]) for label in self.maxPosDCov]
-
+        notcov = self.maxPosDCov.difference(self.posDCov)
+        notcov = [int(label[2:]) for label in notcov]
+        
         print("\nAtoms that have not been positively definition-covered:")
-        for idx, (atm, values) in enumerate(self.heads.items()):
-            if idx in maxcov and idx not in cov:
-                print(atm)
-                for loc in values[1]:
-                    print("line: {}, column: {}".format(loc.begin[1], loc.begin[2]))
+        for idx in notcov:
+            (atm, values) = list(self.atoms.items())[idx]
+            print(atm)
+            for loc in values[1]:
+                print("line: {}, column: {}".format(loc.begin[1], loc.begin[2]))
 
     def print_neg_Dcoverage(self):
-        cov = [int(label[2:]) for label in self.negDCov]
-        maxcov = [int(label[2:]) for label in self.maxNegDCov]
+        notcov = self.maxNegDCov.difference(self.negDCov)
+        notcov = [int(label[3:]) for label in notcov]
 
         print("\nAtoms that have not been negatively definition-covered:")
-        for idx, (atm, values) in enumerate(self.heads.items()):
-            if idx in maxcov and idx not in cov:
-                print(atm)
-                for loc in values[1]:
-                    print("line: {}, column: {}".format(loc.begin[1], loc.begin[2]))
+        for idx in notcov:
+            (atm, values) = list(self.atoms.items())[idx]
+            print(atm)
+            for loc in values[1]:
+                print("line: {}, column: {}".format(loc.begin[1], loc.begin[2]))
 
     def print_pos_Lcoverage(self):
-        cov = [int(label[2:]) for label in self.posLCov]
-        maxcov = [int(label[2:]) for label in self.maxPosLCov]
-
-        print("\nLoops that have not been positively loop-covered:", end='')
-        for idx, loop in enumerate(self.loops):
-            if idx in maxcov and idx not in cov:
-                print("\n", [atm[0] for atm in loop], sep='')
-                for atm in loop:
-                    print(atm)
-                    locs = self.heads[atm][1]
-                    for j in range(len(locs)):
-                        print("line: {}, column: {}".format(locs[j].begin[1], locs[j].begin[2]))
+        notcov = self.maxPosLCov.difference(self.posLCov)
+        notcov = [int(label[2:]) for label in notcov]
         
-        cov = [int(label[2:]) for label in self.posDCov]
-        maxcov = [int(label[2:]) for label in self.maxPosDCov]
-        for idx, (atm, values) in enumerate(self.heads.items()):
-            if idx in maxcov and idx not in cov:
-                print("\n", "['",atm[0],"']", sep='')
+        print("\nLoops that have not been positively loop-covered:", end='')
+        for idx in notcov:
+            loop = list(self.loops)[idx]
+            print("\n", [atm[0] for atm in loop], sep='')
+            for atm in loop:
                 print(atm)
-                for loc in values[1]:
-                    print("line: {}, column: {}".format(loc.begin[1], loc.begin[2]))
+                locs = self.atoms[atm][1]
+                for j in range(len(locs)):
+                    print("line: {}, column: {}".format(locs[j].begin[1], locs[j].begin[2]))
 
     def print_neg_Lcoverage(self):
-        cov = [int(label[2:]) for label in self.negLCov]
-        maxcov = [int(label[2:]) for label in self.maxNegLCov]
-
+        notcov = self.maxNegLCov.difference(self.negLCov)
+        notcov = [int(label[3:]) for label in notcov]
+        
         print("\nLoops that have not been negatively loop-covered:", end='')
-        for idx, loop in enumerate(self.loops):
-            if idx in maxcov and idx not in cov:
-                print("\n", [atm[0] for atm in loop], sep='')
-                for atm in loop:
-                    print(atm)
-                    locs = self.heads[atm][1]
-                    for j in range(len(locs)):
-                        print("line: {}, column: {}".format(locs[j].begin[1], locs[j].begin[2]))
-
-        cov = [int(label[2:]) for label in self.negDCov]
-        maxcov = [int(label[2:]) for label in self.maxNegDCov]
-        for idx, (atm, values) in enumerate(self.heads.items()):
-            if idx in maxcov and idx not in cov:
-                print("\n", "['",atm[0],"']", sep='')
+        for idx in notcov:
+            loop = list(self.loops)[idx]
+            print("\n", [atm[0] for atm in loop], sep='')
+            for atm in loop:
                 print(atm)
-                for loc in values[1]:
-                    print("line: {}, column: {}".format(loc.begin[1], loc.begin[2]))
+                locs = self.atoms[atm][1]
+                for j in range(len(locs)):
+                    print("line: {}, column: {}".format(locs[j].begin[1], locs[j].begin[2]))
 
     def print_pos_Ccoverage(self):
-        cov = [int(label[2:]) for label in self.posCCov]
-        maxcov = [int(label[2:]) for label in self.maxPosCCov]
-
+        notcov = self.maxPosCCov.difference(self.posCCov)
+        notcov = [int(label[2:]) for label in notcov]
+        
         print("\nComponents that have not been positively component-covered:", end='')
-        for idx, scc in enumerate(self.sccs):
-            if idx in maxcov and idx not in cov:
-                print("\n", [atm[0] for atm in scc], sep='')
-                for atm in scc:
-                    print(atm)
-                    locs = self.heads[atm][1]
-                    for j in range(len(locs)):
-                        print("line: {}, column: {}".format(locs[j].begin[1], locs[j].begin[2]))
+        for idx in notcov:
+            scc = list(self.sccs)[idx]
+            print("\n", [atm[0] for atm in scc], sep='')
+            for atm in scc:
+                print(atm)
+                locs = self.atoms[atm][1]
+                for j in range(len(locs)):
+                    print("line: {}, column: {}".format(locs[j].begin[1], locs[j].begin[2]))
 
     def print_neg_Ccoverage(self):
-        cov = [int(label[3:]) for label in self.negCCov]
-        maxcov = [int(label[3:]) for label in self.maxNegCCov]
-
-        print("\nComponents that have not been negatively component-covered:", end='')
-        for idx, scc in enumerate(self.sccs):
-            if idx in maxcov and idx not in cov:
-                print("\n", [atm[0] for atm in scc], sep='')
-                for atm in scc:
-                    print(atm)
-                    locs = self.heads[atm][1]
-                    for j in range(len(locs)):
-                        print("line: {}, column: {}".format(locs[j].begin[1], locs[j].begin[2]))
+        notcov = self.maxNegCCov.difference(self.negCCov)
+        notcov = [int(label[3:]) for label in notcov]
+        
+        print("\nComponents that have not been positively component-covered:", end='')
+        for idx in notcov:
+            scc = list(self.sccs)[idx]
+            print("\n", [atm[0] for atm in scc], sep='')
+            for atm in scc:
+                print(atm)
+                locs = self.atoms[atm][1]
+                for j in range(len(locs)):
+                    print("line: {}, column: {}".format(locs[j].begin[1], locs[j].begin[2]))
 
     def print_Pcoverage(self):
         print("\nSubprograms that have not been covered (rules are numbered top to bottom):")

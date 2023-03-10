@@ -564,4 +564,4 @@ class CoverageCheck():
     def full_check(self):
         self.setup()
         if self.check_coverage() != 0:
-            self.print_coverage()                      
+            self.print_coverage()

@@ -97,4 +97,4 @@ def find_loops(graph, sccs):
 
 def powerset(iterable):
     s = list(iterable)
-    return chain.from_iterable(combinations(s,r) for r in range(2,len(s)+1))
+    return chain.from_iterable(combinations(s,r) for r in range(1,len(s)+1))

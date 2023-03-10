@@ -1,5 +1,5 @@
 import sys, time
-from CoverageCheck_final import CoverageCheck
+from CoverageCheck_final_final import CoverageCheck
 import argparse
 
 def main():
@@ -17,7 +17,7 @@ def main():
     if not (args.program or args.rule or args.definition or args.loop or args.component):
         parser.error("No coverage metric specified. Please add at least one coverage metric.")
     
-    ipt = input("Please enter all inputatoms seperated by comma:\n")
+    ipt = input("Please enter all input atoms seperated by comma:\n")
     
     check = CoverageCheck(args, ipt)
     # start = time.time()
