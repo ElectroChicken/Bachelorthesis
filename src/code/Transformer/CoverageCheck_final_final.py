@@ -110,8 +110,8 @@ class CoverageCheck():
                 nbody = []
                 pos = ast.Position('<string>', 1, 1)
                 loc = ast.Location(pos, pos)
-                fun = ast.Function(loc, '_s{}'.format(idx), [], False)
-                fun2 = ast.Function(loc, '-_s{}'.format(idx), [], False)
+                fun = ast.Function(loc, '_c{}'.format(idx), [], False)
+                fun2 = ast.Function(loc, '-_c{}'.format(idx), [], False)
                 atm = ast.SymbolicAtom(fun)
                 atm2 = ast.SymbolicAtom(fun2)
                 head = ast.Literal(loc, ast.Sign.NoSign, atm)
@@ -154,13 +154,13 @@ class CoverageCheck():
                 # print(str)
 
     def prep_prog(self, node):
-        if node.ast_type == ASTType.Rule:
-            if str(node.head) == "#false":
-                pos = ast.Position('<string>', 1, 1)
-                loc = ast.Location(pos, pos)
-                lit = ast.Literal(loc, ast.Sign.NoSign, ast.BooleanConstant(1))
-                return node.update(head=lit)
-        elif node.ast_type == ASTType.ShowTerm or node.ast_type == ASTType.ShowSignature:    
+        # if node.ast_type == ASTType.Rule:
+            # if str(node.head) == "#false":
+            #     pos = ast.Position('<string>', 1, 1)
+            #     loc = ast.Location(pos, pos)
+            #     lit = ast.Literal(loc, ast.Sign.NoSign, ast.BooleanConstant(1))
+            #     return node.update(head=lit)
+        if node.ast_type == ASTType.ShowTerm or node.ast_type == ASTType.ShowSignature:    
             pos = ast.Position('<string>', 1, 1)
             loc = ast.Location(pos, pos)
             lit = ast.Literal(loc, ast.Sign.NoSign, ast.BooleanConstant(1))
@@ -311,10 +311,11 @@ class CoverageCheck():
                                         self.numDef += 1
                                         
                 if str(node.head) == "#false":
-                    pos = ast.Position('<string>', 1, 1)
-                    loc = ast.Location(pos, pos)
-                    lit = ast.Literal(loc, ast.Sign.NoSign, ast.BooleanConstant(1))
-                    return node.update(head=lit)
+                    self.rules.remove(node)
+                    # pos = ast.Position('<string>', 1, 1)
+                    # loc = ast.Location(pos, pos)
+                    # lit = ast.Literal(loc, ast.Sign.NoSign, ast.BooleanConstant(1))
+                    # return node.update(head=lit)
         elif node.ast_type == ASTType.ShowTerm or node.ast_type == ASTType.ShowSignature:    
             if not prog:
                 pos = ast.Position('<string>', 1, 1)
@@ -371,15 +372,15 @@ class CoverageCheck():
 
     def check_component_positive(self, max=False):
         if max:
-            self.maxPosCCov.update(set([label for label in self.model if label.startswith("_s")]))
+            self.maxPosCCov.update(set([label for label in self.model if label.startswith("_c")]))
         else:
-            self.posCCov.update(set([label for label in self.model if label.startswith("_s")]))
+            self.posCCov.update(set([label for label in self.model if label.startswith("_c")]))
 
     def check_component_negative(self, max=False):
         if max:
-            self.maxNegCCov.update(set([label for label in self.model if label.startswith("-_s")]))
+            self.maxNegCCov.update(set([label for label in self.model if label.startswith("-_c")]))
         else:
-            self.negCCov.update(set([label for label in self.model if label.startswith("-_s")]))
+            self.negCCov.update(set([label for label in self.model if label.startswith("-_c")]))
 
     def check_loop_positive(self, max=False):
         if max:
