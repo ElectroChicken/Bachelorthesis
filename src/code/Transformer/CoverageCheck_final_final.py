@@ -1,7 +1,7 @@
-from clingo.ast import ProgramBuilder, parse_files, parse_string, ASTType
-from clingo.control import Control
-from clingo import ast
 import networkx as nx
+from clingo import ast
+from clingo.control import Control
+from clingo.ast import ProgramBuilder, parse_files, parse_string, ASTType
 from dependencygraph_tools_v2 import build_dependency_graph, find_sccs, find_loops
 
 class CoverageCheck():
@@ -28,6 +28,7 @@ class CoverageCheck():
         self.numDef = 0
         self.numTestcases = 0
         self.rules = []
+        self.constraintcounter = 0
         self.model = set()
         self.atoms = dict()
         self.loops = set()
@@ -46,38 +47,39 @@ class CoverageCheck():
     def add_rules(self):
         with ProgramBuilder(self.ctl) as bld:
             for idx, rule in enumerate(self.rules):
-                pos = ast.Position('<string>', 1, 1)
-                loc = ast.Location(pos, pos)
-                fun = ast.Function(loc, '_r{}'.format(idx), [], False)
-                fun2 = ast.Function(loc, '-_r{}'.format(idx), [], False)
-                atm = ast.SymbolicAtom(fun)
-                atm2 = ast.SymbolicAtom(fun2)
-                lit = ast.Literal(loc, ast.Sign.NoSign, atm)
-                lit2 = ast.Literal(loc, ast.Sign.NoSign, atm2)
-                bld.add(ast.Rule(loc, lit, rule.body))
-                bld.add(ast.Rule(loc, lit2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
-                # print(ast.Rule(loc, lit, rule.body))
-                # print(ast.Rule(loc, lit2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
+                if str(rule.head) != "#false":
+                    pos = ast.Position('<string>', 1, 1)
+                    loc = ast.Location(pos, pos)
+                    fun = ast.Function(loc, '_r{}'.format(idx), [], False)
+                    fun2 = ast.Function(loc, '-_r{}'.format(idx), [], False)
+                    atm = ast.SymbolicAtom(fun)
+                    atm2 = ast.SymbolicAtom(fun2)
+                    lit = ast.Literal(loc, ast.Sign.NoSign, atm)
+                    lit2 = ast.Literal(loc, ast.Sign.NoSign, atm2)
+                    bld.add(ast.Rule(loc, lit, rule.body))
+                    bld.add(ast.Rule(loc, lit2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
+                    # print(ast.Rule(loc, lit, rule.body))
+                    # print(ast.Rule(loc, lit2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
 
     def add_definitions(self):
         with ProgramBuilder(self.ctl) as bld:
             for value in self.atoms.values():
-                for idx in value[2]:
+                if value[2]: 
                     pos = ast.Position('<string>', 1, 1)
                     loc = ast.Location(pos, pos)
                     fun = ast.Function(loc, '_d{}'.format(value[0][0]), [], False)
                     atm = ast.SymbolicAtom(fun)
                     head = ast.Literal(loc, ast.Sign.NoSign, atm)                    
-                    fun3 = ast.Function(loc, '_r{}'.format(idx), [], False)
-                    atm3 = ast.SymbolicAtom(fun3)
-                    body = ast.Literal(loc, ast.Sign.NoSign, atm3)
-                    bld.add(ast.Rule(loc, head, [body]))
-                if value[2]: 
                     fun2 = ast.Function(loc, '-_d{}'.format(value[0][0]), [], False)
                     atm2 = ast.SymbolicAtom(fun2)
                     head2 = ast.Literal(loc, ast.Sign.NoSign, atm2)
                     bld.add(ast.Rule(loc, head2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
-                    print(ast.Rule(loc, head2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
+                for idx in value[2]:
+                    fun3 = ast.Function(loc, '_r{}'.format(idx), [], False)
+                    atm3 = ast.SymbolicAtom(fun3)
+                    body = ast.Literal(loc, ast.Sign.NoSign, atm3)
+                    bld.add(ast.Rule(loc, head, [body]))
+                    #print(ast.Rule(loc, head2, [ast.Literal(loc, ast.Sign.Negation, atm)]))
 
     def add_loops(self):
         with ProgramBuilder(self.ctl) as bld:
@@ -150,7 +152,7 @@ class CoverageCheck():
                 str = "{ " + " ".join([f"_i{num};" for num in range(self.numTestcases)])[:-1] + " } = 1."
                 parse_string(str, bld.add)
                 parse_files(self.args.files, lambda stm: bld.add(self.gather_info(stm)))
-                self.numRules = len(self.rules)
+                self.numRules = len(self.rules) + self.constraintcounter
                 # print(str)
 
     def prep_prog(self, node):
@@ -310,8 +312,9 @@ class CoverageCheck():
                                         self.atoms[key] = [[self.numDef],[lit.location],[]]
                                         self.numDef += 1
                                         
-                if str(node.head) == "#false":
-                    self.rules.remove(node)
+                # if str(node.head) == "#false":
+                #     self.rules.remove(node)
+                #     self.constraintcounter += 1
                     # pos = ast.Position('<string>', 1, 1)
                     # loc = ast.Location(pos, pos)
                     # lit = ast.Literal(loc, ast.Sign.NoSign, ast.BooleanConstant(1))
@@ -624,7 +627,7 @@ class CoverageCheck():
         with ProgramBuilder(self.ctl) as bld:
             if not self.rules:
                 parse_files(self.args.files, lambda stm: bld.add(self.gather_info(stm, prog=True)))
-                self.numRules = len(self.rules)
+                self.numRules = len(self.rules) + self.constraintcounter
             else:
                 parse_files(self.args.files, bld.add)
             str = "{ " + self.ipt + " }."

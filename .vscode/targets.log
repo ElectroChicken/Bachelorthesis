@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Mar 10 18:15:27 2023
+# Make data base, printed on Fri May 19 16:30:21 2023
 
 # Variables
 
@@ -23,6 +23,10 @@ SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
+SNAP_LAUNCHER_ARCH_TRIPLET = x86_64-linux-gnu
+# environment
+VSCODE_CRASH_REPORTER_PROCESS_TYPE = extensionHost
+# environment
 VSCODE_CWD = /home/jakob
 # environment
 CAML_LD_LIBRARY_PATH = /home/jakob/.opam/default/lib/stublibs:/usr/local/lib/ocaml/4.08.1/stublibs:/usr/lib/ocaml/stublibs
@@ -35,7 +39,7 @@ QT_ACCESSIBILITY = 1
 # environment
 SNAP_INSTANCE_NAME = code
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/119/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code/129/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -45,7 +49,7 @@ PWD = /home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+XDG_DATA_DIRS = /home/jakob/snap/code/129/.local/share:/home/jakob/snap/code/129:/snap/code/129/usr/share:/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -53,11 +57,11 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 CONDA_PROMPT_MODIFIER = (base) 
 # environment
-VSCODE_CODE_CACHE_PATH = /home/jakob/.config/Code/CachedData/441438abd1ac652551dbe4d408dfcec8a499b8bf
+VSCODE_CODE_CACHE_PATH = /home/jakob/.config/Code/CachedData/b3e4e68a0bc097f0ae7907b217c1119af9e03435
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.FNPO11
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.M8BE51
 # default
 .LOADED := 
 # default
@@ -97,7 +101,7 @@ CONDA_SHLVL = 1
 # environment
 OCAML_TOPLEVEL_PATH = /home/jakob/.opam/default/lib/toplevel
 # environment
-VSCODE_PID = 14922
+VSCODE_PID = 4932
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -107,7 +111,7 @@ BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
 CONDA_PYTHON_EXE = /home/jakob/anaconda3/bin/python
 # environment
-SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/2009,unix/jakob-VM:/tmp/.ICE-unix/2009
+SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/3423,unix/jakob-VM:/tmp/.ICE-unix/3423
 # automatic
 *F = $(notdir $*)
 # environment
@@ -119,9 +123,11 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # environment
-VSCODE_NLS_CONFIG = {"locale":"de","availableLanguages":{},"_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"en-us","osLocale":"de-de","availableLanguages":{},"_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+GTK_PATH = /snap/code/129/usr/lib/x86_64-linux-gnu/gtk-3.0
 # environment
 GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 # environment
@@ -153,11 +159,11 @@ MAKEFILES :=
 # environment
 SNAP_USER_COMMON = /home/jakob/snap/code/common
 # environment
-SNAP = /snap/code/119
+SNAP = /snap/code/129
 # environment
-INVOCATION_ID = bdc12add6c604414b0a4281fe18afc55
+INVOCATION_ID = ed2aac309cc84d7bb74cfa1dcbbb7cf5
 # environment
-SNAP_REVISION = 119
+SNAP_REVISION = 129
 # environment
 SNAP_REAL_HOME = /home/jakob
 # environment
@@ -169,6 +175,8 @@ LESSCLOSE = /usr/bin/lesspipe %s %s
 # automatic
 ?F = $(notdir $?)
 # environment
+GTK_IM_MODULE_FILE = /home/jakob/snap/code/common/.cache/immodules/immodules.cache
+# environment
 XDG_CURRENT_DESKTOP = Unity
 # automatic
 +F = $(notdir $+)
@@ -176,6 +184,8 @@ XDG_CURRENT_DESKTOP = Unity
 DESKTOP_SESSION = ubuntu
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# environment
+LOCPATH = /snap/code/129/usr/lib/locale
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -189,7 +199,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 2059
+SYSTEMD_EXEC_PID = 3449
 # environment
 DISPLAY = :0
 # environment
@@ -199,25 +209,27 @@ GTK_MODULES = gail:atk-bridge
 # default
 MAKE_VERSION := 4.3
 # environment
-SNAP_DATA = /var/snap/code/119
+SNAP_DATA = /var/snap/code/129
 # environment
 SNAP_CONTEXT = 3lI7885cY0ZFdxQW09ZNJ7i1HU9X4HG_6X5Ioom_7RH0kplrxZct
 # environment
-GSETTINGS_SCHEMA_DIR_CONDA_BACKUP = /snap/code/119/usr/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR_CONDA_BACKUP = /home/jakob/snap/code/129/.local/share/glib-2.0/schemas
 # environment
-MANAGERPID = 1865
+MANAGERPID = 3265
 # environment
 OPAM_SWITCH_PREFIX = /home/jakob/.opam/default
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 14875
+GIO_LAUNCHED_DESKTOP_FILE_PID = 4834
 # environment
-_ = /snap/code/119/usr/share/code/code
+_ = /snap/code/129/usr/share/code/code
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/jakob/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-JOURNAL_STREAM = 8:52575
+GIO_MODULE_DIR = /home/jakob/snap/code/common/.cache/gio-modules
+# environment
+JOURNAL_STREAM = 8:59992
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -229,7 +241,9 @@ QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-4a0e5392-1.75.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-4a0e5392-1.78-main.sock
+# environment
+GTK_EXE_PREFIX = /snap/code/129/usr
 # environment
 SNAP_NAME = code
 # environment
@@ -241,7 +255,7 @@ IM_CONFIG_PHASE = 1
 # automatic
 <F = $(notdir $<)
 # environment
-SNAP_VERSION = 441438ab
+SNAP_VERSION = b3e4e68a
 # default
 SUFFIXES := 
 # environment
@@ -253,7 +267,7 @@ SNAP_COMMON = /var/snap/code/common
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
 # environment
-SNAP_USER_DATA = /home/jakob/snap/code/119
+SNAP_USER_DATA = /home/jakob/snap/code/129
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
@@ -263,8 +277,9 @@ GDMSESSION = ubuntu
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=125/1024=12%, Rehash=0, Collisions=3/155=2%
+# Load=132/1024=13%, Rehash=0, Collisions=4/162=2%
 
+ 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
@@ -281,7 +296,6 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Files
 
- 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
@@ -337,6 +351,6 @@ build:
 # strcache performance: lookups = 24 / hit rate = 33%
 # hash-table stats:
 # Load=16/8192=0%, Rehash=0, Collisions=0/24=0%
-# Finished Make data base on Fri Mar 10 18:15:27 2023
+# Finished Make data base on Fri May 19 16:30:22 2023
 
  
