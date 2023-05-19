@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.1 $
+% $ biblatex bbl format version 3.2 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -19,7 +19,848 @@
 
 \refsection{0}
   \datalist[entry]{anyt/global//global/global}
-    \entry{Jan+10}{incollection}{}
+    \entry{ABR21}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=3a8ea101a64d34b5cbfb96ba97c67cfe}{%
+           family={Amendola},
+           familyi={A\bibinitperiod},
+           given={Giovanni},
+           giveni={G\bibinitperiod}}}%
+        {{hash=d2a29b58902426d1ea045eec12e7a56c}{%
+           family={Berei},
+           familyi={B\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=d50b8c03eb60f0c7de0df2462c97c37c}{%
+           family={Ricca},
+           familyi={R\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+      }
+      \name{editor}{4}{}{%
+        {{hash=e1629fff88cdb6d71cc8d8fc6f9b987a}{%
+           family={Faber},
+           familyi={F\bibinitperiod},
+           given={Wolfgang},
+           giveni={W\bibinitperiod}}}%
+        {{hash=8c14fa59a9c511fd1b3a0c36b8d30d17}{%
+           family={Friedrich},
+           familyi={F\bibinitperiod},
+           given={Gerhard},
+           giveni={G\bibinitperiod}}}%
+        {{hash=a296fbe902a96f2ceebb7398463f3e13}{%
+           family={Gebser},
+           familyi={G\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5de26a1d57a0c0d6afa88eabfe7902e6}{%
+           family={Morak},
+           familyi={M\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{df972698dc08fc00394fd2ece02f268a}
+      \strng{fullhash}{df972698dc08fc00394fd2ece02f268a}
+      \strng{bibnamehash}{df972698dc08fc00394fd2ece02f268a}
+      \strng{authorbibnamehash}{df972698dc08fc00394fd2ece02f268a}
+      \strng{authornamehash}{df972698dc08fc00394fd2ece02f268a}
+      \strng{authorfullhash}{df972698dc08fc00394fd2ece02f268a}
+      \strng{editorbibnamehash}{b7c10f76d4ce10d5771b83e6778d30c8}
+      \strng{editornamehash}{b7c10f76d4ce10d5771b83e6778d30c8}
+      \strng{editorfullhash}{6dcd866c93d2ff75977d97ecd47b8663}
+      \field{labelalpha}{ABR21}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Logics in Artificial Intelligence - 17th European Conference, {JELIA}}
+      \field{title}{Testing in {ASP:} Revisited Language and Programming Environment}
+      \field{volume}{12678}
+      \field{year}{2021}
+      \field{pages}{362\bibrangedash 376}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1007/978-3-030-75775-5_24
+      \endverb
+    \endentry
+    \entry{AO16}{book}{}
+      \name{author}{2}{}{%
+        {{hash=53a4574137bd852f1987680029f2db90}{%
+           family={Ammann},
+           familyi={A\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=72796f36811fa9c5afca10c38bb3b0eb}{%
+           family={Offutt},
+           familyi={O\bibinitperiod},
+           given={Jeff},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{4a6e740d70d43d0f992cb76b9bfc9cb9}
+      \strng{fullhash}{4a6e740d70d43d0f992cb76b9bfc9cb9}
+      \strng{bibnamehash}{4a6e740d70d43d0f992cb76b9bfc9cb9}
+      \strng{authorbibnamehash}{4a6e740d70d43d0f992cb76b9bfc9cb9}
+      \strng{authornamehash}{4a6e740d70d43d0f992cb76b9bfc9cb9}
+      \strng{authorfullhash}{4a6e740d70d43d0f992cb76b9bfc9cb9}
+      \field{labelalpha}{AO16}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{Introduction to Software Testing}
+      \field{year}{2016}
+      \verb{doi}
+      \verb 10.1017/9781316771273
+      \endverb
+    \endentry
+    \entry{BJ98}{article}{}
+      \name{author}{2}{}{%
+        {{hash=655daa35caa92b1ec0e741b8808e0b3d}{%
+           family={Belli},
+           familyi={B\bibinitperiod},
+           given={Fevzi},
+           giveni={F\bibinitperiod}}}%
+        {{hash=f5950dadf10af71ec81976624128ed3a}{%
+           family={Jack},
+           familyi={J\bibinitperiod},
+           given={Oliver},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{85092afbc9b3a59748809e9eedab17c4}
+      \strng{fullhash}{85092afbc9b3a59748809e9eedab17c4}
+      \strng{bibnamehash}{85092afbc9b3a59748809e9eedab17c4}
+      \strng{authorbibnamehash}{85092afbc9b3a59748809e9eedab17c4}
+      \strng{authornamehash}{85092afbc9b3a59748809e9eedab17c4}
+      \strng{authorfullhash}{85092afbc9b3a59748809e9eedab17c4}
+      \field{labelalpha}{BJ98}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Software Testing, Verification Reliability}
+      \field{number}{1}
+      \field{title}{Declarative Paradigm of Test Coverage}
+      \field{volume}{8}
+      \field{year}{1998}
+      \field{pages}{15\bibrangedash 47}
+      \range{pages}{33}
+      \verb{doi}
+      \verb 10.1002/(SICI)1099-1689(199803)8:1<15::AID-STVR146>3.0.CO;2-D
+      \endverb
+    \endentry
+    \entry{EGL16}{article}{}
+      \name{author}{3}{}{%
+        {{hash=ecf699cfbaab8e7b87f4ccb5657a6c3e}{%
+           family={Erdem},
+           familyi={E\bibinitperiod},
+           given={Esra},
+           giveni={E\bibinitperiod}}}%
+        {{hash=9ddf8a4d782a7a6f34c25fbc4ca822b1}{%
+           family={Gelfond},
+           familyi={G\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=77e491ad5f8cdd4f2edef120a74f5a17}{%
+           family={Leone},
+           familyi={L\bibinitperiod},
+           given={Nicola},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{eacdcd943654fcb2dc5f93251c3a4eac}
+      \strng{fullhash}{eacdcd943654fcb2dc5f93251c3a4eac}
+      \strng{bibnamehash}{eacdcd943654fcb2dc5f93251c3a4eac}
+      \strng{authorbibnamehash}{eacdcd943654fcb2dc5f93251c3a4eac}
+      \strng{authornamehash}{eacdcd943654fcb2dc5f93251c3a4eac}
+      \strng{authorfullhash}{eacdcd943654fcb2dc5f93251c3a4eac}
+      \field{labelalpha}{EGL16}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{AI Magazine}
+      \field{number}{3}
+      \field{title}{Applications of answer set programming}
+      \field{volume}{37}
+      \field{year}{2016}
+      \field{pages}{53\bibrangedash 68}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1609/aimag.v37i3.2678
+      \endverb
+    \endentry
+    \entry{FL22}{article}{}
+      \name{author}{2}{}{%
+        {{hash=ff0cc9e7122367357b3186495ab0f058}{%
+           family={Fandinno},
+           familyi={F\bibinitperiod},
+           given={Jorge},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3f9f7c9937297077325233d345cf9c91}{%
+           family={Lifschitz},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{69c1915c8dcbedca4f120ea97ffe8b32}
+      \strng{fullhash}{69c1915c8dcbedca4f120ea97ffe8b32}
+      \strng{bibnamehash}{69c1915c8dcbedca4f120ea97ffe8b32}
+      \strng{authorbibnamehash}{69c1915c8dcbedca4f120ea97ffe8b32}
+      \strng{authornamehash}{69c1915c8dcbedca4f120ea97ffe8b32}
+      \strng{authorfullhash}{69c1915c8dcbedca4f120ea97ffe8b32}
+      \field{labelalpha}{FL22}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Theory and Practice of Logic Programming}
+      \field{title}{Positive Dependency Graphs Revisited}
+      \field{year}{2022}
+      \field{pages}{1\bibrangedash 10}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1017/S1471068422000333
+      \endverb
+    \endentry
+    \entry{FLL06}{article}{}
+      \name{author}{3}{}{%
+        {{hash=b4fdbd544113be5bee98fa5db61cf3cb}{%
+           family={Ferraris},
+           familyi={F\bibinitperiod},
+           given={Paolo},
+           giveni={P\bibinitperiod}}}%
+        {{hash=61a8c8f9bc9bd96451ef58478d081e18}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Joohyung},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3f9f7c9937297077325233d345cf9c91}{%
+           family={Lifschitz},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{b6c5cca7f002df561738f402ef8e6760}
+      \strng{fullhash}{b6c5cca7f002df561738f402ef8e6760}
+      \strng{bibnamehash}{b6c5cca7f002df561738f402ef8e6760}
+      \strng{authorbibnamehash}{b6c5cca7f002df561738f402ef8e6760}
+      \strng{authornamehash}{b6c5cca7f002df561738f402ef8e6760}
+      \strng{authorfullhash}{b6c5cca7f002df561738f402ef8e6760}
+      \field{labelalpha}{FLL06}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Mathematics and Artificial Intelligence}
+      \field{number}{1-2}
+      \field{title}{A generalization of the Lin-Zhao theorem}
+      \field{volume}{47}
+      \field{year}{2006}
+      \field{pages}{79\bibrangedash 101}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1007/s10472-006-9025-2
+      \endverb
+    \endentry
+    \entry{Fra+03}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{hash=abfe6273b0a14a614f01ae835abcd4b3}{%
+           family={Fraser},
+           familyi={F\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod}}}%
+        {{hash=c5dcbe71f60a8d55caa11fe1493614d0}{%
+           family={Beck},
+           familyi={B\bibinitperiod},
+           given={Kent},
+           giveni={K\bibinitperiod}}}%
+        {{hash=ccdd606f891d998f69e4fc52bca5f6cb}{%
+           family={Caputo},
+           familyi={C\bibinitperiod},
+           given={Bill},
+           giveni={B\bibinitperiod}}}%
+        {{hash=d931d969ec6e3266e245a95f997c9065}{%
+           family={Mackinnon},
+           familyi={M\bibinitperiod},
+           given={Tim},
+           giveni={T\bibinitperiod}}}%
+        {{hash=dc26484945633afd1c687af860bd7f6e}{%
+           family={Newkirk},
+           familyi={N\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3041b70220c49c2637fe4c994a0df4b4}{%
+           family={Poole},
+           familyi={P\bibinitperiod},
+           given={Charlie},
+           giveni={C\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=6f97a7004db38a3fbc0075ede771a5ae}{%
+           family={Marchesi},
+           familyi={M\bibinitperiod},
+           given={Michele},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ba7122735918fedd33253326a25c2e66}{%
+           family={Succi},
+           familyi={S\bibinitperiod},
+           given={Giancarlo},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{6b26cc68a9d0d07c05d37164a4278f37}
+      \strng{fullhash}{7e28f71949fb56f9de6b1511c3a48d14}
+      \strng{bibnamehash}{6b26cc68a9d0d07c05d37164a4278f37}
+      \strng{authorbibnamehash}{6b26cc68a9d0d07c05d37164a4278f37}
+      \strng{authornamehash}{6b26cc68a9d0d07c05d37164a4278f37}
+      \strng{authorfullhash}{7e28f71949fb56f9de6b1511c3a48d14}
+      \strng{editorbibnamehash}{8713ac00a5d5be9d7f638454b680bf44}
+      \strng{editornamehash}{8713ac00a5d5be9d7f638454b680bf44}
+      \strng{editorfullhash}{8713ac00a5d5be9d7f638454b680bf44}
+      \field{labelalpha}{Fra+03}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Extreme Programming and Agile Processes in Software Engineering}
+      \field{title}{Test Driven Development ({TDD})}
+      \field{volume}{2675}
+      \field{year}{2003}
+      \field{pages}{459\bibrangedash 462}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1007/3-540-44870-5_84
+      \endverb
+    \endentry
+    \entry{Geb+12}{book}{}
+      \name{author}{4}{}{%
+        {{hash=a296fbe902a96f2ceebb7398463f3e13}{%
+           family={Gebser},
+           familyi={G\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=75758236531a52ffc97ef10f8b482f05}{%
+           family={Kaminski},
+           familyi={K\bibinitperiod},
+           given={Roland},
+           giveni={R\bibinitperiod}}}%
+        {{hash=3fe0253f0b3212a4109e50143a91fede}{%
+           family={Kaufmann},
+           familyi={K\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=3c55d70c19bd5f5a654a6ad7ae64450c}{%
+           family={Schaub},
+           familyi={S\bibinitperiod},
+           given={Torsten},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Morgan {\&} Claypool Publishers}%
+      }
+      \strng{namehash}{980252df49c9c725a120aee1519288fc}
+      \strng{fullhash}{6ff2ecbb0dace9a796d510f578f069a3}
+      \strng{bibnamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authorbibnamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authornamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authorfullhash}{6ff2ecbb0dace9a796d510f578f069a3}
+      \field{extraname}{1}
+      \field{labelalpha}{Geb+12}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{series}{Synthesis Lectures on Artificial Intelligence and Machine Learning}
+      \field{title}{Answer Set Solving in Practice}
+      \field{year}{2012}
+      \verb{doi}
+      \verb 10.2200/S00457ED1V01Y201211AIM019
+      \endverb
+    \endentry
+    \entry{Geb+15}{article}{}
+      \name{author}{5}{}{%
+        {{hash=a296fbe902a96f2ceebb7398463f3e13}{%
+           family={Gebser},
+           familyi={G\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=85bf0ece536bd762c51c3e5e30aad808}{%
+           family={Harrison},
+           familyi={H\bibinitperiod},
+           given={Amelia},
+           giveni={A\bibinitperiod}}}%
+        {{hash=75758236531a52ffc97ef10f8b482f05}{%
+           family={Kaminski},
+           familyi={K\bibinitperiod},
+           given={Roland},
+           giveni={R\bibinitperiod}}}%
+        {{hash=3f9f7c9937297077325233d345cf9c91}{%
+           family={Lifschitz},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod}}}%
+        {{hash=3c55d70c19bd5f5a654a6ad7ae64450c}{%
+           family={Schaub},
+           familyi={S\bibinitperiod},
+           given={Torsten},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{980252df49c9c725a120aee1519288fc}
+      \strng{fullhash}{d0afc6cb44e6f1dc155cf4b9fcfdaabf}
+      \strng{bibnamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authorbibnamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authornamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authorfullhash}{d0afc6cb44e6f1dc155cf4b9fcfdaabf}
+      \field{extraname}{2}
+      \field{labelalpha}{Geb+15}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Theory and Practice of Logic Programming}
+      \field{number}{4-5}
+      \field{title}{Abstract gringo}
+      \field{volume}{15}
+      \field{year}{2015}
+      \field{pages}{449\bibrangedash 463}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1017/S1471068415000150
+      \endverb
+    \endentry
+    \entry{Geb+19}{manual}{}
+      \name{author}{9}{}{%
+        {{hash=a296fbe902a96f2ceebb7398463f3e13}{%
+           family={Gebser},
+           familyi={G\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=75758236531a52ffc97ef10f8b482f05}{%
+           family={Kaminski},
+           familyi={K\bibinitperiod},
+           given={Roland},
+           giveni={R\bibinitperiod}}}%
+        {{hash=3fe0253f0b3212a4109e50143a91fede}{%
+           family={Kaufmann},
+           familyi={K\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=fcea9ebaf01b5a334513699230ad72fc}{%
+           family={Lindauer},
+           familyi={L\bibinitperiod},
+           given={Marius},
+           giveni={M\bibinitperiod}}}%
+        {{hash=121398acde74ccd9e0d29d065c9c45eb}{%
+           family={Ostrowski},
+           familyi={O\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+        {{hash=586007140096e6d78832f56de1edf859}{%
+           family={Romero},
+           familyi={R\bibinitperiod},
+           given={Javier},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3c55d70c19bd5f5a654a6ad7ae64450c}{%
+           family={Schaub},
+           familyi={S\bibinitperiod},
+           given={Torsten},
+           giveni={T\bibinitperiod}}}%
+        {{hash=cc56718d2998dacb8384fa6af6cab70f}{%
+           family={Thiele},
+           familyi={T\bibinitperiod},
+           given={Sven},
+           giveni={S\bibinitperiod}}}%
+        {{hash=5a28f806bf3518aaa98d2cdef7416984}{%
+           family={Wanko},
+           familyi={W\bibinitperiod},
+           given={Philipp},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{980252df49c9c725a120aee1519288fc}
+      \strng{fullhash}{2de6f7a1c8515a366015847617c73e6d}
+      \strng{bibnamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authorbibnamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authornamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authorfullhash}{2de6f7a1c8515a366015847617c73e6d}
+      \field{extraname}{3}
+      \field{labelalpha}{Geb+19}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Potassco User Guide}
+      \field{urlday}{18}
+      \field{urlhour}{23}
+      \field{urlminute}{0}
+      \field{urlmonth}{5}
+      \field{urlsecond}{0}
+      \field{urlyear}{2023}
+      \field{version}{2.2.0}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/potassco/guide/releases/download/v2.2.0/guide.pdf
+      \endverb
+      \verb{url}
+      \verb https://github.com/potassco/guide/releases/download/v2.2.0/guide.pdf
+      \endverb
+    \endentry
+    \entry{GJG14}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=421f701ed4ed770219168b6f80719917}{%
+           family={Gopinath},
+           familyi={G\bibinitperiod},
+           given={Rahul},
+           giveni={R\bibinitperiod}}}%
+        {{hash=a65cdf7e203fad2f08005212a70754fa}{%
+           family={Jensen},
+           familyi={J\bibinitperiod},
+           given={Carlos},
+           giveni={C\bibinitperiod}}}%
+        {{hash=d67052ec4bf728983bc814cf0d0a5b1c}{%
+           family={Groce},
+           familyi={G\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=b58cf8ea7a6bb849225a95399c7d0f16}{%
+           family={Jalote},
+           familyi={J\bibinitperiod},
+           given={Pankaj},
+           giveni={P\bibinitperiod}}}%
+        {{hash=c44b165fe1fe29877e377751b8d1e1a1}{%
+           family={Briand},
+           familyi={B\bibinitperiod},
+           given={Lionel\bibnamedelima C.},
+           giveni={L\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=5fe4b5138b4dee7944138d450d6ef161}{%
+           family={Hoek},
+           familyi={H\bibinitperiod},
+           given={André},
+           giveni={A\bibinitperiod},
+           prefix={van\bibnamedelima der},
+           prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{e43a7dc5f67f680b7cb85352e570c613}
+      \strng{fullhash}{e43a7dc5f67f680b7cb85352e570c613}
+      \strng{bibnamehash}{e43a7dc5f67f680b7cb85352e570c613}
+      \strng{authorbibnamehash}{e43a7dc5f67f680b7cb85352e570c613}
+      \strng{authornamehash}{e43a7dc5f67f680b7cb85352e570c613}
+      \strng{authorfullhash}{e43a7dc5f67f680b7cb85352e570c613}
+      \strng{editorbibnamehash}{92cf9d4d3eb9ad2a0bad63d1202ffda3}
+      \strng{editornamehash}{92cf9d4d3eb9ad2a0bad63d1202ffda3}
+      \strng{editorfullhash}{92cf9d4d3eb9ad2a0bad63d1202ffda3}
+      \field{labelalpha}{GJG14}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 36th International Conference on Software Engineering}
+      \field{title}{Code Coverage for Suite Evaluation by Developers}
+      \field{year}{2014}
+      \field{pages}{72\bibrangedash 82}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1145/2568225.2568278
+      \endverb
+    \endentry
+    \entry{GKS09}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=a296fbe902a96f2ceebb7398463f3e13}{%
+           family={Gebser},
+           familyi={G\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=3fe0253f0b3212a4109e50143a91fede}{%
+           family={Kaufmann},
+           familyi={K\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=3c55d70c19bd5f5a654a6ad7ae64450c}{%
+           family={Schaub},
+           familyi={S\bibinitperiod},
+           given={Torsten},
+           giveni={T\bibinitperiod}}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=ecf699cfbaab8e7b87f4ccb5657a6c3e}{%
+           family={Erdem},
+           familyi={E\bibinitperiod},
+           given={Esra},
+           giveni={E\bibinitperiod}}}%
+        {{hash=047ce7977f1ea83b53bc2b7058507391}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Fangzhen},
+           giveni={F\bibinitperiod}}}%
+        {{hash=3c55d70c19bd5f5a654a6ad7ae64450c}{%
+           family={Schaub},
+           familyi={S\bibinitperiod},
+           given={Torsten},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{41a9fe6cb3495fb0ea34b62a7c23f9a9}
+      \strng{fullhash}{41a9fe6cb3495fb0ea34b62a7c23f9a9}
+      \strng{bibnamehash}{41a9fe6cb3495fb0ea34b62a7c23f9a9}
+      \strng{authorbibnamehash}{41a9fe6cb3495fb0ea34b62a7c23f9a9}
+      \strng{authornamehash}{41a9fe6cb3495fb0ea34b62a7c23f9a9}
+      \strng{authorfullhash}{41a9fe6cb3495fb0ea34b62a7c23f9a9}
+      \strng{editorbibnamehash}{779fa8547beabd0f6101dbbf7ae02e69}
+      \strng{editornamehash}{779fa8547beabd0f6101dbbf7ae02e69}
+      \strng{editorfullhash}{779fa8547beabd0f6101dbbf7ae02e69}
+      \field{labelalpha}{GKS09}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Logic Programming and Nonmonotonic Reasoning, 10th International Conference {LPNMR}}
+      \field{title}{The Conflict-Driven Answer Set Solver clasp: Progress Report}
+      \field{volume}{5753}
+      \field{year}{2009}
+      \field{pages}{509\bibrangedash 514}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1007/978-3-642-04238-6_50
+      \endverb
+    \endentry
+    \entry{GL88}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=9ddf8a4d782a7a6f34c25fbc4ca822b1}{%
+           family={Gelfond},
+           familyi={G\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=3f9f7c9937297077325233d345cf9c91}{%
+           family={Lifschitz},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod}}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=ddca879cfd269e5b2fffa9fd692d4a9a}{%
+           family={Kowalski},
+           familyi={K\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=4972ef9d396557b8cf4009b3f91e5995}{%
+           family={Bowen},
+           familyi={B\bibinitperiod}}}%
+        {{hash=b680c26b4ebbd087104c20cca189af59}{%
+           family={Kenneth},
+           familyi={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {{MIT} Press}%
+      }
+      \strng{namehash}{701aac313c79e95b5099346df9bba24a}
+      \strng{fullhash}{701aac313c79e95b5099346df9bba24a}
+      \strng{bibnamehash}{701aac313c79e95b5099346df9bba24a}
+      \strng{authorbibnamehash}{701aac313c79e95b5099346df9bba24a}
+      \strng{authornamehash}{701aac313c79e95b5099346df9bba24a}
+      \strng{authorfullhash}{701aac313c79e95b5099346df9bba24a}
+      \strng{editorbibnamehash}{47777b3bb9bf793f3438d6dee9e09b91}
+      \strng{editornamehash}{47777b3bb9bf793f3438d6dee9e09b91}
+      \strng{editorfullhash}{47777b3bb9bf793f3438d6dee9e09b91}
+      \field{extraname}{1}
+      \field{labelalpha}{GL88}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Fifth International Logic Programming Conference and Symposium}
+      \field{title}{The Stable Model Semantics for Logic Programming}
+      \field{year}{1988}
+      \field{pages}{1070\bibrangedash 1080}
+      \range{pages}{11}
+      \verb{urlraw}
+      \verb http://www.cs.utexas.edu/users/ai-lab?gel88
+      \endverb
+      \verb{url}
+      \verb http://www.cs.utexas.edu/users/ai-lab?gel88
+      \endverb
+    \endentry
+    \entry{GL91}{article}{}
+      \name{author}{2}{}{%
+        {{hash=9ddf8a4d782a7a6f34c25fbc4ca822b1}{%
+           family={Gelfond},
+           familyi={G\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=3f9f7c9937297077325233d345cf9c91}{%
+           family={Lifschitz},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{701aac313c79e95b5099346df9bba24a}
+      \strng{fullhash}{701aac313c79e95b5099346df9bba24a}
+      \strng{bibnamehash}{701aac313c79e95b5099346df9bba24a}
+      \strng{authorbibnamehash}{701aac313c79e95b5099346df9bba24a}
+      \strng{authornamehash}{701aac313c79e95b5099346df9bba24a}
+      \strng{authorfullhash}{701aac313c79e95b5099346df9bba24a}
+      \field{extraname}{2}
+      \field{labelalpha}{GL91}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{New Gener. Comput.}
+      \field{number}{3/4}
+      \field{title}{Classical Negation in Logic Programs and Disjunctive Databases}
+      \field{volume}{9}
+      \field{year}{1991}
+      \field{pages}{365\bibrangedash 386}
+      \range{pages}{22}
+      \verb{doi}
+      \verb 10.1007/BF03037169
+      \endverb
+    \endentry
+    \entry{GOT17}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=60f760b1f269145ce278a2e838f65a73}{%
+           family={Gre{ß}ler},
+           familyi={G\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=20f9a356fd9d9ca14e2dfdd0ef2f9293}{%
+           family={Oetsch},
+           familyi={O\bibinitperiod},
+           given={Johannes},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3931af166ed356b9eaa0061a63204ccd}{%
+           family={Tompits},
+           familyi={T\bibinitperiod},
+           given={Hans},
+           giveni={H\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=b6d3f21f6907e2be8b98484d0994b45c}{%
+           family={Balduccini},
+           familyi={B\bibinitperiod},
+           given={Marcello},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ed6a24604d923493e91425fbb35ac736}{%
+           family={Janhunen},
+           familyi={J\bibinitperiod},
+           given={Tomi},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{22fd43cffa91506325a289ae7b9540d4}
+      \strng{fullhash}{22fd43cffa91506325a289ae7b9540d4}
+      \strng{bibnamehash}{22fd43cffa91506325a289ae7b9540d4}
+      \strng{authorbibnamehash}{22fd43cffa91506325a289ae7b9540d4}
+      \strng{authornamehash}{22fd43cffa91506325a289ae7b9540d4}
+      \strng{authorfullhash}{22fd43cffa91506325a289ae7b9540d4}
+      \strng{editorbibnamehash}{3bf6baee47ee498c4597c7510a2b8143}
+      \strng{editornamehash}{3bf6baee47ee498c4597c7510a2b8143}
+      \strng{editorfullhash}{3bf6baee47ee498c4597c7510a2b8143}
+      \field{labelalpha}{GOT17}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Logic Programming and Nonmonotonic Reasoning - 14th International Conference, {LPNMR}}
+      \field{title}{{\textbackslash}mathsf Harvey : {A} System for Random Testing in ASP}
+      \field{volume}{10377}
+      \field{year}{2017}
+      \field{pages}{229\bibrangedash 235}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1007/978-3-319-61660-5_21
+      \endverb
+    \endentry
+    \entry{HSS08}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=94707ad079516150870c2f9a2932df46}{%
+           family={Hagberg},
+           familyi={H\bibinitperiod},
+           given={Aric\bibnamedelima A.},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=12f80aa3aca50b90f024775e52dde170}{%
+           family={Schult},
+           familyi={S\bibinitperiod},
+           given={Daniel\bibnamedelima A.},
+           giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=58fb3a96810da0d56606677a3ce7e677}{%
+           family={Swart},
+           familyi={S\bibinitperiod},
+           given={Pieter\bibnamedelima J.},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=cfa3239dded54488f9a82a5718d5b927}{%
+           family={Varoquaux},
+           familyi={V\bibinitperiod},
+           given={Gaël},
+           giveni={G\bibinitperiod}}}%
+        {{hash=5d98f8482048dcc3052b092b91de894c}{%
+           family={Vaught},
+           familyi={V\bibinitperiod},
+           given={Travis},
+           giveni={T\bibinitperiod}}}%
+        {{hash=eca9aeefdc8563b0e153fbedf08bc1a1}{%
+           family={Millman},
+           familyi={M\bibinitperiod},
+           given={Jarrod},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Pasadena, CA USA}%
+      }
+      \strng{namehash}{3a1b2e51fcffd45628935c7b6334f944}
+      \strng{fullhash}{3a1b2e51fcffd45628935c7b6334f944}
+      \strng{bibnamehash}{3a1b2e51fcffd45628935c7b6334f944}
+      \strng{authorbibnamehash}{3a1b2e51fcffd45628935c7b6334f944}
+      \strng{authornamehash}{3a1b2e51fcffd45628935c7b6334f944}
+      \strng{authorfullhash}{3a1b2e51fcffd45628935c7b6334f944}
+      \strng{editorbibnamehash}{5c6f569244b62f16c51830f1dac15458}
+      \strng{editornamehash}{5c6f569244b62f16c51830f1dac15458}
+      \strng{editorfullhash}{5c6f569244b62f16c51830f1dac15458}
+      \field{labelalpha}{HSS08}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 7th Python in Science Conference}
+      \field{title}{Exploring Network Structure, Dynamics, and Function using NetworkX}
+      \field{year}{2008}
+      \field{pages}{11\bibrangedash 15}
+      \range{pages}{5}
+    \endentry
+    \entry{Jan+10}{inproceedings}{}
       \name{author}{5}{}{%
         {{hash=ed6a24604d923493e91425fbb35ac736}{%
            family={Janhunen},
@@ -47,8 +888,25 @@
            given={Hans},
            giveni={H\bibinitperiod}}}%
       }
+      \name{editor}{3}{}{%
+        {{hash=d464874f3ce520d702447d4e695573d0}{%
+           family={Coelho},
+           familyi={C\bibinitperiod},
+           given={Helder},
+           giveni={H\bibinitperiod}}}%
+        {{hash=e0c7ea82e283188bb50d580b79aae9e3}{%
+           family={Studer},
+           familyi={S\bibinitperiod},
+           given={Rudi},
+           giveni={R\bibinitperiod}}}%
+        {{hash=ea0f2db42141b96e5751d533bd719db5}{%
+           family={Wooldridge},
+           familyi={W\bibinitperiod},
+           given={Michael\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
       \list{publisher}{1}{%
-        {IOS Press}%
+        {{IOS} Press}%
       }
       \strng{namehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
       \strng{fullhash}{c55b072b2675260194b238372d8a55f6}
@@ -56,17 +914,24 @@
       \strng{authorbibnamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
       \strng{authornamehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
       \strng{authorfullhash}{c55b072b2675260194b238372d8a55f6}
+      \strng{editorbibnamehash}{49df2c5e20ef6354ae7f3e2692f812a0}
+      \strng{editornamehash}{49df2c5e20ef6354ae7f3e2692f812a0}
+      \strng{editorfullhash}{49df2c5e20ef6354ae7f3e2692f812a0}
       \field{extraname}{1}
       \field{labelalpha}{Jan+10}
       \field{sortinit}{J}
-      \field{sortinithash}{c45040a764d616897e7f5b30174d7b92}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{ECAI 2010}
+      \field{booktitle}{{ECAI} 2010 - 19th European Conference on Artificial Intelligence}
       \field{title}{On testing answer-set programs}
+      \field{volume}{215}
       \field{year}{2010}
       \field{pages}{951\bibrangedash 956}
       \range{pages}{6}
+      \verb{doi}
+      \verb 10.3233/978-1-60750-606-5-951
+      \endverb
     \endentry
     \entry{Jan+11}{inproceedings}{}
       \name{author}{5}{}{%
@@ -112,7 +977,7 @@
         {Berlin, Heidelberg}%
       }
       \list{publisher}{1}{%
-        {Springer Berlin Heidelberg}%
+        {Springer}%
       }
       \strng{namehash}{5213c2f8f7d55b4a87a22b1fd641fa28}
       \strng{fullhash}{c55b072b2675260194b238372d8a55f6}
@@ -126,16 +991,402 @@
       \field{extraname}{2}
       \field{labelalpha}{Jan+11}
       \field{sortinit}{J}
-      \field{sortinithash}{c45040a764d616897e7f5b30174d7b92}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Answer-set programming (ASP) is an established paradigm for declarative problem solving, yet comparably little work on testing of answer-set programs has been done so far. In a recent paper, foundations for structure-based testing of answer-set programs building on a number of coverage notions have been proposed. In this paper, we develop a framework for testing answer-set programs based on this work and study how good the structure-based approach to test input generation is compared to random test input generation. The results indicate that random testing is quite ineffective for some benchmarks, while structure-based techniques catch faults with a high rate more consistently also in these cases.}
-      \field{booktitle}{Logic Programming and Nonmonotonic Reasoning}
-      \field{isbn}{978-3-642-20895-9}
+      \field{booktitle}{Logic Programming and Nonmonotonic Reasoning - 11th International Conference, {LPNMR}}
       \field{title}{Random vs. Structure-Based Testing of Answer-Set Programs: An Experimental Comparison}
+      \field{volume}{6645}
       \field{year}{2011}
       \field{pages}{242\bibrangedash 247}
       \range{pages}{6}
+      \verb{doi}
+      \verb 10.1007/978-3-642-20895-9_26
+      \endverb
+    \endentry
+    \entry{LGL10}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=9472187727af5105839be1d3876ddb54}{%
+           family={Lazaar},
+           familyi={L\bibinitperiod},
+           given={Nadjib},
+           giveni={N\bibinitperiod}}}%
+        {{hash=56b6e1919239f5c36644b30074b974b1}{%
+           family={Gotlieb},
+           familyi={G\bibinitperiod},
+           given={Arnaud},
+           giveni={A\bibinitperiod}}}%
+        {{hash=006c468183111da777f074d991c9f28e}{%
+           family={Lebbah},
+           familyi={L\bibinitperiod},
+           given={Yahia},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=4c413160abaa666575a0b3ecf9260ef6}{%
+           family={Cohen},
+           familyi={C\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{d57384905115120b052c87a76583e43d}
+      \strng{fullhash}{d57384905115120b052c87a76583e43d}
+      \strng{bibnamehash}{d57384905115120b052c87a76583e43d}
+      \strng{authorbibnamehash}{d57384905115120b052c87a76583e43d}
+      \strng{authornamehash}{d57384905115120b052c87a76583e43d}
+      \strng{authorfullhash}{d57384905115120b052c87a76583e43d}
+      \strng{editorbibnamehash}{4c413160abaa666575a0b3ecf9260ef6}
+      \strng{editornamehash}{4c413160abaa666575a0b3ecf9260ef6}
+      \strng{editorfullhash}{4c413160abaa666575a0b3ecf9260ef6}
+      \field{labelalpha}{LGL10}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Principles and Practice of Constraint Programming -- 16th International Conference {CP}}
+      \field{title}{On Testing Constraint Programs}
+      \field{year}{2010}
+      \field{pages}{330\bibrangedash 344}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1007/978-3-642-15396-9_28
+      \endverb
+    \endentry
+    \entry{Lif19}{book}{}
+      \name{author}{1}{}{%
+        {{hash=3f9f7c9937297077325233d345cf9c91}{%
+           family={Lifschitz},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{3f9f7c9937297077325233d345cf9c91}
+      \strng{fullhash}{3f9f7c9937297077325233d345cf9c91}
+      \strng{bibnamehash}{3f9f7c9937297077325233d345cf9c91}
+      \strng{authorbibnamehash}{3f9f7c9937297077325233d345cf9c91}
+      \strng{authornamehash}{3f9f7c9937297077325233d345cf9c91}
+      \strng{authorfullhash}{3f9f7c9937297077325233d345cf9c91}
+      \field{labelalpha}{Lif19}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{1}
+      \field{title}{Answer Set Programming}
+      \field{year}{2019}
+      \verb{doi}
+      \verb 10.1007/978-3-030-24658-7
+      \endverb
+    \endentry
+    \entry{LZ04}{article}{}
+      \name{author}{2}{}{%
+        {{hash=047ce7977f1ea83b53bc2b7058507391}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Fangzhen},
+           giveni={F\bibinitperiod}}}%
+        {{hash=ba9e335146e8a8b219d649912903d218}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Yuting},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{40d55e9f3b26f6d82b67471484399b5a}
+      \strng{fullhash}{40d55e9f3b26f6d82b67471484399b5a}
+      \strng{bibnamehash}{40d55e9f3b26f6d82b67471484399b5a}
+      \strng{authorbibnamehash}{40d55e9f3b26f6d82b67471484399b5a}
+      \strng{authornamehash}{40d55e9f3b26f6d82b67471484399b5a}
+      \strng{authorfullhash}{40d55e9f3b26f6d82b67471484399b5a}
+      \field{labelalpha}{LZ04}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Artificial Intelligence}
+      \field{number}{1-2}
+      \field{title}{{ASSAT}: Computing answer sets of a logic program by {SAT} solvers}
+      \field{volume}{157}
+      \field{year}{2004}
+      \field{pages}{115\bibrangedash 137}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1016/j.artint.2004.04.004
+      \endverb
+    \endentry
+    \entry{MSB12}{book}{}
+      \name{author}{3}{}{%
+        {{hash=156343f4cbccb0e4838a03e1aa379f1c}{%
+           family={Myers},
+           familyi={M\bibinitperiod},
+           given={Glenford\bibnamedelima J},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=6bedbc386e093a07f6c0696fa075b157}{%
+           family={Sandler},
+           familyi={S\bibinitperiod},
+           given={Corey},
+           giveni={C\bibinitperiod}}}%
+        {{hash=14b5444d5651db3fbde7bcd5553fd0ec}{%
+           family={Badgett},
+           familyi={B\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{de4835ca5e0529d5a2f5f52e5e9cc011}
+      \strng{fullhash}{de4835ca5e0529d5a2f5f52e5e9cc011}
+      \strng{bibnamehash}{de4835ca5e0529d5a2f5f52e5e9cc011}
+      \strng{authorbibnamehash}{de4835ca5e0529d5a2f5f52e5e9cc011}
+      \strng{authornamehash}{de4835ca5e0529d5a2f5f52e5e9cc011}
+      \strng{authorfullhash}{de4835ca5e0529d5a2f5f52e5e9cc011}
+      \field{labelalpha}{MSB12}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{title}{The Art of Software Testing}
+      \field{year}{2012}
+      \verb{doi}
+      \verb 10.1002/9781119202486
+      \endverb
+    \endentry
+    \entry{MT98}{incollection}{}
+      \name{author}{2}{}{%
+        {{hash=e5f7c078d4d8e6a2c4ec0cb0acbe9f51}{%
+           family={Marek},
+           familyi={M\bibinitperiod},
+           given={Victor\bibnamedelima W.},
+           giveni={V\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=e51ba8f5088b7710ab41cb853d82ad5a}{%
+           family={Truszczynski},
+           familyi={T\bibinitperiod},
+           given={Miroslaw},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{editor}{4}{}{%
+        {{hash=dfe9c407b8651239942b03c916dea181}{%
+           family={Apt},
+           familyi={A\bibinitperiod},
+           given={Krzysztof\bibnamedelima R.},
+           giveni={K\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=e5f7c078d4d8e6a2c4ec0cb0acbe9f51}{%
+           family={Marek},
+           familyi={M\bibinitperiod},
+           given={Victor\bibnamedelima W.},
+           giveni={V\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=225973541d4878fe3a9fd1df0dcddff8}{%
+           family={Truszczynski},
+           familyi={T\bibinitperiod},
+           given={Mirek},
+           giveni={M\bibinitperiod}}}%
+        {{hash=3bfacad1140fb608a20c6d8e3ffbdadd}{%
+           family={Warren},
+           familyi={W\bibinitperiod},
+           given={David\bibnamedelima Scott},
+           giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{049aed50b967037062e520f10d82b004}
+      \strng{fullhash}{049aed50b967037062e520f10d82b004}
+      \strng{bibnamehash}{049aed50b967037062e520f10d82b004}
+      \strng{authorbibnamehash}{049aed50b967037062e520f10d82b004}
+      \strng{authornamehash}{049aed50b967037062e520f10d82b004}
+      \strng{authorfullhash}{049aed50b967037062e520f10d82b004}
+      \strng{editorbibnamehash}{0e0e5f6e2f9a7b1c70c40c2db598b9fc}
+      \strng{editornamehash}{0e0e5f6e2f9a7b1c70c40c2db598b9fc}
+      \strng{editorfullhash}{f51a7886c2e86238a3c3130bd8be9b25}
+      \field{labelalpha}{MT99}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{The Logic Programming Paradigm - {A} 25-Year Perspective}
+      \field{title}{Stable Models and an Alternative Logic Programming Paradigm}
+      \field{year}{1999}
+      \field{pages}{375\bibrangedash 398}
+      \range{pages}{24}
+      \verb{doi}
+      \verb 10.1007/978-3-642-60085-2_17
+      \endverb
+    \endentry
+    \entry{Nie99}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e92901947a7da887056e10cf30824296}{%
+           family={Niemelä},
+           familyi={N\bibinitperiod},
+           given={Ilkka},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{e92901947a7da887056e10cf30824296}
+      \strng{fullhash}{e92901947a7da887056e10cf30824296}
+      \strng{bibnamehash}{e92901947a7da887056e10cf30824296}
+      \strng{authorbibnamehash}{e92901947a7da887056e10cf30824296}
+      \strng{authornamehash}{e92901947a7da887056e10cf30824296}
+      \strng{authorfullhash}{e92901947a7da887056e10cf30824296}
+      \field{labelalpha}{Nie99}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Mathematics and Artificial Intelligence}
+      \field{number}{3}
+      \field{title}{Logic programs with stable model semantics as a constraint programming paradigm}
+      \field{volume}{25}
+      \field{year}{1999}
+      \field{pages}{241\bibrangedash 273}
+      \range{pages}{33}
+      \verb{doi}
+      \verb 10.1023/A:1018930122475
+      \endverb
+    \endentry
+    \entry{Nta88}{article}{}
+      \name{author}{1}{}{%
+        {{hash=a70e7fc99b829ec441dc0cf6d1f8c95a}{%
+           family={Ntafos},
+           familyi={N\bibinitperiod},
+           given={Simeon\bibnamedelima C.},
+           giveni={S\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{a70e7fc99b829ec441dc0cf6d1f8c95a}
+      \strng{fullhash}{a70e7fc99b829ec441dc0cf6d1f8c95a}
+      \strng{bibnamehash}{a70e7fc99b829ec441dc0cf6d1f8c95a}
+      \strng{authorbibnamehash}{a70e7fc99b829ec441dc0cf6d1f8c95a}
+      \strng{authornamehash}{a70e7fc99b829ec441dc0cf6d1f8c95a}
+      \strng{authorfullhash}{a70e7fc99b829ec441dc0cf6d1f8c95a}
+      \field{labelalpha}{Nta88}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{IEEE} Transactions on Software Engineering}
+      \field{number}{6}
+      \field{title}{A comparison of some structural testing strategies}
+      \field{volume}{14}
+      \field{year}{1988}
+      \field{pages}{868\bibrangedash 874}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1109/32.6165
+      \endverb
+    \endentry
+    \entry{Oet22}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=20f9a356fd9d9ca14e2dfdd0ef2f9293}{%
+           family={Oetsch},
+           familyi={O\bibinitperiod},
+           given={Johannes},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Technische Universität Wien}%
+      }
+      \strng{namehash}{20f9a356fd9d9ca14e2dfdd0ef2f9293}
+      \strng{fullhash}{20f9a356fd9d9ca14e2dfdd0ef2f9293}
+      \strng{bibnamehash}{20f9a356fd9d9ca14e2dfdd0ef2f9293}
+      \strng{authorbibnamehash}{20f9a356fd9d9ca14e2dfdd0ef2f9293}
+      \strng{authornamehash}{20f9a356fd9d9ca14e2dfdd0ef2f9293}
+      \strng{authorfullhash}{20f9a356fd9d9ca14e2dfdd0ef2f9293}
+      \field{labelalpha}{Oet22}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Testing for ASP-ASP for Testing}
+      \field{type}{phdthesis}
+      \field{year}{2022}
+      \verb{doi}
+      \verb 10.34726/hss.2022.102508
+      \endverb
+    \endentry
+    \entry{Pot21}{manual}{}
+      \name{author}{1}{}{%
+        {{hash=b4f95ff38f10523faa4c616103b13f25}{%
+           family={Potassco},
+           familyi={P\bibinitperiod},
+           given={Potsdam\bibnamedelimb Answer\bibnamedelimb Set\bibnamedelimb Solving\bibnamedelima Collection},
+           giveni={P\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{b4f95ff38f10523faa4c616103b13f25}
+      \strng{fullhash}{b4f95ff38f10523faa4c616103b13f25}
+      \strng{bibnamehash}{b4f95ff38f10523faa4c616103b13f25}
+      \strng{authorbibnamehash}{b4f95ff38f10523faa4c616103b13f25}
+      \strng{authornamehash}{b4f95ff38f10523faa4c616103b13f25}
+      \strng{authorfullhash}{b4f95ff38f10523faa4c616103b13f25}
+      \field{labelalpha}{Pot21}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{clingo Python-{API} reference}
+      \field{urlday}{18}
+      \field{urlmonth}{5}
+      \field{urlyear}{2023}
+      \field{version}{5.5}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://potassco.org/clingo/python-api/5.5/clingo/
+      \endverb
+      \verb{url}
+      \verb https://potassco.org/clingo/python-api/5.5/clingo/
+      \endverb
+    \endentry
+    \entry{ISO29119-1}{report}{}
+      \name{author}{1}{}{%
+        {{hash=d09e7fcc2435a0349538e27d16bc4365}{%
+           family={Standardization},
+           familyi={S\bibinitperiod},
+           given={International\bibnamedelima Organization},
+           giveni={I\bibinitperiod\bibinitdelim O\bibinitperiod},
+           prefix={for},
+           prefixi={f\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {International Organization for Standardization}%
+      }
+      \list{location}{1}{%
+        {Vernier, Geneva, Switzerland}%
+      }
+      \strng{namehash}{d09e7fcc2435a0349538e27d16bc4365}
+      \strng{fullhash}{d09e7fcc2435a0349538e27d16bc4365}
+      \strng{bibnamehash}{d09e7fcc2435a0349538e27d16bc4365}
+      \strng{authorbibnamehash}{d09e7fcc2435a0349538e27d16bc4365}
+      \strng{authornamehash}{d09e7fcc2435a0349538e27d16bc4365}
+      \strng{authorfullhash}{d09e7fcc2435a0349538e27d16bc4365}
+      \field{labelalpha}{Sta22}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{ISO / IEC / IEEE 29119-1:2022}
+      \field{title}{Software and systems engineering — Software testing — Part 1: General concepts}
+      \field{type}{standard}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://www.iso.org/standard/81291.html
+      \endverb
+      \verb{url}
+      \verb https://www.iso.org/standard/81291.html
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

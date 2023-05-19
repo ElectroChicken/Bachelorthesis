@@ -1,19 +1,11 @@
-\babel@toc {ngerman}{}
-\babel@toc {english}{}
-\babel@toc {english}{}
-\defcounter {refsection}{0}\relax 
+\babel@toc {ngerman}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {english}{}\relax 
 \addvspace {10\p@ }
-\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
-\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
-\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
-\defcounter {refsection}{0}\relax 
+\contentsline {lstlisting}{\numberline {4.1}Function implementing the loop coverage transformation (taken from CoverageCheck\_final\_final.py)}{35}{lstlisting.4.1}%
 \addvspace {10\p@ }
-\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
-\defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
-\defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {7.1}Eine symbolische Beschreibung der Objekte in bla.}{18}{lstlisting.7.1}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

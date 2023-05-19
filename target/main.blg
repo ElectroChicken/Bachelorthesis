@@ -1,17 +1,15 @@
-[0] Config.pm:304> INFO - This is Biber 2.14 (beta)
-[0] Config.pm:307> INFO - Logfile is '../target/main.blg'
-[62] biber:322> INFO - === Mo Nov 14, 2022, 14:00:35
-[72] Biber.pm:415> INFO - Reading '../target/main.bcf'
-[122] Biber.pm:943> INFO - Found 2 citekeys in bib section 0
-[131] Biber.pm:4256> INFO - Processing section 0
-[132] Utils.pm:75> INFO - Globbing data source 'bibliography.bib'
-[132] Utils.pm:91> INFO - Globbed data source 'bibliography.bib' to bibliography.bib
-[140] Biber.pm:4455> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
-[141] bibtex.pm:1653> INFO - LaTeX decoding ...
-[158] bibtex.pm:1471> INFO - Found BibTeX data source 'bibliography.bib'
-[216] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[217] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[217] Biber.pm:4084> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
-[217] Biber.pm:4090> INFO - No sort tailoring available for locale 'en-US'
-[219] bbl.pm:652> INFO - Writing '../target/main.bbl' with encoding 'UTF-8'
-[221] bbl.pm:755> INFO - Output to ../target/main.bbl
+[0] Config.pm:307> INFO - This is Biber 2.17
+[1] Config.pm:310> INFO - Logfile is '/home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis/target/main.blg'
+[137] biber:340> INFO - === Fr Mai 19, 2023, 18:44:30
+[157] Biber.pm:418> INFO - Reading '/home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis/target/main.bcf'
+[265] Biber.pm:972> INFO - Found 28 citekeys in bib section 0
+[288] Biber.pm:4383> INFO - Processing section 0
+[304] Biber.pm:4574> INFO - Looking for bibtex file 'bibliography.bib' for section 0
+[308] bibtex.pm:1713> INFO - LaTeX decoding ...
+[374] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliography.bib'
+[926] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[927] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[927] Biber.pm:4203> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[927] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
+[988] bbl.pm:654> INFO - Writing '/home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis/target/main.bbl' with encoding 'UTF-8'
+[1033] bbl.pm:757> INFO - Output to /home/jakob/Dokumente/Uni/Bachelorarbeit/Thesis/target/main.bbl
