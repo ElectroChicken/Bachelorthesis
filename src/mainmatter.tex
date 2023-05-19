@@ -1,6 +1,6 @@
 \chapter{Introduction}
 \label{ch:Introduction}
-Answer Set Programming (ASP) is one of the most successful programming paradigms for declarative problem solving in particular in the field of knowledge representation and reasoning. As such, it has found applications in many different fields both in academic and industry work~\cite{EGL16}.
+Answer Set Programming (ASP)~\cite{Lif19} is one of the most successful programming paradigms for declarative problem solving in particular in the field of knowledge representation and reasoning. As such, it has found applications in many different fields both in academic and industry work~\cite{EGL16}.
 However, even though it has been around for over 20 years~\cite{Nie99, MT98}, there is still a significant lack of good workflow tools. Tools like a testing suite, a debugging tool or an annotation language can help make the development process more streamlined and allow different approaches that have proven very effective in conventional programming languages such as test driven development (TDD,~\cite{Fra+03}). Research into these topics exists and has yielded results, however many topics remain unexplored.
 
 This thesis will focus on one of these mostly unexplored topics which is code coverage for ASP. Code coverage is a concept that is widely used in conventional programming languages. Its efficacy has been evaluated many times and it has proven to be one of the most practical ways to test the adequacy of existing test suites or to generate new test suites with high fault detection~\cite{GJG14}.
@@ -10,11 +10,11 @@ Testing and coverage has been discussed for declarative programming. \cite{BJ98}
 Work has also been done on testing constraint programs, another paradigm used in logic programming, however it was concluded, that developing notions of test coverage would not be possible in this case~\cite{LGL10}.
 
 Finally, while general approaches to testing in ASP have been discussed multiple times, e.g. in~\cite{GOT17, ABR21, Oet22}, the only attempt at realising code coverage for answer set programs has been done in the paper \cite{Jan+10}. 
-There, five coverage metrics are defined for propositional normal programs based on the existing concepts of path and branch coverage in conventional testing. The contributions of this thesis to the topic of code coverage in ASP are twofold:
-\begin{enumerate}
-    \item Introduction of syntactic transformations of answer set programs which allow the computation of the coverage metrics defined by \citeauthor{Jan+10} using the integrated ASP system clingo.
-    \item An informal attempt at extending the coverage metrics so they are applicable to more complex program classes.
-\end{enumerate}
+There, five coverage metrics are defined for propositional normal programs based on the existing concepts of path and branch coverage in conventional testing. 
+
+The goal of this thesis is to find a way to implement these metrics by relying as much as possible on the power of ASP itself. To achieve this, we will introduce syntactic transformations for answer set programs. These transformations add new atoms to the program which make it possible to compute the coverage metrics by solving the program with the integrated ASP system clingo. This approach is also implemented in a prototype coverage testing tool. Additionally, since propositional normal programs are rare in a practical setting, an informal attempt at extending the coverage metrics so they are applicable to more complex program classes is made.
+
+This work is structured as follows: \Cref{ch:Preliminaries on answer set programming} serves as a short introduction to ASP, establishing some necessary definitions. In \cref{ch:Coverage metrics} we go over the existing coverage metrics for answer set programs, explaining their functionality and purpose. \Cref{ch:Computing coverage metrics for propositional programs} first introduces our approach to computing each coverage metric. Then, details are given on how this approach was implemented i a prototype tool. Finally, \cref{ch:Coverage for further program classes} discusses how the coverage metrics might be adjusted to function with program classes beyond propositional normal programs and shows how our syntactic transformations can easily adapt these changes.
 
 \begin{comment}
 - Answer Set Programming is of growing importance in both academic and industry work (source?) and clingo is a popular solver for this
@@ -68,8 +68,8 @@ An interpretation $I$ is called an \emph{answer set} of $P$, iff it is a minimal
     \end{align*}
     and the interpretation \(I = \{a, d\}\), the \emph{reduct} of $P$ relative to $I$ is \(P^I = \{a \leftarrow\ ;\ c \leftarrow a, b\ ;\ d \leftarrow a\}\). It can then be verified, that the set \(\{a,d\}\) is a minimal model of the reduct \(P^I\) as it satisfies every rule of the reduct and no subset of it is a model. Therefore the interpretation $I$ is an \emph{answer set} of the program $P$. Indeed it is the only answer set of the program.
 \end{example}
-An atom $a$ is called a \emph{brave consequence} of the program $P$ iff it is contained in at least one answer set of $P$, i.e., there exists an answer set \(X \in \AS(P) \ \text{such that}\ a \in X\). The set of brave consequences of $P$ is \(\text{BC}(P) = \bigcup \AS(P)\).
-Respectively, an atom $a$ is called a \emph{cautious consequence} of $P$ iff it is contained in all the answers sets of $P$, i.e., for every answer set \( X \in \AS(P) \ \text{it holds that}\ a \in X\). The set of cautious consequences of $P$ is therefore \(\text{CC}(P) = \bigcap \AS(P)\)~\cite{FGR22}.
+An atom $a$ is called a \emph{brave consequence} of the program $P$ iff it is contained in at least one answer set of $P$, i.e., there exists an answer set \(X \in \AS(P) \ \text{such that}\ a \in X\). The set of brave consequences of $P$ is \(\mathcal{BC}(P) = \bigcup \AS(P)\).
+Respectively, an atom $a$ is called a \emph{cautious consequence} of $P$ iff it is contained in all the answers sets of $P$, i.e., for every answer set \( X \in \AS(P) \ \text{it holds that}\ a \in X\). The set of cautious consequences of $P$ is therefore \(\mathcal{CC}(P) = \bigcap \AS(P)\).
 
 \begin{comment}
 \begin{definition}
@@ -181,7 +181,7 @@ does not care about specification!)
 \label{ch:Coverage metrics}
 Coverage metrics in conventional software testing are a method of \emph{structural testing}, also known as \emph{white box testing}. The idea behind white box testing is to examine a programs logic and derive test cases based this information. Therefore, this approach requires explicit knowledge of the internal structure of the program. The more parts of a programs logic (source code) are executed during a test, the more likely it is, that a bug is found. This is where coverage metrics come into play as they measure how much of a program is \emph{covered} -- i.e., executed -- by a test case.
 
-There are several ways to measure this and thus, many different coverage metrics exist. Most of them take the control flow graph of a program as the basis of analysis. The most complete coverage metric is called \emph{path coverage} and measures how many of the possible paths through the control flow graph of the program are explored by a test case. The problem with this is, that the number of paths is exponential in the number of branching statements in the program and therefore this coverage metric is very expensive. A less expensive alternative in conventional testing that approximates path coverage is called \emph{branch coverage}. This entails executing each branch direction at least once, i.e., covering each edge in the control flow graph at least once~\cite[41\psqq]{MB12}.
+There are several ways to measure this and thus, many different coverage metrics exist. Most of them take the control flow graph of a program as the basis of analysis. The most complete coverage metric is called \emph{path coverage} and measures how many of the possible paths through the control flow graph of the program are explored by a test case. The problem with this is, that the number of paths is exponential in the number of branching statements in the program and therefore this coverage metric is very expensive. A less expensive alternative in conventional testing that approximates path coverage is called \emph{branch coverage}. This entails executing each branch direction at least once, i.e., covering each edge in the control flow graph at least once~\cite[41\psqq]{MSB12}.
 
 While no real equivalent to the control flow graph exists in answer set programming, the coverage metrics that we define can be seen as the counterparts to path and branch coverage in conventional testing.
 
@@ -192,17 +192,17 @@ It is worth noting that due to its focus on the structure of a program, it is im
 \label{sec:Coverage metrics/Coverage functions}
 Simply speaking, the coverage of a test case is defined as the number of elements covered by the input of the test case relative to the total number of (coverable) elements. This general definition allows us to define a function schema, that can be used as the basis for different coverage metrics for different coverable elements (like programs, rules, loops etc.). 
 
-For a class $X$ of elements the function \(\text{covered}_X(I, P)\) describes the number of elements of $X$ that are covered by some input $I$ for the program $P$. It follows that \(\text{covered}_X(2^{\mathbb{I}_P}, P)\) describes the maximum number of elements of $X$ in $P$ that can be covered by inputs from the input alphabet \(\mathbb{I}_P\). It is important to note that this number is often different from the total number of elements of $X$ that exist in $P$. Based on this function we introduce the \emph{basic coverage function schema} analogous to \cite{Jan+10} as follows:
+For a class $X$ of elements the function \(\text{covered}_X(\mathcal{I}, P)\) describes the number of elements of $X$ that are covered by some input collection $\mathcal{I}$ for the program $P$. It follows that \(\text{covered}_X(2^{\mathbb{I}_P}, P)\) describes the maximum number of elements of $X$ in $P$ that can be covered by inputs from the input alphabet \(\mathbb{I}_P\). It is important to note that this number is often different from the total number of elements of $X$ that exist in $P$. Based on this function we introduce the \emph{basic coverage function schema} analogous to \cite{Jan+10} as follows:
 \begin{equation}
 \label{eq:coverage function schema}
-    C_X(I, P) = 
+    C_X(\mathcal{I}, P) = 
     \begin{cases}
-        \frac{\text{covered}_X(I, P)}{\text{covered}_X(2^{\mathbb{I}_P}, P)}, & \text{if covered}_X(2^{\mathbb{I}_P}, P) > 0 \\
+        \frac{\text{covered}_X(\mathcal{I}, P)}{\text{covered}_X(2^{\mathbb{I}_P}, P)}, & \text{if covered}_X(2^{\mathbb{I}_P}, P) > 0 \\
         1, & \text{otherwise.}
     \end{cases}
 \end{equation}
 
-This function is standardized between 0 and 1 with worse coverage leading to a lower score. We say a collection of inputs \(I \subseteq 2^{\mathbb{I}_P}\) for program $P$ yields \emph{total coverage} with respect to a class $X$ of elements exactly if the coverage function $C_X(I, P) = 1$.
+This function is standardized between 0 and 1 with worse coverage leading to a lower score. We say a collection of inputs \(\mathcal{I} \subseteq 2^{\mathbb{I}_P}\) for program $P$ yields \emph{total coverage} with respect to a class $X$ of elements exactly if the coverage function $C_X(\mathcal{I}, P) = 1$.
 
 In the following we will use this schema to define a total of 5 different coverage metrics. For some of these we introduce the notions positive and negative $X$ coverage. Total $X$ coverage holds if and only if both total positive and total negative $X$ coverage hold.
 
@@ -231,7 +231,7 @@ The idea behind program coverage is to partition the program $P$ into \emph{subp
     % \]
 \end{definition}
 
-We can thus define \(\text{covered}_P(I, P)\) for a collection of inputs $I$ for program $P$ as the amount of subprograms of $P$ that are covered by the inputs in $I$ and consequently instantiate the basic coverage function schema defined in \cref{sec:Coverage metrics/Coverage functions} to define \(C_P(I, P)\) the \emph{program coverage of I for P}.
+We can thus define \(\text{covered}_P(\mathcal{I}, P)\) for a collection of inputs $\mathcal{I}$ for program $P$ as the amount of subprograms of $P$ that are covered by the inputs in $\mathcal{I}$ and consequently instantiate the basic coverage function schema defined in \cref{sec:Coverage metrics/Coverage functions} to define \(C_P(\mathcal{I}, P)\) the \emph{program coverage of $\mathcal{I}$ for P}.
 
 \begin{example}
 \label{ex:program coverage}
@@ -239,12 +239,20 @@ We can thus define \(\text{covered}_P(I, P)\) for a collection of inputs $I$ for
 \end{example}
 %\(= |\ \{\emptyset, \{d \leftarrow a,\ \text{not}\ b\}, \{f \leftarrow a, b,\ \text{not}\ c\}, \{e \leftarrow b, c\}\}\ | = 4\).
 
-This notion of program coverage can be very expensive to calculate as, similar to paths in a graph, the number of possible subprograms can be extremely high. In fact it is exponential in the number of rules in a program. However, it is also a very powerful metric that subsumes all other coverage metrics that we will define for answer set programs. This is clear due to the fact that total program coverage of a test suite~$S$ for a program $P$ implies, that every obtainable answer set of $P$ can be obtained by using only the inputs in $S$, i.e., 
-\(
-    \text{for inp}(S) \subseteq \mathbb{I}_P,\ C_P(\inp(S),P) = 1 \Longleftrightarrow \forall I \in \mathbb{I}_P \ \forall X \in \AS(P \cup I) \ \exists T \in S \ \exists Y \in \AS(P \cup \inp(T)) : X - \mathbb{I}_P = Y - \mathbb{I}_P
-\).
+This notion of program coverage can be very expensive to calculate as, similar to paths in a graph, the number of possible subprograms can be extremely high. In fact it is exponential in the number of rules in a program. However, it is also a very powerful metric that subsumes all other coverage metrics that we will define for answer set programs. This is clear due to the fact that total program coverage of a test suite~$S$ for a program $P$ implies, that every obtainable answer set (modulo projection) of $P$ with some input of $P$ can be obtained by using only the inputs in $S$. This is shown in \cite[Theorem 2]{Jan+10}. We arrived at a slightly different result, however we are not conclusively sure which of the two considerations are correct. It is our belief that the theorem should read:
 
-% This is shown by \textcite[in theorem 2]{Jan+10}. BUT IT IS WRONG???
+\begin{theorem}
+\label{th:program coverage}
+    Let $P$ be a program, $S$ a test suite for $P$ and $\mathbb{I}_P$ the input alphabet for $P$.
+
+    Then, \(C_P(\inp(S), P) = 1\) implies that, for each input $I$ of $P$ and for each \(X \in \AS(P \cup I)\), $S$ contains a test case $T$ such that \(X - \mathbb{I}_P = Y - \mathbb{I}_P\) for some \(Y \in \AS(P \cup \inp(T))\).
+\end{theorem}
+
+This is because atoms that are both in the input alphabet and definable in $P$ can appear in answer sets without being derived in the program. These edge cases are not covered by program coverage and can thus lead to counterexamples to the original theorem. Nevertheless, the general claim remains the same.
+ 
+%\(
+%    \text{for inp}(S) \subseteq \mathbb{I}_P,\ C_P(\inp(S),P) = 1 \Longleftrightarrow \forall I \in \mathbb{I}_P \ \forall X \in \AS(P \cup I) \ \exists T \in S \ \exists Y \in \AS(P \cup \inp(T)) : X - \mathbb{I}_P = Y - \mathbb{I}_P
+%\).
 
 
 \begin{comment}
@@ -292,7 +300,7 @@ We start by introducing the simplest one of the branch-like metrics called \emph
     % \]
 \end{definition}
 
-For a collection of inputs $I$ for a program $P$ we define \(\text{covered}_{R^+}(I, P)\) and \(\text{covered}_{R^-}(I, P)\) as the number of rules that are positively (respectively negatively) covered by an input in $I$. Again, the basic coverage function schema~(\ref{eq:coverage function schema}) is used to define \(C_{R^+}(I, P)\ \text{and}\ C_{R^-}(I, P)\) as the \emph{positive and negative rule coverage} of $I$ for $P$. We call \(C_R(I, P)\) the \emph{rule coverage} of $I$ for $P$ based on the function \(\text{covered}_{R}(I, P) = \text{covered}_{R^+}(I, P) + \text{covered}_{R^-}(I, P)\).
+For a collection of inputs $\mathcal{I}$ for a program $P$ we define \(\text{covered}_{R^+}(\mathcal{I}, P)\) and \linebreak \(\text{covered}_{R^-}(\mathcal{I}, P)\) as the number of rules that are positively (respectively negatively) covered by an input in $\mathcal{I}$. Again, the basic coverage function schema~(\ref{eq:coverage function schema}) is used to define \(C_{R^+}(\mathcal{I}, P)\ \text{and}\ C_{R^-}(\mathcal{I}, P)\) as the \emph{positive and negative rule coverage} of $\mathcal{I}$ for $P$. We call \(C_R(\mathcal{I}, P)\) the \emph{rule coverage} of $\mathcal{I}$ for $P$ based on the function \(\text{covered}_{R}(\mathcal{I}, P) = \text{covered}_{R^+}(\mathcal{I}, P) + \text{covered}_{R^-}(\mathcal{I}, P)\).
 
 \begin{example}
 \label{ex:rule coverage}
@@ -357,7 +365,7 @@ Since rule coverage only considers individual rules, it can not explore possible
     % \end{align*}
 \end{definition}
 
-Again, we define for program $P$ and the input collection $I$ for $P$ the (\emph{positive} or \emph{negative}) \emph{loop coverage} of $I$ for $P$ as \(C_{L^+}(I, P)\), \(C_{L^-}(I, P)\) and \(C_{L}(I, P)\).
+Again, we define for program $P$ and the input collection $\mathcal{I}$ for $P$ the (\emph{positive} or \emph{negative}) \emph{loop coverage} of $\mathcal{I}$ for $P$ as \(C_{L^+}(\mathcal{I}, P)\), \(C_{L^-}(\mathcal{I}, P)\) and \(C_{L}(\mathcal{I}, P)\).
 
 An atom $a$ that is contained in a loop of size two or more is always defined in the program (\(| \Def(a) | \geq 1\)) as it needs to have at least one outgoing edge in the positive atom dependency graph. This is however not true for singleton loops. Thus it is possible that a singleton loop \(\{a\}\) is not positively or negatively coverable if \(\Def(a) = \emptyset\).
 %Since positive (resp. negative) loop coverage for $L$ requires, that for every (resp. at least one) atom \(a \in L\), \(\Def(a) \neq \emptyset\) holds, loops containing atoms that only appear in the body of rules can not be positively (negatively) covered. Although this can only happen with singleton loops, because in order for an atom $a$ to be part of a loop of size two or more, it needs to have at least one incoming edge in the positive atom dependency graph, thus \(| \Def(a) | \geq 1\).
@@ -422,7 +430,7 @@ There are two ways to think about the definition coverage metric. On one hand, i
     % \]
 \end{definition}
 
-We define \(C_{D^+}(I, P)\) and \(C_{D^-}(I, P)\) as the \emph{positive} and \emph{negative definition coverage} for an input collection $I$ and a program $P$, as well as the \emph{definition coverage} \(C_D(I, P)\), in the same way as with the other metrics.
+We define \(C_{D^+}(\mathcal{I}, P)\) and \(C_{D^-}(\mathcal{I}, P)\) as the \emph{positive} and \emph{negative definition coverage} for an input collection $\mathcal{I}$ and a program $P$, as well as the \emph{definition coverage} \(C_D(\mathcal{I}, P)\), in the same way as with the other metrics.
 
 It is important to note that total positive rule coverage implies total positive definition coverage but total negative rule coverage does not imply total negative definition coverage as can be seen in \cref{ex:definition coverage}. However, since definition coverage is effectively singleton loop coverage, total loop coverage implies total definition coverage.
 
@@ -467,7 +475,7 @@ As seen above, definition coverage is a metric pertaining to the minimal loops o
     % \end{align*}
 \end{definition}
 
-The (\emph{positive} or \emph{negative}) \emph{component coverage} for an input collection $I$ and a program $P$ is defined using the schema \ref{eq:coverage function schema}, yielding \(C_{C^+}(I, P)\), \(C_{C^-}(I, P)\) and \(C_{C}(I, P)\).
+The (\emph{positive} or \emph{negative}) \emph{component coverage} for an input collection $\mathcal{I}$ and a program $P$ is defined using the schema \ref{eq:coverage function schema}, yielding \(C_{C^+}(\mathcal{I}, P)\), \(C_{C^-}(\mathcal{I}, P)\) and \(C_{C}(\mathcal{I}, P)\).
 
 As with all the branch-like metrics, component coverage is implied by program coverage and just like definition coverage, it is an approximation of loop coverage and thus total positive loop coverage implies total positive component coverage.
 Because negative component coverage is defined slightly different than negative loop coverage (none of the atoms in the SCC can be supported as opposed to requiring just one atom being unsupported), negative component coverage is not implied by negative loop coverage. However, it does allow the following result: if a component $C$ is positively (negatively) component covered, all loops that are contained in this component \(L \subseteq C\) are also positively (negatively) loop covered \cite[Theorem 7]{Jan+10}.
@@ -553,7 +561,9 @@ As mentioned in \cref{sec:Preliminaries on answer set programming/Testing in Ans
     Firstly, add a choice rule "\(\{\_i_0; \ldots;\_i_n\} = 1.\)" to program $P$  where each $\_i_i$ is a label atom associated with the input of test case $T_i$. Secondly, for every test case \( T_j \in S\) and for every atom \( a_{j,i} \in \inp(T_j)\) add a rule "\(a_{j,i} \leftarrow \_i_j.\)" to $P$ where $\_i_j$ is the label atom corresponding to test case $T_j$.
 \end{definition} 
 
-When the test suite contains only one test case, the result of this transformation will be the same as concatenating the original program with the test input -- minus the label atoms which do not change the behavior of the program. On the other hand when the test suite contains multiple test cases, the results of all test cases can be calculated with just one solve call thanks to this transformation.
+When the test suite contains only one test case, the result of this transformation will be the same as concatenating the original program with the test input -- minus the label atoms which do not change the behavior of the program. This is because the choice rule "\(\{\_i_0\} = 1.\)" is equivalent to the fact "\(\_i_0.\)" and thus all rules of the form "\(a_i \leftarrow \_i_0.\)" are equivalent to the fact "\(a_i.\)". This means that every input atom contained in the test input has to be present in all answer sets of the program in the same way as it would be when concatenating the program and the input.
+
+On the other hand when the test suite contains multiple test cases, there can never be more than one of the input label atoms in an answer set. This means when considering each answer set individually, the above still holds. However, the results of all test cases can be calculated with just one solve call thanks to the choice rule.
 
 \begin{example}
 \label{ex:input transformation}
@@ -579,11 +589,11 @@ Next we will look at the syntactic transformation used to compute rule coverage 
 
 To realize this, we will add new rules to the program with the label atoms in the head. The atoms can then be derived whenever the corresponding rule is positively covered. The strong negation of the atom will be true whenever the rule is negatively covered. Using this approach, calculating the rule coverage is as simple as counting the label atoms contained in the answer sets of $P$.
 
-As seen in \cref{subsec:Coverage metrics/Branch-like coverage/Rule coverage}, a rule is positively rule covered if the body of the rule is satisfied and otherwise it is negatively covered. We add the rule labels according to this definition.
+As seen in \cref{subsec:Coverage metrics/Branch-like coverage/Rule coverage}, a rule is positively rule covered iff the body of the rule is satisfied. Otherwise, it is negatively covered. We add the rule labels according to this definition.
 
 \begin{definition}
 \label{def:rule transformation}
-    Let $P$ be a program containing rules \(r_1, \ldots, r_n\). The \emph{rule coverage transformation} works as follows: For every rule \(r_i \in P\) add two new rules to $P$. "\(\_r_i \leftarrow B(r_i).\)" for positive coverage and "\(-\_r_i \leftarrow \text{not}\ \_r_i.\)" for negative coverage, where each $\_r_i$ is a label atom associated with the rule $r_i$
+    Let $P$ be a program containing rules \(r_1, \ldots, r_n\). The \emph{rule coverage transformation} works as follows: For every rule \(r_i \in P\) add two new rules to $P$. "\(\_r_i \leftarrow B(r_i).\)" for positive coverage and "\(-\_r_i \leftarrow \text{not}\ \_r_i.\)" for negative coverage, where each $\_r_i$ is a label atom associated with the rule $r_i$.
 \end{definition}
 
 The following equivalence establishes the formal correctness of this transformation.
@@ -850,16 +860,16 @@ The issue with this approach is, that the number of possible subprograms is expo
 
 The big advantage of this transformation approach is that it works perfectly fine alongside the transformations for the other coverage metrics. It makes it possible to compute program coverage with the same single solve call using brave consequences that is used for all the other metrics. This is not at all true for the second approach.
 
-The other possible approach to calculate program coverage does not require a syntactic transformation beyond the rule coverage transformation. The idea behind this approach is that each answer set $X$ of the program $P$ has exactly one set of supporting rules \(\SuppR(P, X)\). This set of rules corresponds to exactly one subprogram \(P' \subseteq P\). Consequently, to calculate the program coverage of some input $I$ of $P$, it is sufficient to count how many different sets of supporting rules are produced by the answer sets of $P \cup I$.
+The other possible approach to calculate program coverage does not require a syntactic transformation beyond the rule coverage transformation. The idea behind this approach is that each answer set $X$ of the program $P$ has exactly one set of supporting rules \(\SuppR(P, X)\). This set of rules corresponds to exactly one subprogram \(P' \subseteq P\). Consequently, to calculate the program coverage of some input $I$ of $P$, it is sufficient to count how many different sets of supporting rules are produced by the answer sets of $P \cup I$. We make use of the fact that according to \cref{def:rule coverage} and \cref{th:rule transformation}, a rule that is supported by an answer set $X$ is positively rule covered in $X$ and consequently the corresponding rule label atom is contained in $X$.
 
 \begin{definition}
 \label{def:program coverage calculation}
-    Let $P$ be a program, $P_S$ the set of subprograms and $I$ an input for $P$. The program coverage is calculated using a set $P_{covered}$. For each answer set \(X \in \AS(P \cup I)\), \(X = \{\_r_i, \ldots, \_r_j, -\_r_k, \ldots, -\_r_l, a_n, \ldots, a_m\}\) the tuple \((\_r_i, \ldots, \_r_j)\) containing all rule label atoms in $X$ represents the subprogram covered by that answer set. Thus, it is added to $P_{covered}$. At the end, $P_{covered}$ will contain all the unique subprograms covered by $I$.
+    Let $P$ be a program that has been transformed using the rule coverage transformation and $I$ an input for $P$. The program coverage is calculated using a set $P_{covered}$. For each answer set \(X \in \AS(P \cup I)\), \(X = \{\_r_i, \ldots, \_r_j, -\_r_k, \ldots, -\_r_l, \linebreak a_n, \ldots, a_m\}\) the tuple \((\_r_i, \ldots, \_r_j)\) containing all the positive rule label atoms in $X$ represents the subprogram covered by that answer set. Thus, it is added to $P_{covered}$. At the end, $P_{covered}$ will contain all the unique subprograms covered by $I$.
 \end{definition}
 
 \begin{example}
 \label{ex:program coverage calculation}
-    Consider again the program from \cref{ex:program transformation} with the input alphabet $\mathbb{I}_P$. Consider also a test suite with test cases containing the inputs \(I_1 = \{d\}\), \(I_2 = \{b, c\}\), \(I_3 = \{a, c\}\) and \(I_4 = \{a, d\}\). Each of these inputs yields exactly one answer set and each answer set corresponds to exactly one subprogram of $P$. Assuming that the rule coverage transformation has already been applied to $P$ the resulting answer sets are the following \(\AS(P \cup I_1) = \{\{a, b, d, \_r_1, \_r_2, -\_r_3\}\}\), \(\AS(P \cup I_2) = \{\{b, c, \_r_3, -\_r_1, -\_r_2\}\}\), \(\AS(P \cup I_3) = \{\{a, b, c, \_r_2, \_r_3, -\_r_1\}\}\) and \(\AS(P \cup I_4) = \{\{a, b, d, \_r_1, \_r_2, -\_r_3\}\}\). Note that $I_4$ produces the same answer set as $I_1$. Based on the rule label atoms contained in each answer set, we know which subprogram is covered. The first answer set covers the subprogram containing only rules one and two, the second covers the subprogram with only rule three and the third covers the one with rules two and three. Thus this test suite covers three different subprograms out of the eight existing subprograms. As discussed in \cref{ex:program transformation}, only four subprograms of $P$ are coverable meaning the test suite $S$ yields a program coverage \(C_P(S, P) = 3 / 4\).
+    Consider again the program from \cref{ex:program transformation} with the input alphabet $\mathbb{I}_P$. Consider also a test suite with test cases containing the inputs \(I_1 = \{d\}\), \(I_2 = \{b, c\}\), \(I_3 = \{a, c\}\) and \(I_4 = \{a, d\}\). Each of these inputs yields exactly one answer set and each answer set corresponds to exactly one subprogram of $P$. Assuming that the rule coverage transformation has already been applied to $P$ the resulting answer sets are \(\AS(P \cup I_1) = \{\{\_r_1, \_r_2, -\_r_3, a, b, d\}\}\), \(\AS(P \cup I_2) = \{\{\_r_3, -\_r_1, -\_r_2, b, c\}\}\), \(\AS(P \cup I_3) = \{\{\_r_2, \_r_3, -\_r_1, a, b, c\}\}\) and \(\AS(P \cup I_4) = \{\{\_r_1, \_r_2, -\_r_3, a, b, d\}\}\). The set $P_{covered}$ can then be built based on the rule label atoms contained in each answer set, yielding \(P_{covered} = \{(\_r_1, \_r_2), (\_r_3), (\_r_2, \_r_3)\}\). Note that $I_4$ produces the same answer set as $I_1$ and therefore no new tuple is added to $P_{covered}$. Thus, this test suite covers three different subprograms out of the eight existing subprograms. As discussed in \cref{ex:program transformation}, only four subprograms of $P$ are coverable meaning the test suite $S$ yields a program coverage \(C_P(S, P) = 3 / 4\).
 \end{example}
 
 The clear advantage of this approach is that it is not necessary to calculate all possible subprograms. Instead, only the covered subprograms are gathered by going through all answer sets. This also guarantees that no time is spend on subprograms that are not coverable. On the other hand, the main disadvantage is, that this approach works very differently than the other coverage metrics. While the coverage transformations only require the computation of the brave consequences, this method needs to look at each answer set individually. Therefore it does not integrate well into the process of calculating coverage. This means an additional solve call with different options is necessary. 
@@ -880,15 +890,15 @@ Overall, the first approach would presumable be more efficient for very small pr
 
 \section{Implementation details}
 \label{sec:Computing coverage metrics for propositional programs/Implementation details}
-In this section we will take a brief look at an implementation of the above transformations. As part of this thesis, a prototype tool for checking coverage for answer set programs was built that applies the defined semantic transformations and uses the power of ASP to calculate all five coverage metrics for any propositional normal logic program. The implementation is done using the integrated ASP system \emph{clingo} [SOURCE] and its Python API[SOURCE?]. 
+In this section we will take a brief look at an implementation\footnote{\url{https://github.com/ElectroChicken/Clincover}} of the above transformations. As part of this thesis, a prototype tool for checking coverage for answer set programs was built that applies the defined semantic transformations and uses the power of ASP to calculate all five coverage metrics for any propositional normal logic program. The implementation is done using the integrated ASP system \emph{clingo}~\cite{Geb+19} and its Python API~\cite{Pot21}. 
 
 There are three main steps in order to implement the transformations and use them to calculate coverage. First, information on the program needs to be gathered. This includes for example collecting the atoms that appear in the program and finding which of them are definable. Second, new rules are added to the original program based on the information that has been gathered and the defined transformations. Finally, the modified program is solved using the clingo solver and the coverage is calculated based on the results of the solving process.
 
 \subsection{Information gathering}
 \label{subsec:Computing coverage metrics for propositional programs/Implementation details/Information gathering}
-The information gathering is done using the \emph{abstract syntax tree} (AST) of the program. This is a representation of a non-ground program that can be generated using the clingo.ast module of the clingo Python API [SOURCE]. It contains all the necessary information about the rules in the program and the atoms in the head and the body of each rule. 
+The information gathering is done using the \emph{abstract syntax tree} (AST) of the program. This is a representation of a non-ground program that can be generated using the clingo.ast module of the clingo Python API. It contains all the necessary information about the rules in the program and the atoms in the head and the body of each rule. 
 
-The \code{parse\_files} function[Link to where in code?] is used to parse the original program statement by statement and pass each statement as an abstract syntax tree to the \code{gather\_info} function. This function will analyze each AST node and save all relevant info in an appropriate data structure. The main one is a dictionary that uses atom names and arity as the keys and saves the location of the atom in the original program, a unique label associated with that atom and the labels of all the rules that define the atom in the values. The latter two make it easy to later construct the rules for the definition coverage transformation, the location is only used to allow for a better output. Additionally, the AST nodes containing an entire rule are saved in a list. This list is later used during the rule coverage transformation for easy access to the bodies of each rule. It is also used to build the positive atom dependency graph of the program and for printing results.
+The \code{parse\_files} function is used to parse the original program statement by statement and pass each statement as an abstract syntax tree to the \code{gather\_info} function. This function will analyze each AST node and save all relevant info in an appropriate data structure. The main one is a dictionary that uses atom names and arity as the keys and saves the location of the atom in the original program, a unique label associated with that atom and the labels of all the rules that define the atom in the values. The latter two make it easy to later construct the rules for the definition coverage transformation, the location is only used to allow for a better output. Additionally, the AST nodes containing an entire rule are saved in a list. This list is later used during the rule coverage transformation for easy access to the bodies of each rule. It is also used to build the positive atom dependency graph of the program and for printing results.
 
 \begin{example}
 \label{ex:information gathering}
@@ -899,9 +909,9 @@ The \code{parse\_files} function[Link to where in code?] is used to parse the or
     \end{align*}
     A simplified abstract syntax tree of the first rule can be seen in \cref{fig:ast example}. The atom dictionary for this program looks like this after information gathering:
     
-    \code{atoms = \{(c, 0): [[0], [location], [0]], (d, 0): [[1], [location], [1]], (a, 0): [[2], [location], []], (b, 0): [[3], [location], []]\}}
+    \code{atoms = \{(c, 0):\:\:[[0], [loc], [0]], (d, 0):\:\:[[1], [loc], [1]], (a, 0):\:\:[[2],\linebreak[4] [loc], []], (b, 0):\:\:[[3], [loc], []]\}}
 
-    Where the first value is the atom label, the second describes the location of the atom in the program and the third value is a list of the labels of the rules it is defined in. Atoms $a$ and $b$ have an empty list as last value since they are not defined in this program.
+    Where the first value is the atom label, the second is the location of the atom in the program (here abbreviated by the keyword "loc") and the third value is a list of the labels of the rules it is defined in. Atoms $a$ and $b$ have an empty list as last value since they are not defined in this program.
 \end{example}
 
 \begin{figure}
@@ -946,7 +956,7 @@ Thus some work has to be done to make sure that the correct information is saved
 
 What is also done in the \code{gather\_info} function is removing \code{\#show} statements from the original program. This is necessary because show statements can interfere with the calculation of coverage. Since they have no impact on the functionality of the program, removing them is not problematic. Since every AST node of the original program is analyzed in the \code{gather\_info} function anyways, it is easy to take care of the removal here. Each show statement is replaced by a simple \code{\#true} statement that has no impact on the program whatsoever.
 
-Since the information gathered in this function is relevant for each coverage metric, this function is always executed, no matter which metric will be computed. Another part of the information gathering is building the positive atom dependency graph of the program and finding all its loops and strongly connected components. This is done by going through every rule of the program and adding nodes and edges one by one to the graph using the networkX package [SOURCE]. Then, the \code{strongly\_connected\_components} method of networkX is used to find all the SCCs in the constructed graph. Finally, the remaining loops that are not SCCs are found by going through every subset of every SCC and checking, whether each set is strongly connected or not. Building the dependency graph this way is not very efficient but it only needs to be done if loop or component coverage will be computed and can be skipped otherwise.
+Since the information gathered in this function is relevant for each coverage metric, this function is always executed, no matter which metric will be computed. Another part of the information gathering is building the positive atom dependency graph of the program and finding all its loops and strongly connected components. This is done by going through every rule of the program and adding nodes and edges one by one to the graph using the networkX package~\cite{HSS08}. Then, the \code{strongly\_connected\_components} method of networkX is used to find all the SCCs in the constructed graph. Finally, the remaining loops that are not SCCs are found by going through every subset of every SCC and checking, whether each set is strongly connected or not. Building the dependency graph this way is not very efficient but it only needs to be done if loop or component coverage will be computed and can be skipped otherwise.
 
 \subsection{Adding rules}
 \label{subsec:Computing coverage metrics for propositional programs/Implementation details/Adding rules}
@@ -988,7 +998,7 @@ Since we only implemented the second approach to calculating program coverage di
 \label{subsec:Computing coverage metrics for propositional programs/Implementation details/Calculating coverage}
 When all the necessary rules have been added to the program, we can work on actually calculating the code coverage. This is done in two steps. The first is to calculate how many elements are covered by the inputs, i.e., covered\(_X(I, P)\) and the second is to check the maximum coverage, i.e., covered\(_X(2^{\mathbb{I}_P}, P)\). 
 
-For the first step, the program has to be ground and we have to enable brave consequences by setting clingos \code{enum\_mode} parameter to "brave". It is also important to disable any optimization by setting the \code{opt\_mode} parameter to "ignore", as these could change the output and therefore falsify the results. Then, the ground program can be solved and all the label atoms -- identified by starting with either an underscore or "-\_" for the strong negation -- contained in the last model are saved in the \code{atoms} set. We are only interested in the last model as this is the one containing the full brave consequences (as per the definition of the brave enumeration mode of clingo [SOURCE]) and we can drop all the non-label atoms as those are not required to calculate the coverage. From here we build sets representing the positive coverage of each metric. They contain all the labels of the elements that are positively covered. For example, the set representing positive rule coverage will contain all the $\_r_i$ labels that were in the brave consequences. In the same way, sets representing the negative coverage are built using the strongly negated label atoms.
+For the first step, the program has to be ground and we have to enable brave consequences by setting clingos \code{enum\_mode} parameter to "brave". It is also important to disable any optimization by setting the \code{opt\_mode} parameter to "ignore", as these could change the output and therefore falsify the results. Then, the ground program can be solved and all the label atoms -- identified by starting with either an underscore or "-\_" for the strong negation -- contained in the last model are saved in the \code{atoms} set. We are only interested in the last model as this is the one containing the full brave consequences (as per the definition of the brave enumeration mode of clingo~\cite{GKS09}) and we can drop all the non-label atoms as those are not required to calculate the coverage. From here we build sets representing the positive coverage of each metric. They contain all the labels of the elements that are positively covered. For example, the set representing positive rule coverage will contain all the $\_r_i$ labels that were in the brave consequences. In the same way, sets representing the negative coverage are built using the strongly negated label atoms.
 
 The second step works largely the same. The difference being that instead of the input files from the test cases, a choice rule containing all possible input atoms is added to the program. This means, if the input alphabet of the program $P$ is \(\mathbb{I}_P = \{a_1, \ldots, a_n\}\), then the rule "\(\{a_1, \ldots, a_n\}.\)" is added to the program instead of the input transformation described in \cref{sec:Computing coverage metrics for propositional programs/Test input}. This will allow us to compute every possible model that can be produced by any input of $P$. By gathering the coverage in the same way as in the first step, we receive the maximal positive and negative coverage for all metrics.
 
@@ -1032,9 +1042,9 @@ In this section we will go over most of the language constructs that exist in AS
 \label{subsubsec:Coverage for further program classes/Language constructs/Variables}
 The most important extension to propositional programs is the introduction of variables. At the same time, this is also the most problematic extension for the current approach to computing coverage. This is due to the potentially infinite blowup in unique atoms that can exist inside of a program. For example, the propositional rule "\(a \leftarrow b.\)" can only produce the single atom $a$ depending on whether $b$ is true. The rule "\(a(X) \leftarrow b(X).\)" on the other hand can produce as many unique atoms as there are possible values for the variable $X$. This causes multiple problems.
 
-The first problem is with the definition coverage metric. The above example rule defines a potentially infinite amount of unique \emph{ground atoms}, i.e., atoms where the variables are instantiated with values. Therefore, for a program containing only this one rule and with the input alphabet \(\mathbb{I}_P = \{b(1), b(2), b(3), \ldots\}\) there are infinitely many atoms that need to be checked for coverage. This is obviously not feasible nor desirable. The proposed solution would be to only check coverage for each unique atom signature instead of each unique ground atom. This means instead of checking coverage for $a(1)$, $a(2)$ etc., the coverage will only be checked for $a/1$. This way we go back to only having one atom to check. The same difficulty exists with loop and component coverage, as they also rely on checking for defined atoms, but the same solution also applies there.
+The first problem is with the definition coverage metric. Depending on the domain of the variable, the above example rule can expand into a potentially infinite amount of unique \emph{ground rules}, i.e., rules where the variables are instantiated with values. Each of these ground rules has a different unique \emph{ground atom} in the head. This means that according to the current definition, a potentially infinite amount of atoms has to be checked for definition coverage. This is obviously not feasible nor desirable. The proposed solution would be to only check coverage for each unique atom signature instead of each unique ground atom. This means instead of checking coverage for $a(1)$, $a(2)$ etc., the coverage will only be checked for $a/1$. This way we go back to only having one atom to check. The same difficulty exists with loop and component coverage, as they also rely on checking for defined atoms, but the same solution also applies there.
 
-The other problem that is introduced with variables concerns the computation of the maximal coverage for any of the metrics. The maximal coverage for elements $X$ in program $P$, i.e., covered$_X(2^{\mathbb{I}_P}, P)$, is computed by using the exhaustive test suite \(\varepsilon_P\) as input for the program $P$. However, such is only possible if the exhaustive test suite, or rather \(\inp(\varepsilon_P)\), is finite. This is already violated by the simple example above. Even for this program with just one rule, the maximal coverage can not be computed according to the current definition. A remedy similar to what was used for definition coverage is not possible here as just choosing one variable instantiation as input for each atom will in most cases not yield the maximal coverage. One way this problem could be solved is by specifying a finite domain for each variable in the program. Although depending on the program this might not fulfill the specification.
+The other problem that is introduced with variables concerns the computation of the maximal coverage for any of the metrics. The maximal coverage for elements $X$ in program $P$, i.e., covered$_X(2^{\mathbb{I}_P}, P)$, is computed by using the exhaustive test suite \(\varepsilon_P\) as input for the program $P$. However, such is only possible if the exhaustive test suite, or rather \(\inp(\varepsilon_P)\), is finite. This can already be violated by the simple example above. Assuming that the domain for $X$ is the natural numbers $\mathbb{N}$, \(\inp(\varepsilon_P)\) is infinite and thus the maximal coverage for a program containing only this one rule can not be computed according to the current definition. A remedy similar to what was used for definition coverage is not possible here as just choosing one variable instantiation as input for each atom will in most cases not yield the maximal coverage. One way this problem could be solved is by specifying a finite domain for each variable in the program. Although depending on the program this might not fulfill the specification.
 
 The only easy fix to this problem is to redefine the basic coverage function schema so that coverage is not calculated relative to the maximal coverable elements but rather the total existing elements. Thus the \emph{basic coverage function schema for programs with variables} will be defined for a class $X$ of elements, the program $P$ and some input $I$ as
 \begin{equation}
@@ -1173,7 +1183,7 @@ Unfortunately the scope of this bachelor thesis makes it impossible to fully cov
 
 Future work is also required in testing the effectiveness of the five coverage metrics. \textcite{Jan+11} did some work for rule and definition coverage but data for the other three metrics is missing. Therefore it is unclear how well these metrics perform and which combination of metrics is the most efficient at finding errors in the program. Some of the definitions might need adjustments to properly fulfill their purpose. For example, positive loop coverage for a loop $l$ currently does not guarantee that the loop is actually executed. It only means that each atom in the loop is defined somewhere but the loop itself might have additional conditions and thus require a different test case to be executed.
 
-Testing is also necessary to determine if the suggested adjustments for further program classes are indeed the best approach. It remains to be seen if the potential problems pointed out in \cref{sec:Coverage for further program classes/Language constructs} limit the functionality of the coverage metrics.
+Additional work is also necessary to determine if the suggested adjustments for further program classes are indeed the best approach. It remains to be seen if the potential problems pointed out in \cref{sec:Coverage for further program classes/Language constructs} limit the functionality of the coverage metrics.
 
 Finally, the prototype tool is only supposed to be a proof of concept. Because of this, some features of clingo such as external atoms or the use of program parts are not supported. Additionally, the tool has not been tested for efficiency and the code is not very optimized or especially user friendly. Such work is left to a time when all the coverage metrics are fully defined for all program classes.
 
