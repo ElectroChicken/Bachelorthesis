@@ -1,23 +1,36 @@
-@incollection{Jan+10,
+@inproceedings{Jan+10,
   title         = {On testing answer-set programs},
   author        = {Janhunen, Tomi and Niemelä, Ilkka and Oetsch, Johannes and Pührer, Jörg and Tompits, Hans},
-  booktitle     = {ECAI 2010},
+  editor        = {Helder Coelho and Rudi Studer and Michael J. Wooldridge},
+  booktitle     = {{ECAI} 2010 - 19th European Conference on Artificial Intelligence},
+  volume        = {215},
   pages         = {951--956},
   year          = {2010},
-  publisher     = {IOS Press}
+  publisher     = {{IOS} Press},
+  doi           = {10.3233/978-1-60750-606-5-951}
 } %%% main paper
+
+@book{Lif19,
+  author       = {Vladimir Lifschitz},
+  title        = {Answer Set Programming},
+  publisher    = {Springer},
+  year         = {2019},
+  edition      = {1},
+  doi          = {10.1007/978-3-030-24658-7}
+} %%% Source for ASP?!?
 
 @InProceedings{Jan+11,
   author        = {Janhunen, Tomi and Niemelä, Ilkka and Oetsch, Johannes and Pührer, Jörg and Tompits, Hans},
   editor        = {Delgrande, James P. and Faber, Wolfgang},
   title         = {Random vs. Structure-Based Testing of Answer-Set Programs: An Experimental Comparison},
-  booktitle     = {Logic Programming and Nonmonotonic Reasoning},
+  booktitle     = {Logic Programming and Nonmonotonic Reasoning - 11th International
+                  Conference, {LPNMR}},
   year          = {2011},
-  publisher     = {Springer Berlin Heidelberg},
+  volume        = {6645},
+  publisher     = {Springer},
   address       = {Berlin, Heidelberg},
   pages         = {242--247},
-  abstract      = {Answer-set programming (ASP) is an established paradigm for declarative problem solving, yet comparably little work on testing of answer-set programs has been done so far. In a recent paper, foundations for structure-based testing of answer-set programs building on a number of coverage notions have been proposed. In this paper, we develop a framework for testing answer-set programs based on this work and study how good the structure-based approach to test input generation is compared to random test input generation. The results indicate that random testing is quite ineffective for some benchmarks, while structure-based techniques catch faults with a high rate more consistently also in these cases.},
-  isbn          = {978-3-642-20895-9}
+  doi           = {10.1007/978-3-642-20895-9_26}
 } %%% automatic test generation
 
 @article{EGL16,
@@ -27,118 +40,106 @@
   volume    = {37},
   number    = {3},
   pages     = {53--68},
-  year      = {2016}
+  year      = {2016},
+  doi       = {10.1609/aimag.v37i3.2678}
 } %%% Applications
 
-@article{MT98,
-  author    = {Marek, Victor W. and Truszczynski, Miroslaw},
-  title     = {Stable models and an alternative logic programming paradigm},
-  keywords  = {Logic in Computer Science (cs.LO), Artificial Intelligence (cs.AI), FOS: Computer and information sciences, FOS: Computer and information sciences, I.2.3, I.2.4},
-  publisher = {arXiv},
-  year      = {1998},
-  url       = {https://arxiv.org/abs/cs/9809032},  
-  doi       = {10.48550/ARXIV.CS/9809032},  
-  copyright = {Assumed arXiv.org perpetual, non-exclusive license to distribute this article for submissions made before January 2004}
+@incollection{MT98,
+  author       = {Victor W. Marek and Miroslaw Truszczynski},
+  editor       = {Krzysztof R. Apt and Victor W. Marek and Mirek Truszczynski and David Scott Warren},
+  title        = {Stable Models and an Alternative Logic Programming Paradigm},
+  booktitle    = {The Logic Programming Paradigm - {A} 25-Year Perspective},
+  pages        = {375--398},
+  publisher    = {Springer},
+  year         = {1999},
+  doi          = {10.1007/978-3-642-60085-2_17}
 } %%% Origins of ASP
 
 @article{Nie99,
   title     = {Logic programs with stable model semantics as a constraint programming paradigm},
   author    = {Niemel{\"a}, Ilkka},
-  journal   = {Annals of mathematics and Artificial Intelligence},
+  journal   = {Annals of Mathematics and Artificial Intelligence},
   volume    = {25},
   number    = {3},
   pages     = {241--273},
   year      = {1999},
-  publisher = {Springer}
+  publisher = {Springer},
+  doi       = {10.1023/A:1018930122475}
 } %%% Origins of ASP
 
 @InProceedings{Fra+03,
   author    = {Fraser, Steven and Beck, Kent and Caputo, Bill and Mackinnon, Tim and Newkirk, James and Poole, Charlie},
   editor    = {Marchesi, Michele and Succi, Giancarlo},
-  title     = {Test Driven Development (TDD)},
+  title     = {Test Driven Development ({TDD})},
   booktitle = {Extreme Programming and Agile Processes in Software Engineering},
   year      = {2003},
-  publisher = {Springer Berlin Heidelberg},
+  volume    = {2675},
+  publisher = {Springer},
   address   = {Berlin, Heidelberg},
   pages     = {459--462},
-  abstract  = {This panel brings together practitioners with extensive experience in agile/XP methodologies to discuss the approaches and benefits of applying TDD. The goal of test driven development (TDD) is clean code that works. The mantra of TDD is: write a test; make it run; and make it right. Open questions exist, for example --- how can TDD approaches be applied to databases, GUIs, and distributed systems? What are the quantitative benchmarks that can demonstrate the value of TDD, and what are the best approaches to solve the ubiquitous issues of scalability?},
-  isbn      = {978-3-540-44870-9},
   doi       = {10.1007/3-540-44870-5_84}
 } %%% Test Driven Development
 
 @InProceedings{GOT17,
   author        = {Gre{\ss}ler, Alexander and Oetsch, Johannes and Tompits, Hans},
   editor        = {Balduccini, Marcello and Janhunen, Tomi},
-  title         = {Harvey: A System for Random Testing in ASP},
-  booktitle     = {Logic Programming and Nonmonotonic Reasoning},
+  title         = {{\textbackslash}mathsf Harvey : {A} System for Random Testing in ASP},
+  booktitle     = {Logic Programming and Nonmonotonic Reasoning - 14th International
+                  Conference, {LPNMR}},
   year          = {2017},
+  volume        = {10377},
   publisher     = {Springer International Publishing},
-  address       = {Cham},
   pages         = {229--235},
-  abstract      = {We present Harvey, a tool for random testing in answer-set programming (ASP) that allows to incorporate constraints to guide the generation of test inputs. Due to the declarative nature of ASP, it can be argued that there is less need for testing than in conventional software development. However, it is shown in practice that testing is still needed when more sophisticated methods are not viable. Random testing is recognised as a simple yet effective method in this regard. The approach described in this paper allows for random testing of answer-set programs in which both test-input generation and determining test verdicts is facilitated using ASP itself: The test-input space is defined using ASP rules and uniformity of test-input selection is achieved by using XOR sampling. This allows to go beyond simple random testing by adding further ASP constraints in the process.},
-  isbn          = {978-3-319-61660-5},
   doi           = {10.1007/978-3-319-61660-5_21}
 } %%% Testing ASP
-
 
 @InProceedings{ABR21,
   author        = {Amendola, Giovanni and Berei, Tobias and Ricca, Francesco},
   editor        = {Faber, Wolfgang and Friedrich, Gerhard and Gebser, Martin and Morak, Michael},
-  title         = {Testing in ASP: Revisited Language and Programming Environment},
-  booktitle     = {Logics in Artificial Intelligence},
+  title         = {Testing in {ASP:} Revisited Language and Programming Environment},
+  booktitle     = {Logics in Artificial Intelligence - 17th European Conference, {JELIA}},
   year          = {2021},
+  volume        = {12678},
   publisher     = {Springer International Publishing},
-  address       = {Cham},
   pages         = {362--376},
-  abstract      = {Unit testing frameworks are nowadays considered a best practice, foregone in almost all modern software development processes, to achieve rapid development of correct specifications. The first unit testing specification language for Answer Set Programming (ASP) was proposed in 2011 as a feature of the ASPIDE development environment. Later, a more portable unit testing language was included in the LANA annotation language. In this paper we propose a revisited unit testing specification language that allows one to inline tests within ASP program and an ASP-based test execution mechanism. Moreover, we present a programming environment supporting test driven development (TDD) of ASP programs with our language.},
-  isbn          = {978-3-030-75775-5},
   doi           = {10.1007/978-3-030-75775-5_24}
 } %%% Testing ASP
 
 @phdthesis{Oet22,
-  title     = {Testing for ASP-ASP for Testing},
-  author    = {Oetsch, Johannes},
-  year      = {2022},
-  school    = {Wien},
-  doi       = {10.34726/hss.2022.102508}
+  title         = {Testing for ASP-ASP for Testing},
+  author        = {Oetsch, Johannes},
+  year          = {2022},
+  institution   = {Technische Universität Wien},
+  doi           = {10.34726/hss.2022.102508}
 } %%% Testing ASP
 
 @inproceedings{GJG14,
   author    = {Gopinath, Rahul and Jensen, Carlos and Groce, Alex},
   title     = {Code Coverage for Suite Evaluation by Developers},
+  editor    = {Pankaj Jalote and Lionel C. Briand and Andr{\'{e}} van der Hoek},
+  booktitle = {Proceedings of the 36th International Conference on Software Engineering},
   year      = {2014},
-  isbn      = {9781450327565},
-  publisher = {Association for Computing Machinery},
-  address   = {New York, NY, USA},
-  url       = {https://doi.org/10.1145/2568225.2568278},
-  doi       = {10.1145/2568225.2568278},
-  abstract  = {One of the key challenges of developers testing code is determining a test suite's quality -- its ability to find faults. The most common approach is to use code coverage as a measure for test suite quality, and diminishing returns in coverage or high absolute coverage as a stopping rule. In testing research, suite quality is often evaluated by a suite's ability to kill mutants (artificially seeded potential faults). Determining which criteria best predict mutation kills is critical to practical estimation of test suite quality. Previous work has only used small sets of programs, and usually compares multiple suites for a single program. Practitioners, however, seldom compare suites --- they evaluate one suite. Using suites (both manual and automatically generated) from a large set of real-world open-source projects shows that evaluation results differ from those for suite-comparison: statement (not block, branch, or path) coverage predicts mutation kills best.},
-  booktitle={Proceedings of the 36th International Conference on Software Engineering},
   pages     = {72–82},
-  numpages  = {11},
-  keywords  = {statistical analysis, test frameworks, evaluation of coverage criteria},
-  location  = {Hyderabad, India},
-  series    = {ICSE 2014}
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/2568225.2568278}
 } %%% Effectiveness of code coverage
 
-@INPROCEEDINGS{KTL15,
-  author={Kochhar, Pavneet Singh and Thung, Ferdian and Lo, David},
-  booktitle={2015 IEEE 22nd International Conference on Software Analysis, Evolution, and Reengineering (SANER)}, 
-  title={Code coverage and test suite effectiveness: Empirical study with real bugs in large systems}, 
-  year={2015},
-  volume={},
-  number={},
-  pages={560-564},
-  doi={10.1109/SANER.2015.7081877}
+@InProceedings{KTL15,
+  author    = {Kochhar, Pavneet Singh and Thung, Ferdian and Lo, David},
+  booktitle = {2015 {IEEE} 22nd International Conference on Software Analysis, Evolution, and Reengineering {SANER}}, 
+  title     = {Code coverage and test suite effectiveness: Empirical study with real bugs in large systems}, 
+  publisher = {{IEEE} Computer Society},
+  year      = {2015},
+  pages     = {560-564},
+  doi       = {10.1109/SANER.2015.7081877}
 } %%% Effectiveness of code coverage
 
-@INPROCEEDINGS{Hem15,
+@InProceedings{Hem15,
   author        = {Hemmati, Hadi},
-  booktitle     = {2015 IEEE International Conference on Software Quality, Reliability and Security}, 
+  booktitle     = {2015 {IEEE} International Conference on Software Quality, Reliability and Security {QRS}}, 
   title         = {How Effective Are Code Coverage Criteria?}, 
   year          = {2015},
-  volume        = {},
-  number        = {},
+  publisher     = {{IEEE}},
   pages         = {151-156},
   doi           = {10.1109/QRS.2015.30}
 } %%% Effectiveness of code coverage
@@ -146,37 +147,32 @@
 @article{BJ98,
   author    = {Fevzi Belli and Oliver Jack},
   title     = {Declarative Paradigm of Test Coverage},
-  journal   = {Softw. Test. Verification Reliab.},
+  journal   = {Software Testing, Verification Reliability},
   volume    = {8},
   number    = {1},
   pages     = {15--47},
   year      = {1998},
-  url       = {https://doi.org/10.1002/(SICI)1099-1689(199803)8:1\<15::AID-STVR146\>3.0.CO;2-D},
-  doi       = {10.1002/(SICI)1099-1689(199803)8:1\<15::AID-STVR146\>3.0.CO;2-D},
-  timestamp = {Wed, 01 Apr 2020 08:46:21 +0200},
-  biburl    = {https://dblp.org/rec/journals/stvr/BelliJ98.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  doi       = {10.1002/(SICI)1099-1689(199803)8:1<15::AID-STVR146>3.0.CO;2-D}
 } %%% Code coverage in Prolog/declarative programming
 
 @InProceedings{LGL10,
   author    = {Lazaar, Nadjib and Gotlieb, Arnaud and Lebbah, Yahia},
   editor    = {Cohen, David},
   title     = {On Testing Constraint Programs},
-  booktitle = {Principles and Practice of Constraint Programming -- CP 2010},
+  booktitle = {Principles and Practice of Constraint Programming -- 16th International Conference {CP}},
   year      = {2010},
-  publisher = {Springer Berlin Heidelberg},
+  publisher = {Springer},
   address   = {Berlin, Heidelberg},
   pages     = {330--344},
-  isbn      = {978-3-642-15396-9},
   doi       = {10.1007/978-3-642-15396-9_28}
 } %%% Testing constraint programs
 
 @InProceedings{GL88,
   title     = {The Stable Model Semantics for Logic Programming},
   author    = {Michael Gelfond and Vladimir Lifschitz},
-  booktitle = {Proceedings of International Logic Programming Conference and Symposium},
+  booktitle = {Proceedings of the Fifth International Logic Programming Conference and Symposium},
   editor    = {Kowalski, Robert and Bowen and Kenneth},
-  publisher = {MIT Press},
+  publisher = {{MIT} Press},
   pages     = {1070-1080},
   url       = {http://www.cs.utexas.edu/users/ai-lab?gel88},
   year      = {1988}
@@ -192,10 +188,11 @@
   doi       = {10.1017/9781316771273}
 } %% general software testing stuff
 
-@article{MB12,
+@book{MSB12,
   title     = {The Art of Software Testing},
-  author    = {Myers, Glenford J and Badgett, Tom},
+  author    = {Myers, Glenford J and Sandler, Corey and Badgett, Tom},
   publisher = {Wiley Online Library},
+  edition   = {3},
   doi       = {10.1002/9781119202486},
   year      = {2012}
 } %% general software testing stuff
@@ -211,9 +208,9 @@
   url           = {https://www.iso.org/standard/81291.html}
 } %%% general software testing stuff
 
-@ARTICLE{Nta88,
-  author    = {Ntafos, S.C.},
-  journal   = {IEEE Transactions on Software Engineering}, 
+@article{Nta88,
+  author    = {Ntafos, Simeon C.},
+  journal   = {{IEEE} Transactions on Software Engineering}, 
   title     = {A comparison of some structural testing strategies}, 
   year      = {1988},
   volume    = {14},
@@ -223,20 +220,16 @@
 } %%% comparison of coverage metrics
 
 @book{Geb+12,
-  author    = {Martin Gebser and
-               Roland Kaminski and
-               Benjamin Kaufmann and
-               Torsten Schaub},
+  author    = {Martin Gebser and Roland Kaminski and Benjamin Kaufmann and Torsten Schaub},
   title     = {Answer Set Solving in Practice},
   series    = {Synthesis Lectures on Artificial Intelligence and Machine Learning},
   publisher = {Morgan {\&} Claypool Publishers},
   year      = {2012},
-  url       = {https://doi.org/10.2200/S00457ED1V01Y201211AIM019},
   doi       = {10.2200/S00457ED1V01Y201211AIM019}
 } %%% general answer set programming / mapping of constraints to normal rules!
 
 @article{LZ04,
-  title     = {ASSAT: Computing answer sets of a logic program by SAT solvers},
+  title     = {{ASSAT}: Computing answer sets of a logic program by {SAT} solvers},
   author    = {Lin, Fangzhen and Zhao, Yuting},
   journal   = {Artificial Intelligence},
   volume    = {157},
@@ -250,21 +243,15 @@
 @article{TH02,
   author        = {Tikir, Mustafa M. and Hollingsworth, Jeffrey K.},
   title         = {Efficient Instrumentation for Code Coverage Testing},
-  year          = {2002},
-  issue_date    = {July 2002},
+  booktitle     = {Proceedings of the International Symposium on Software Testing and
+                  Analysis, {ISSTA}},
+  editor        = {Phyllis G. Frankl},
   publisher     = {Association for Computing Machinery},
-  address       = {New York, NY, USA},
+  year          = {2002},
   volume        = {27},
   number        = {4},
-  issn          = {0163-5948},
-  url           = {https://doi.org/10.1145/566171.566186},
   doi           = {10.1145/566171.566186},
-  abstract      = {Evaluation of Code Coverage is the problem of identifying the parts of a program that did not execute in one or more runs of a program. The traditional approach for code coverage tools is to use static code instrumentation. In this paper we present a new approach to dynamically insert and remove instrumentation code to reduce the runtime overhead of code coverage. We also explore the use of dominator tree information to reduce the number of instrumentation points needed. Our experiments show that our approach reduces runtime overhead by 38-90\% compared with purecov, a commercial code coverage tool. Our tool is fully automated and available for download from the Internet.},
-  journal       = {SIGSOFT Softw. Eng. Notes},
-  month         = {jul},
-  pages         = {86-96},
-  numpages      = {11},
-  keywords      = {dynamic code patching, testing, code coverage, on-demand instrumentation, dominator tree, dynamic code deletion}
+  pages         = {86-96}
 }
   
 
@@ -276,27 +263,20 @@
   number        = {2},
   pages         = {188-208},
   year          = {2010},
-  note          = {Computer Software and Applications},
-  issn          = {0164-1212},
-  doi           = {https://doi.org/10.1016/j.jss.2009.09.037},
-  url           = {https://www.sciencedirect.com/science/article/pii/S0164121209002465},
-  keywords      = {Fault localization, Program debugging, Code coverage, Heuristics, Suspiciousness of code, Successful tests, Failed tests},
-  abstract      = {Locating faults in a program can be very time-consuming and arduous, and therefore, there is an increased demand for automated techniques that can assist in the fault localization process. In this paper a code coverage-based method with a family of heuristics is proposed in order to prioritize suspicious code according to its likelihood of containing program bugs. Highly suspicious code (i.e., code that is more likely to contain a bug) should be examined before code that is relatively less suspicious; and in this manner programmers can identify and repair faulty code more efficiently and effectively. We also address two important issues: first, how can each additional failed test case aid in locating program faults; and second, how can each additional successful test case help in locating program faults. We propose that with respect to a piece of code, the contribution of the first failed test case that executes it in computing its likelihood of containing a bug is larger than or equal to that of the second failed test case that executes it, which in turn is larger than or equal to that of the third failed test case that executes it, and so on. This principle is also applied to the contribution provided by successful test cases that execute the piece of code. A tool, χDebug, was implemented to automate the computation of the suspiciousness of the code and the subsequent prioritization of suspicious code for locating program faults. To validate our method case studies were performed on six sets of programs: Siemens suite, Unix suite, space, grep, gzip, and make. Data collected from the studies are supportive of the above claim and also suggest Heuristics III(a), (b) and (c) of our method can effectively reduce the effort spent on fault localization.}
+  doi           = {10.1016/j.jss.2009.09.037}
 }
 
 
 @inproceedings{Oet+12,
   author        = {Oetsch, Johannes and Prischink, Michael and P\"{u}hrer, J\"{o}rg and Schwengerer, Martin and Tompits, Hans},
+  editor        = {Gerhard Brewka and Thomas Eiter and Sheila A. McIlraith},
   title         = {On the Small-Scope Hypothesis for Testing Answer-Set Programs},
+  booktitle     = {Principles of Knowledge Representation and Reasoning: Proceedings
+                  of the Thirteenth International Conference, {KR}},
   year          = {2012},
-  isbn          = {9781577355601},
-  publisher     = {AAAI Press},
-  abstract      = {In software testing, the small-scope hypothesis states that a high proportion of errors can be found by testing a program for all test inputs within some small scope. In this paper, we evaluate the small-scope hypothesis for answer-set programming (ASP). To this end, we follow work in traditional testing and base our evaluation on mutation analysis. In fact, we show that a rather limited scope is sufficient for testing ASP encodings from a representative set of benchmark problems. Our experimental evaluation facilitates effective methods for testing in ASP. Also, it gives some justification to analyse programs at the propositional level after grounding them over a small domain.},
-  booktitle     = {Proceedings of the Thirteenth International Conference on Principles of Knowledge Representation and Reasoning},
+  publisher     = {{AAAI} Press},
   pages         = {43–53},
-  numpages      = {11},
-  location      = {Rome, Italy},
-  series        = {KR'12}
+  url           = {http://www.aaai.org/ocs/index.php/KR/KR12/paper/view/4550}
 }
 
 
@@ -305,10 +285,11 @@
   author    = {Ferraris, Paolo and Lee, Joohyung and Lifschitz, Vladimir},
   journal   = {Annals of Mathematics and Artificial Intelligence},
   volume    = {47},
-  number    = {1},
+  number    = {1-2},
   pages     = {79--101},
   year      = {2006},
-  publisher = {Springer}
+  publisher = {Springer},
+  doi       = {10.1007/s10472-006-9025-2}
 } %%% Dependency graphs for complex programs
 
 @article{FL22,
@@ -317,66 +298,70 @@
   journal   = {Theory and Practice of Logic Programming},
   pages     = {1--10},
   year      = {2022},
-  publisher = {Cambridge University Press}
+  publisher = {Cambridge University Press},
+  doi       = {10.1017/S1471068422000333}
 } %%% Dependency graphs for complex programs 
 
-@InProceedings{Fic+18,
+@article{Fic+18,
   author    = {Johannes K. Fichte and Markus Hecher and Michael Morak and Stefan Woltran},
   title     =	{{DynASP2.5: Dynamic Programming on Tree Decompositions in Action}},
-  booktitle =	{12th International Symposium on Parameterized and Exact Computation (IPEC 2017)},
-  pages     =	{17:1--17:13},
-  series    =	{Leibniz International Proceedings in Informatics (LIPIcs)},
-  ISBN      =	{978-3-95977-051-4},
-  ISSN      =	{1868-8969},
-  year      =	{2018},
-  volume    =	{89},
-  editor    =	{Daniel Lokshtanov and Naomi Nishimura},
-  publisher =	{Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik},
-  address   =	{Dagstuhl, Germany},
-  URL       =	{http://drops.dagstuhl.de/opus/volltexte/2018/8573},
-  URN       =	{urn:nbn:de:0030-drops-85739},
-  doi       =	{10.4230/LIPIcs.IPEC.2017.17},
-  annote    =	{Keywords: Parameterized algorithms, Fixed-parameter linear time, Tree decompositions, Multi-pass dynamic programming}
+  journal   = {Algorithms},
+  volume    = {14},
+  number    = {3},
+  pages     = {81},
+  year      = {2021},
+  doi       = {10.3390/a14030081}
 } %%% Set notation of programs!
 
 @inproceedings{Hec20,
-    title     = {{Treewidth-aware Reductions of Normal ASP to SAT - Is Normal ASP Harder than SAT after All?}},
-    author    = {Hecher, Markus},
-    booktitle = {{Proceedings of the 17th International Conference on Principles of Knowledge Representation and Reasoning}},
-    pages     = {485--495},
-    year      = {2020},
-    month     = {9},
-    doi       = {10.24963/kr.2020/49},
-    url       = {https://doi.org/10.24963/kr.2020/49},
+  title        = {{Treewidth-aware Reductions of Normal ASP to SAT - Is Normal ASP Harder than SAT after All?}},
+  author       = {Hecher, Markus},
+  journal      = {Artificial Intelligence},
+  volume       = {304},
+  pages        = {103651},
+  year         = {2022},
+  doi          = {10.1016/j.artint.2021.103651}
 } %%% Set notation of programs!
 
 @inproceedings{FGR22,
   title     = {Rushing and strolling among answer sets--navigation made easy},
   author    = {Fichte, Johannes Klaus and Gaggl, Sarah Alice and Rusovac, Dominik},
-  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  booktitle = {Proceedings of the 36th {AAAI} Conference on Artificial Intelligence},
   volume    = {36},
   number    = {5},
   pages     = {5651--5659},
   year      = {2022},
   doi       = {10.1609/aaai.v36i5.20506}
-} %%% Brave and Cautious concequences definition
+} %%% Brave and Cautious concequences definition?
 
-@misc{Geb+19,
-  title     = {Potassco guide version 2.2.0},
+@manual{Geb+19,
+  title     = {Potassco User Guide},
   author    = {Gebser, Martin and Kaminski, Roland and Kaufmann, Benjamin and Lindauer, Marius and Ostrowski, Max and Romero, Javier and Schaub, Torsten and Thiele, Sven and Wanko, Philipp},
-  url       = {https://github.com/potassco/guide/releases/tag/v2.2.0},
+  version   = {2.2.0},
+  url       = {https://github.com/potassco/guide/releases/download/v2.2.0/guide.pdf},
+  urldate   = {2023-05-18T23:00:00},
   year      = {2019}
 } %%% Potassco guide (for clingo input language?)
 
+@manual{Pot21,
+  author    = {Potsdam Answer Set Solving Collection Potassco},
+  title     = {clingo Python-{API} reference},
+  year      = {2021},
+  version   = {5.5},
+  url       = {https://potassco.org/clingo/python-api/5.5/clingo/},
+  urldate   = {2023-05-18}
+}
+
 @article{Geb+15,
-  title={Abstract gringo},
-  author={Gebser, Martin and Harrison, Amelia and Kaminski, Roland and Lifschitz, Vladimir and Schaub, Torsten},
-  journal={Theory and Practice of Logic Programming},
-  volume={15},
-  number={4-5},
-  pages={449--463},
-  year={2015},
-  publisher={Cambridge University Press}
+  title     = {Abstract gringo},
+  author    = {Gebser, Martin and Harrison, Amelia and Kaminski, Roland and Lifschitz, Vladimir and Schaub, Torsten},
+  journal   = {Theory and Practice of Logic Programming},
+  volume    = {15},
+  number    = {4-5},
+  pages     = {449--463},
+  year      = {2015},
+  publisher = {Cambridge University Press},
+  doi       = {10.1017/S1471068415000150}
 } %%% formal definition of gringos input language
 
 @article{GL91,
@@ -387,7 +372,28 @@
   number    = {3/4},
   pages     = {365--386},
   year      = {1991},
-  url       = {https://doi.org/10.1007/BF03037169},
-  doi       = {10.1007/BF03037169},
-  timestamp = {Sun, 02 Oct 2022 15:45:27 +0200}
-}
+  doi       = {10.1007/BF03037169}
+} %%% strong negation
+
+@InProceedings{HSS08,
+  author    = {Aric A. Hagberg and Daniel A. Schult and Pieter J. Swart},
+  title     = {Exploring Network Structure, Dynamics, and Function using NetworkX},
+  booktitle = {Proceedings of the 7th Python in Science Conference},
+  pages     = {11 - 15},
+  address   = {Pasadena, CA USA},
+  year      = {2008},
+  editor    = {Ga\"el Varoquaux and Travis Vaught and Jarrod Millman}
+} %%% networkx
+
+@InProceedings{GKS09,
+ author     = {Gebser, Martin and Kaufmann, Benjamin and Schaub, Torsten},
+ editor     = {Erdem, Esra and Lin, Fangzhen and Schaub, Torsten},
+ title      = {The Conflict-Driven Answer Set Solver clasp: Progress Report},
+ booktitle  = {Logic Programming and Nonmonotonic Reasoning, 10th International Conference {LPNMR}},
+ year       = {2009},
+ publisher  = {Springer},
+ address    = {Berlin, Heidelberg},
+ pages      = {509--514},
+ volume     = {5753},
+ doi        = {10.1007/978-3-642-04238-6_50}
+} %%% brave and cautious reasoning in clingo
