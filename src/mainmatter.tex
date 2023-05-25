@@ -9,12 +9,12 @@ Unfortunately, the coverage concepts used in conventional testing cannot be easi
 Testing and coverage has been discussed for declarative programming. \cite{BJ98} introduces coverage notions for logic programs based on the Prolog model of posing queries to a program and resolving them using SLD resolution. The concepts of unification and anti-instances are used to define the coverage metrics. This means that even though Prolog is a declarative language and in many ways similar to ASP, these notions are not compatible with ASP as it relies on rule instantiation instead of unification.
 Work has also been done on testing constraint programs, another paradigm used in logic programming, however it was concluded, that developing notions of test coverage would not be possible in this case~\cite{LGL10}.
 
-Finally, while general approaches to testing in ASP have been discussed multiple times, e.g. in~\cite{GOT17, ABR21, Oet22}, the only attempt at realising code coverage for answer set programs has been done in the paper \cite{Jan+10}. 
+Finally, while general approaches to testing in ASP have been discussed multiple times, e.g., in~\cite{GOT17, ABR21, Oet22}, the only attempt at realising code coverage for answer set programs has been done in~\cite{Jan+10}. 
 There, five coverage metrics are defined for propositional normal programs based on the existing concepts of path and branch coverage in conventional testing. 
 
 The goal of this thesis is to find a way to implement these metrics by relying as much as possible on the power of ASP itself. To achieve this, we will introduce syntactic transformations for answer set programs. These transformations add new atoms to the program which make it possible to compute the coverage metrics by solving the program with the integrated ASP system clingo. This approach is also implemented in a prototype coverage testing tool. Additionally, since propositional normal programs are rare in a practical setting, an informal attempt at extending the coverage metrics so they are applicable to more complex program classes is made.
 
-This work is structured as follows: \Cref{ch:Preliminaries on answer set programming} serves as a short introduction to ASP, establishing some necessary definitions. In \cref{ch:Coverage metrics} we go over the existing coverage metrics for answer set programs, explaining their functionality and purpose. \Cref{ch:Computing coverage metrics for propositional programs} first introduces our approach to computing each coverage metric. Then, details are given on how this approach was implemented i a prototype tool. Finally, \cref{ch:Coverage for further program classes} discusses how the coverage metrics might be adjusted to function with program classes beyond propositional normal programs and shows how our syntactic transformations can easily adapt these changes.
+This work is structured as follows: \Cref{ch:Preliminaries on answer set programming} serves as a short introduction to ASP, establishing some necessary definitions. In \cref{ch:Coverage metrics} we go over the existing coverage metrics for answer set programs, explaining their functionality and purpose. \Cref{ch:Computing coverage metrics for propositional programs} first introduces our approach to computing each coverage metric. Then, details are given on how this approach was implemented in a prototype tool. Finally, \cref{ch:Coverage for further program classes} discusses how the coverage metrics might be adjusted to function with program classes beyond propositional normal programs and shows how our syntactic transformations can easily adapt these changes.
 
 \begin{comment}
 - Answer Set Programming is of growing importance in both academic and industry work (source?) and clingo is a popular solver for this
@@ -558,7 +558,7 @@ As mentioned in \cref{sec:Preliminaries on answer set programming/Testing in Ans
 \begin{definition}
 \label{def:input transforamtion}
     Let $P$ be a program and $S$ a test suite containing test cases \(T_1, \ldots, T_n\). The input of each test case $T_i$ is a set of input atoms \(\inp(T_i) = \{a_{i,1}, \ldots,a_{i,m}\}\). The \emph{input transformation} is defined as follows:
-    Firstly, add a choice rule "\(\{\_i_0; \ldots;\_i_n\} = 1.\)" to program $P$  where each $\_i_i$ is a label atom associated with the input of test case $T_i$. Secondly, for every test case \( T_j \in S\) and for every atom \( a_{j,i} \in \inp(T_j)\) add a rule "\(a_{j,i} \leftarrow \_i_j.\)" to $P$ where $\_i_j$ is the label atom corresponding to test case $T_j$.
+    Firstly, add a choice rule "\(\{\_i_0; \ldots;\_i_n\} = 1.\)" to program $P$  where each $\_i_i$ is a label atom associated with the input of test case~$T_i$. Secondly, for every test case \( T_j \in S\) and for every atom \( a_{j,i} \in \inp(T_j)\) add a rule "\(a_{j,i} \leftarrow \_i_j.\)" to $P$ where $\_i_j$ is the label atom corresponding to test case $T_j$.
 \end{definition} 
 
 When the test suite contains only one test case, the result of this transformation will be the same as concatenating the original program with the test input -- minus the label atoms which do not change the behavior of the program. This is because the choice rule "\(\{\_i_0\} = 1.\)" is equivalent to the fact "\(\_i_0.\)" and thus all rules of the form "\(a_i \leftarrow \_i_0.\)" are equivalent to the fact "\(a_i.\)". This means that every input atom contained in the test input has to be present in all answer sets of the program in the same way as it would be when concatenating the program and the input.
@@ -687,7 +687,7 @@ Note that atoms that are not definable can not be (positively or negatively) def
         \_d_2 &\leftarrow \_r_2 \\
         -\_d_2 &\leftarrow \text{not}\ \_d_2
     \end{align*}
-    In this trivial case the definition coverage is very similar to the rule coverage, as any input that achieves total rule coverage will also achieve total definition coverage and vice versa. However if we add a third rule to the original program such as "\(d \leftarrow a.\)", running both transformations will yield the program $P'$:
+    In this trivial case the definition coverage is very similar to the rule coverage, as any input that achieves total rule coverage will also achieve total definition coverage and vice versa. However, if we add a third rule to the original program such as "\(d \leftarrow a.\)", running both transformations will yield the program $P'$:
     \begin{align*}
         c &\leftarrow a      &  \_r_1 &\leftarrow a   & -\_r_1 &\leftarrow \text{not}\ \_r_1   &  \_d_1 &\leftarrow \_r_1     &   -\_d_1 &\leftarrow \text{not}\ \_d_1 \\
         d &\leftarrow b      &  \_r_2 &\leftarrow b   & -\_r_2 &\leftarrow \text{not}\ \_r_2   &  \_d_2 &\leftarrow \_r_2     &   -\_d_2 &\leftarrow \text{not}\ \_d_2 \\
@@ -1042,7 +1042,7 @@ In this section we will go over most of the language constructs that exist in AS
 \label{subsubsec:Coverage for further program classes/Language constructs/Variables}
 The most important extension to propositional programs is the introduction of variables. At the same time, this is also the most problematic extension for the current approach to computing coverage. This is due to the potentially infinite blowup in unique atoms that can exist inside of a program. For example, the propositional rule "\(a \leftarrow b.\)" can only produce the single atom $a$ depending on whether $b$ is true. The rule "\(a(X) \leftarrow b(X).\)" on the other hand can produce as many unique atoms as there are possible values for the variable $X$. This causes multiple problems.
 
-The first problem is with the definition coverage metric. Depending on the domain of the variable, the above example rule can expand into a potentially infinite amount of unique \emph{ground rules}, i.e., rules where the variables are instantiated with values. Each of these ground rules has a different unique \emph{ground atom} in the head. This means that according to the current definition, a potentially infinite amount of atoms has to be checked for definition coverage. This is obviously not feasible nor desirable. The proposed solution would be to only check coverage for each unique atom signature instead of each unique ground atom. This means instead of checking coverage for $a(1)$, $a(2)$ etc., the coverage will only be checked for $a/1$. This way we go back to only having one atom to check. The same difficulty exists with loop and component coverage, as they also rely on checking for defined atoms, but the same solution also applies there.
+The first problem is with the definition coverage metric. Depending on the domain of the variable, the above example rule can expand into a potentially infinite amount of unique \emph{ground rules}, i.e., rules where the variables are instantiated with values. Each of these ground rules has a different unique \emph{ground atom} in the head. This means that according to the current definition, a potentially infinite amount of atoms has to be checked for definition coverage. This is obviously neither feasible nor desirable. The proposed solution would be to only check coverage for each unique atom signature instead of each unique ground atom. This means instead of checking coverage for $a(1)$, $a(2)$ etc., the coverage will only be checked for $a/1$. This way we go back to only having one atom to check. The same difficulty exists with loop and component coverage, as they also rely on checking for defined atoms, but the same solution also applies there.
 
 The other problem that is introduced with variables concerns the computation of the maximal coverage for any of the metrics. The maximal coverage for elements $X$ in program $P$, i.e., covered$_X(2^{\mathbb{I}_P}, P)$, is computed by using the exhaustive test suite \(\varepsilon_P\) as input for the program $P$. However, such is only possible if the exhaustive test suite, or rather \(\inp(\varepsilon_P)\), is finite. This can already be violated by the simple example above. Assuming that the domain for $X$ is the natural numbers $\mathbb{N}$, \(\inp(\varepsilon_P)\) is infinite and thus the maximal coverage for a program containing only this one rule can not be computed according to the current definition. A remedy similar to what was used for definition coverage is not possible here as just choosing one variable instantiation as input for each atom will in most cases not yield the maximal coverage. One way this problem could be solved is by specifying a finite domain for each variable in the program. Although depending on the program this might not fulfill the specification.
 
@@ -1224,165 +1224,6 @@ Even though much is left to do on the topic, we managed to lay the ground work f
 \end{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-% \chapter{Test}
-% \label{ch:Test}
-
-% \begin{enumerate}
-%     \item Bla.\\
-%     (Bla.)
-%     \item Bla. (Bla.)
-% \end{enumerate}
-
-% \Cref{ch:Introduction} Referenz zu Kapitel.
-% \Cref{sec:Test/Perzepte_und_Symbole} Referenz zu Unterkapitel. 
-% \Cref{fig:cups_yolo} Referenz zu Bild.
-% \Cref{lst:cups_symbolic} Referenz zu Listing
-% \textcite{Jan+10} Zitat mit Namen der Autoren
-% \cite{Jan+10} Zitat nur mit Abkürzung
-% \ac{ASP} Link zu Abkürzungen
-% \emph{symbol grounding problem} 
-% \marginpar{Symbol} Randkommentar
-% \footnote{Bla} Fussnote
-
-% \section{Perzepte und Symbole}
-% \label{sec:Test/Perzepte_und_Symbole}
-% Bla.
-
-% %\begin{definition}
-% %    \label{def:Perzept}
-% %    Ein \emph{Perzept}\marginpar{Perzept} ist der sensorische Eindruck eines physikalischen Objektes zu einem bestimmten Zeitpunkt.
-% %\end{definition}
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.4\textwidth]{gfx/unilogo.jpg}
-%     \caption{Ein Kamerabild mit eingezeichneten Perzepten.}
-%     \label{fig:cups_yolo}
-% \end{figure}
-
-
-% \begin{lstlisting}[float,caption={Eine symbolische Beschreibung der Objekte in bla.},label=lst:cups_symbolic]
-% symbol(cup_1; cup_2; cup_3; spoon; diningtable).
-
-% is_on(
-%     cup_1, diningtable;
-%     cup_2, diningtable;
-%     cup_3, diningtable
-% ).
-
-% is_inside_of(spoon, cup_3).
-
-% contains(
-%     cup_1, coffee;
-%     cup_2, coffee;
-%     cup_3, hot_chocolate
-% ).
-
-% \end{lstlisting}
-
-
-
-% \begin{figure}
-%    \centering
-%    \begin{tikzpicture}[
-%        ->,
-%        >={Stealth[round]},
-%        align=center,
-%        state/.style={
-%            draw,
-%            rectangle,
-%            rounded corners=3mm
-%        },
-%        every edge/.append style={thick}
-%    ]
-%        \node (A) [state]             {Symbol verankert};
-%        \node (B) [state, below=of A] {Symbol nicht verankert};
-
-%        \node (1) [left =25mm of A, font=\scriptsize] {ausgehend von\\einem Perzept};
-%        \node (2) [right=25mm of A, font=\scriptsize] {ausgehend von\\einem Symbol};
-%        \node (3) [below=of B,      font=\scriptsize] {Symbol gelöscht};
-
-%        \path (A) edge [loop above] node [above] {\emph{Verfolgen}}    (A);
-%        \path (A) edge [bend left]  node [right] {\emph{Verlieren}}    (B);
-%        \path (B) edge [bend left]  node [left]  {\emph{Wiederfinden}} (A);
-%        \path (1) edge              node [above] {\emph{Entdecken}}    (A);
-%        \path (2) edge              node [above] {\emph{Finden}}       (A);
-%        \path (B) edge              node [right] {\emph{Zerstören}}    (3);
-%    \end{tikzpicture}
-%    \caption{Die Verankerungsfunktionen als Zustandsübergänge, frei nach \cite[Abbildung~4]{Gün+18}.}
-%    \label{fig:anchoring_functions_as_state_transitions}
-% \end{figure}
-
-
-
-
-% $$\operatorname{match}(\sigma, \gamma) \Leftrightarrow \forall p \in \sigma \; \exists \phi \in \operatorname{feat}(\gamma): \; g(p, \phi, \gamma(\phi))$$
-
-
-% \begin{table}
-%     \centering
-%         \begin{tabularx}{0.5\textwidth}{l|X|l}
-%             $M$             & $P_1^M$                               & $Cn(P_1^M)$  \\
-%             \hline
-%             $\emptyset$     & $\{ a \leftarrow a, b \leftarrow \}$  & $\{ b \}$     \\
-%             $\{ a \}$       & $\{ a \leftarrow a \}$                & $\emptyset$   \\
-%             $\{ b \}$       & $\{ a \leftarrow a, b \leftarrow \}$  & $\{ b \}$     \\
-%             $\{ a, b \}$    & $\{ a \leftarrow a \}$                & $\emptyset$   \\
-%         \end{tabularx}
-%     \caption[$P_1 = \{ a \leftarrow a, b \leftarrow naf a \}$ hat ein stabiles Modell.]{$P_1 = \{ a \leftarrow a, b \leftarrow naf a \}$ hat ein stabiles Modell $\{ b \}$.}
-%     \label{tab:Ein_stabiles_Modell}
-% \end{table}
-
-% %\begin{example}
-% %    Das Programm $P = \{ \; \{ a, b\} \; \}$ hat vier stabile Modelle, nämlich die Elemente von $2^{\{a, b\}}$.
-% %\end{example}
-
-% %\begin{example}
-% %   Das Programm
-% %    $$
-% %        P =
-% %        \begin{Bmatrix}
-% %            \operatorname{cup}(1) \\
-% %            \operatorname{cup}(2) \\
-% %            1~\{~\operatorname{blue}(X) : \operatorname{cup}(X)~\}~1 \\
-% %        \end{Bmatrix}
-% %    $$
-% %    hat die Grundinstanz
-% %    $$
-% %        \grd(P) =
-% %        \begin{Bmatrix}
-% %            \operatorname{cup}(1) \\
-% %            \operatorname{cup}(2) \\
-% %            1~\{~\operatorname{blue}(1),~\operatorname{blue}(2)~\}~1 \\
-% %        \end{Bmatrix}
-% %    $$
-% %    und die stabilen Modelle $\{\operatorname{cup}(1),{ }\operatorname{cup}(2),{ }\operatorname{blue}(1)\}$ und \linebreak$\{\operatorname{cup}(1),{ }\operatorname{cup}(2),{ }\operatorname{blue}(2)\}$.
-% %\end{example}
-
-% \begin{proof}
-%     Zu jeder Teilmenge $M \subseteq A = \{ a, b, c \}$ ist $P^M = P$.
-%     Die Teilmengen~$\emptyset$, $\{ a \}$, $\{ c \}$, $\{ a, b \}$ und $\{ b, c \}$ sind keine Modelle von $P^M$. $\{ a, c \}$, $\{ a, b, c\}$ und $\{ b \}$ sind Modelle von $P^M$.
-%     $\{ a, b, c\}$ ist kein minimales Modell von $P^M$, da $\{ b \} \subseteq \{ a, b, c\}$.
-%     Da $\{ a, c \} \nsubseteq \{ b \}$ und $\{ b \} \nsubseteq \{ a, c \}$, sind beide Modelle minimal und damit stabile Modelle von $P$.
-% \end{proof}
-
-% \code{\#show p(X,Y) : q(X).}
-
-% Test für \code{\#show p(X)} in einer Zeile.
-% %\lstinputlisting[float,caption={[Ein Graph mit 6 Knoten und 17 Kanten\\(\code{graph.lp}).]Ein Graph mit 6 Knoten und 17 Kanten (\code{graph.lp}).},label=lst:graphcolor/graph.lp]{../../code/graphcolor/graph.lp}
-
-% \begin{align*}
-%     &X                          &=\ &\{ \text{cup}_1, \text{cup}_2 \} \\
-%     &\Pi                        &=\ &\{ \pi_1, \pi_2, \pi_3 \} \\
-%     &\Phi                       &=\ &\{ \text{coffee}, \text{tea}, \text{hot}, \text{cold} \} \\
-%     &T                          &=\ &\{ t_1, t_2 \} \\
-%     &\beta(\text{cup}_1, t_1)   &=\ &\{ \text{coffee} \} \\
-%     &\beta(\text{cup}_2, t_1)   &=\ &\emptyset \\
-%     &\beta(\pi_1, t_1)          &=\ &\{ \text{coffee} \} \\
-%     &\beta(\pi_2, t_1)          &=\ &\{ \text{tea}, \text{cold} \} \\
-%     &\beta(\pi_3, t_2)          &=\ &\{ \text{tea} \}
-% \end{align*}
 
 
 \cleardoublepage
