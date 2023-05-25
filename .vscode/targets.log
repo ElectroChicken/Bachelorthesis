@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri May 19 16:30:21 2023
+# Make data base, printed on Thu May 25 18:25:29 2023
 
 # Variables
 
@@ -61,7 +61,9 @@ VSCODE_CODE_CACHE_PATH = /home/jakob/.config/Code/CachedData/b3e4e68a0bc097f0ae7
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.M8BE51
+LATEXWORKSHOP_DOCKER_LATEX = 
+# environment
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.12T141
 # default
 .LOADED := 
 # default
@@ -101,7 +103,7 @@ CONDA_SHLVL = 1
 # environment
 OCAML_TOPLEVEL_PATH = /home/jakob/.opam/default/lib/toplevel
 # environment
-VSCODE_PID = 4932
+VSCODE_PID = 3398
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -111,7 +113,7 @@ BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
 CONDA_PYTHON_EXE = /home/jakob/anaconda3/bin/python
 # environment
-SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/3423,unix/jakob-VM:/tmp/.ICE-unix/3423
+SESSION_MANAGER = local/jakob-VM:@/tmp/.ICE-unix/2028,unix/jakob-VM:/tmp/.ICE-unix/2028
 # automatic
 *F = $(notdir $*)
 # environment
@@ -161,7 +163,7 @@ SNAP_USER_COMMON = /home/jakob/snap/code/common
 # environment
 SNAP = /snap/code/129
 # environment
-INVOCATION_ID = ed2aac309cc84d7bb74cfa1dcbbb7cf5
+INVOCATION_ID = 62d0cdb1995343aa882fe8a30ff8dcde
 # environment
 SNAP_REVISION = 129
 # environment
@@ -199,7 +201,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 3449
+SYSTEMD_EXEC_PID = 2070
 # environment
 DISPLAY = :0
 # environment
@@ -215,11 +217,11 @@ SNAP_CONTEXT = 3lI7885cY0ZFdxQW09ZNJ7i1HU9X4HG_6X5Ioom_7RH0kplrxZct
 # environment
 GSETTINGS_SCHEMA_DIR_CONDA_BACKUP = /home/jakob/snap/code/129/.local/share/glib-2.0/schemas
 # environment
-MANAGERPID = 3265
+MANAGERPID = 1860
 # environment
 OPAM_SWITCH_PREFIX = /home/jakob/.opam/default
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 4834
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3332
 # environment
 _ = /snap/code/129/usr/share/code/code
 # environment
@@ -229,7 +231,7 @@ GDK_PIXBUF_MODULE_FILE = /home/jakob/snap/code/common/.cache/gdk-pixbuf-loaders.
 # environment
 GIO_MODULE_DIR = /home/jakob/snap/code/common/.cache/gio-modules
 # environment
-JOURNAL_STREAM = 8:59992
+JOURNAL_STREAM = 8:54365
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -277,9 +279,9 @@ GDMSESSION = ubuntu
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=132/1024=13%, Rehash=0, Collisions=4/162=2%
-
+# Load=133/1024=13%, Rehash=0, Collisions=4/163=2%
  
+
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
@@ -351,6 +353,6 @@ build:
 # strcache performance: lookups = 24 / hit rate = 33%
 # hash-table stats:
 # Load=16/8192=0%, Rehash=0, Collisions=0/24=0%
-# Finished Make data base on Fri May 19 16:30:22 2023
+# Finished Make data base on Thu May 25 18:25:29 2023
 
  
