@@ -966,7 +966,7 @@ There is a separate function for each transformation. That way it is possible to
 
 As an example you can see the function used for the loop coverage transformation in \cref{lst:find_loops}. It uses the set \code{self.loops}, which is a set of tuples. Each tuple represents a loop of the program and contains the keys (name and arity) of every atom in the loop. The function goes through every loop and creates a label atom and its strongly negated counterpart for each loop. Next, it builds the body for the new rule depending on the atoms contained in the loop. In \cref{line:95}, a check is implemented to see if each atom in the loop is definable in the program. If this is not the case, no rule will be added to the program. At the end, the two new rules are added to the program using the program builder -- one for positive and one for negative coverage.
 
-\begin{lstlisting}[float, caption={Function implementing the loop coverage transformation (taken from CoverageCheck\_final\_final.py)},label=lst:find_loops, language=Python, firstnumber=82, escapechar=|]
+\begin{lstlisting}[float, caption={Function implementing the loop coverage transformation (taken from CoverageCheck.py)},label=lst:find_loops, language=Python, firstnumber=82, escapechar=|]
 def add_loops(self):
     with ProgramBuilder(self.ctl) as bld:
         for idx, loop in enumerate(self.loops):
